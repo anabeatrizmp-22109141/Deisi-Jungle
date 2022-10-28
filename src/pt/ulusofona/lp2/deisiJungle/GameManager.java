@@ -1,6 +1,7 @@
 package pt.ulusofona.lp2.deisiJungle;
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class GameManager {
 
@@ -51,14 +52,13 @@ public class GameManager {
 
     public int[] getPlayerIds(int squareNr) {
         int [] id_players = new int[4];
-
+        
         return id_players;
     }
 
     public String[] getSquareInfo(int squareNr) {
 
         String[] player_info = new String[4];
-
 
         return player_info;
     }
@@ -96,18 +96,38 @@ public class GameManager {
         String[][] informacaoJogadores = new String[nrJogadores][4];
 
         for(int i = 0 ; i < nrJogadores ; i++) {
-            informacaoJogadores[i] = getPlayerInfo(jogadores[i].id);
+            for(int j = 0; j < 4; j++) {
+                informacaoJogadores[i][j] = Arrays.toString(getPlayerInfo(jogadores[i].id));
+            }
         }
 
         return informacaoJogadores;
     }
 
     public boolean moveCurrentPlayer(int nrSquares, boolean bypassValidations) {
-        return false;
+        if(nrSquares < 1 || nrSquares > 6 && !bypassValidations){
+            return false;
+        }
+
+        for (Jogadores j : jogadores) {
+            if (j.isTurnoDoJogador()) {
+                for (int i = 0; i < nrSquares; i++) {
+                    j.movimentacao();
+                }
+            }
+        }
+        return true;
     }
 
     public String[] getWinnerInfo() {
-        return new String[2];
+
+        for(Jogadores j : jogadores){
+            if (j.ganhou()){
+                return getPlayerInfo(j.id);
+            }
+        }
+
+        return null;
     }
 
     public ArrayList<String> getGameResults() {
@@ -120,5 +140,8 @@ public class GameManager {
 
     public String whoIsTaborda() {
         return "Wrestling";
+
     }
+
+
 }
