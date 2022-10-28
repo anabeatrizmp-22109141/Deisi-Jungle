@@ -46,7 +46,11 @@ public class GameManager {
     }
 
     public String[] getSquareInfo(int squareNr) {
-        return new String[1];
+
+        String[] player_info = new String[4];
+
+
+        return player_info;
     }
 
     public String[] getPlayerInfo(int playerId) {
@@ -67,7 +71,16 @@ public class GameManager {
     }
 
     public String[] getCurrentPlayerInfo() {
-        return new String[1];
+        String[] informacaoJogadoratual = new String[4];
+
+        for(Jogadores jogador : jogadores){
+            informacaoJogadoratual[0] = jogador.id + "";
+            informacaoJogadoratual[1] = jogador.nome;
+            informacaoJogadoratual[2] = jogador.especie.id + "";
+            informacaoJogadoratual[3] = jogador.energia + "";
+        }
+
+        return informacaoJogadoratual;
     }
 
     public String[][] getPlayersInfo() {
