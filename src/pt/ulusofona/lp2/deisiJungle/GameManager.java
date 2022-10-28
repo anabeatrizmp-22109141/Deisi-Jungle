@@ -37,7 +37,9 @@ public class GameManager {
     }
 
     public int[] getPlayerIds(int squareNr) {
-        return new int[1];
+        int [] id_players = new int[4];
+
+        return id_players;
     }
 
     public String[] getSquareInfo(int squareNr) {
