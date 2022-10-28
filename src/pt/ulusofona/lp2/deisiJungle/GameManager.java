@@ -4,9 +4,19 @@ import java.util.ArrayList;
 
 public class GameManager {
 
+    int nrJogadores;
+    int jungleSize;
+    int initialEnergy;
+
     Jogadores[] jogadores = new Jogadores[4];
 
     public GameManager() {
+    }
+
+    public GameManager(int nrJogadores, int jungleSize, int initialEnergy) {
+        this.nrJogadores = nrJogadores;
+        this.jungleSize = jungleSize;
+        this.initialEnergy = initialEnergy;
     }
 
     public String[][] getSpecies() {
@@ -83,9 +93,13 @@ public class GameManager {
 
     public String[][] getPlayersInfo() {
 
-        String[][] informacaoJogadores = new String[4][];
+        String[][] informacaoJogadores = new String[nrJogadores][4];
 
-        return new String[1][1];
+        for(int i = 0 ; i < nrJogadores ; i++) {
+            informacaoJogadores[i] = getPlayerInfo(jogadores[i].id);
+        }
+
+        return informacaoJogadores;
     }
 
     public boolean moveCurrentPlayer(int nrSquares, boolean bypassValidations) {
