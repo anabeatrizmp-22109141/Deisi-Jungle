@@ -52,7 +52,7 @@ public class GameManager {
 
     public int[] getPlayerIds(int squareNr) {
         int [] id_players = new int[4];
-        
+
         return id_players;
     }
 
@@ -96,8 +96,9 @@ public class GameManager {
         String[][] informacaoJogadores = new String[nrJogadores][4];
 
         for(int i = 0 ; i < nrJogadores ; i++) {
+            informacaoJogadores[i][0] = Arrays.toString(getPlayerInfo(jogadores[i].id));
             for(int j = 0; j < 4; j++) {
-                informacaoJogadores[i][j] = Arrays.toString(getPlayerInfo(jogadores[i].id));
+                informacaoJogadores[i][j] = Arrays.toString(getCurrentPlayerInfo());
             }
         }
 
@@ -116,6 +117,7 @@ public class GameManager {
                 }
             }
         }
+
         return true;
     }
 

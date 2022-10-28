@@ -7,17 +7,17 @@ public class Jogadores {
     int energia;
     boolean jogadorAtual;
     boolean ganhou;
-    int casa_atual;
+    int casa_Atual;
 
 
-    public Jogadores(int id, String nome, Especie especie, int energia, boolean jogadorAtual,int casa_atual) {
+    public Jogadores(int id, String nome, Especie especie, int energia, boolean jogadorAtual,int casa_Atual) {
         this.id = id;
         this.nome = nome;
         this.especie = especie;
         this.energia = energia;
         this.jogadorAtual = jogadorAtual;
         this.ganhou = false;
-        this.casa_atual = casa_atual;
+        this.casa_Atual = casa_Atual;
     }
 
     public boolean isTurnoDoJogador(){
@@ -28,8 +28,8 @@ public class Jogadores {
         return this.ganhou;
     }
 
-    public void movimentacao(){
-        casa_atual++;
+    public int movimentacao(){
+        return casa_Atual++;
     }
 
 }
