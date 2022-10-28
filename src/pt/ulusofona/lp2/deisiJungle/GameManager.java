@@ -3,6 +3,9 @@ import javax.swing.*;
 import java.util.ArrayList;
 
 public class GameManager {
+
+    Jogadores[] jogadores = new Jogadores[4];
+
     public GameManager() {
     }
 
@@ -47,7 +50,20 @@ public class GameManager {
     }
 
     public String[] getPlayerInfo(int playerId) {
-        return new String[1];
+
+        String[] informacaoJogador = new String[4];
+
+        for (Jogadores j : jogadores) {
+            if(j.id == playerId) {
+                informacaoJogador[0] = playerId + "";
+                informacaoJogador[1] = j.nome;
+                informacaoJogador[2] = j.especie.id + "";
+                informacaoJogador[3] = j.energia + "";
+                return informacaoJogador;
+            }
+        }
+
+        return null;
     }
 
     public String[] getCurrentPlayerInfo() {
