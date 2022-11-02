@@ -29,7 +29,7 @@ public class Jogadores {
     }
 
     public int movimentacao(){
-        return casa_Atual++;
+        return this.casa_Atual++;
     }
 
 }
