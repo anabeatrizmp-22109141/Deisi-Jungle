@@ -7,7 +7,7 @@ public class Jogador {
     int energia;
     boolean jogadorAtual;
     boolean ganhou;
-    Square casa_Atual;
+    Square casaAtual;
 
 
     public Jogador(int id, String nome, String idEspecie, int energia, boolean jogadorAtual,Square casa_Atual) {
@@ -17,7 +17,7 @@ public class Jogador {
         this.energia = energia;
         this.jogadorAtual = jogadorAtual;
         this.ganhou = false;
-        this.casa_Atual = casa_Atual;
+        this.casaAtual = casa_Atual;
     }
 
     public boolean isTurnoDoJogador(){
@@ -29,7 +29,7 @@ public class Jogador {
     }
 
     public int movimentacao(){
-        return this.casa_Atual.nrSquare++;
+        return this.casaAtual.nrSquare++;
     }
 
 }

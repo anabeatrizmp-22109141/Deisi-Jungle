@@ -1,7 +1,6 @@
 package pt.ulusofona.lp2.deisiJungle;
 import javax.swing.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
 public class GameManager {
@@ -9,9 +8,9 @@ public class GameManager {
     int nrJogadores;
     int jungleSize;
     int initialEnergy;
-    ArrayList<Jogador> jogadores;
-    ArrayList<Especie> especies;
-    ArrayList<Square> mapa;
+    ArrayList<Jogador> jogadores = new ArrayList<>();
+    ArrayList<Especie> especies = new ArrayList<>();
+    ArrayList<Square> mapa = new ArrayList<>();
 
     String[][] playersInfo;
 
@@ -154,7 +153,7 @@ public class GameManager {
         }
 
         for(int i = 0; i < jogadores.size(); i++){
-            if(squareNr == jogadores.get(i).casa_Atual.nrSquare){
+            if(squareNr == jogadores.get(i).casaAtual.nrSquare){
                 id_players[i] = jogadores.get(i).id;
             }
         }
