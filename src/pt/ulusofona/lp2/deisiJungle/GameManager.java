@@ -132,6 +132,7 @@ public class GameManager {
             }
         }
 
+        //cria jogadores
         for(int i = 0 ; i <= playersInfo.length ; i++) {
             int id = Integer.parseInt(playersInfo[i][0]);
             String nome = playersInfo[i][1];
@@ -148,12 +149,32 @@ public class GameManager {
     public int[] getPlayerIds(int squareNr) {
         int [] id_players = new int[4];
 
+        if(squareNr > jungleSize || squareNr < 0){
+            return id_players;
+        }
+
+        for(int i = 0; i < jogadores.size(); i++){
+            if(squareNr == jogadores.get(i).casa_Atual.nrSquare){
+                id_players[i] = jogadores.get(i).id;
+            }
+        }
+
         return id_players;
     }
 
     public String[] getSquareInfo(int squareNr) {
 
         String[] player_info = new String[4];
+
+        if(squareNr > jungleSize || squareNr < 0){
+            return null;
+        }
+
+        for (Square square : mapa) {
+            player_info[0] = square.imagem;
+            player_info[1] = square.descricao;
+            player_info[2] = square.jogadoresNaPosicao;
+        }
 
         return player_info;
     }
