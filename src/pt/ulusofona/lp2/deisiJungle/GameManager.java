@@ -8,8 +8,9 @@ public class GameManager {
     int nrJogadores;
     int jungleSize;
     int initialEnergy;
-
-    Jogadores[] jogadores = new Jogadores[4];
+    ArrayList<Jogadores> jogadores;
+    ArrayList<Especie> especies;
+    ArrayList<Square> mapa;
 
     public GameManager() {
     }
@@ -96,7 +97,7 @@ public class GameManager {
         String[][] informacaoJogadores = new String[nrJogadores][4];
 
         for(int i = 0 ; i < nrJogadores ; i++) {
-            informacaoJogadores[i][0] = Arrays.toString(getPlayerInfo(jogadores[i].id));
+            informacaoJogadores[i][0] = Arrays.toString(getPlayerInfo(jogadores.get(i).id));
             for(int j = 0; j < 4; j++) {
                 informacaoJogadores[i][j] = Arrays.toString(getCurrentPlayerInfo());
             }

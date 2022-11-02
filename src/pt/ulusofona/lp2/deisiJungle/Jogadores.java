@@ -7,10 +7,10 @@ public class Jogadores {
     int energia;
     boolean jogadorAtual;
     boolean ganhou;
-    int casa_Atual;
+    Square casa_Atual;
 
 
-    public Jogadores(int id, String nome, Especie especie, int energia, boolean jogadorAtual,int casa_Atual) {
+    public Jogadores(int id, String nome, Especie especie, int energia, boolean jogadorAtual,Square casa_Atual) {
         this.id = id;
         this.nome = nome;
         this.especie = especie;
@@ -29,7 +29,7 @@ public class Jogadores {
     }
 
     public int movimentacao(){
-        return this.casa_Atual++;
+        return this.casa_Atual.nrSquare++;
     }
 
 }

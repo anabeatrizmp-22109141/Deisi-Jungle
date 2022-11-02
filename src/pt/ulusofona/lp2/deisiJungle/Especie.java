@@ -11,4 +11,19 @@ public class Especie {
         this.imagem = imagem;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getImagem() {
+        return imagem;
+    }
+
+    public boolean verificaEspecie(int id, String nome){
+        return true;
+    }
 }
