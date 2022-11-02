@@ -132,7 +132,7 @@ public class GameManager {
         }
 
         //cria jogadores
-        for(int i = 0 ; i <= playersInfo.length ; i++) {
+        for(int i = 0 ; i < playersInfo.length ; i++) {
             int id = Integer.parseInt(playersInfo[i][0]);
             String nome = playersInfo[i][1];
             String idEspecie = playersInfo[i][2];
@@ -207,7 +207,13 @@ public class GameManager {
     }
 
     public String[][] getPlayersInfo() {
-        return this.playersInfo;
+        String[][] informacao = new String[jogadores.size()][4];
+
+        for(int i = 0 ; i < jogadores.size() ; i++) {
+            informacao[i] = getPlayerInfo(jogadores.get(i).id);
+        }
+
+        return informacao;
     }
 
     public boolean moveCurrentPlayer(int nrSquares, boolean bypassValidations) {
