@@ -2,6 +2,7 @@ package pt.ulusofona.lp2.deisiJungle;
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 
 public class GameManager {
 
@@ -54,95 +55,43 @@ public class GameManager {
         //WARNING! Cuidado código esparguete
 
         ArrayList<Integer> idsJogador = new ArrayList<>();
-        String[][] especies = getSpecies();
-        ArrayList<String> idsEspecie = new ArrayList<>();
 
         // Verificação dos ids de jogador iguais
         for(int i = 0 ; i < playersInfo.length ; i++) {
+            if(playersInfo[i][0] == null || playersInfo[i][0].isBlank()) {
+                return false;
+            }
+            if(!playersInfo[i][0].chars().allMatch(Character ::isDigit)) {
+                return false;
+            }
             if(idsJogador.contains(Integer.parseInt(playersInfo[i][0]))) {
                 return false;
             }
             idsJogador.add(Integer.parseInt(playersInfo[i][0]));
         }
-
         // Verificação dos nomes
-        for(int i = 0 ; i < playersInfo.length ; i++) {
-            if(playersInfo[i][1] == null || playersInfo[i][1].isBlank()) {
-                return false;
-            }
+        if(nomeInvalido(playersInfo)) {
+            return false;
         }
-
         //Verficação dos ids das especies
-        for(int i = 0 ; i < especies.length ; i++) {
-            idsEspecie.add(especies[i][0]);
+        if(idEspecieInvalido(playersInfo)) {
+            return false;
         }
-
-        int nrOcurrenciasTarzan = 0;
-        for(int i = 0 ; i < playersInfo.length ; i++) {
-
-            if(playersInfo[i][2].equals("Z")) {
-                nrOcurrenciasTarzan++;
-            }
-
-            if(nrOcurrenciasTarzan > 1) {
-                return false;
-            }
-
-            if(!idsEspecie.contains(playersInfo[i][2])) {
-                return false;
-            }
-        }
-
         //Verificação de nr de Jogadores
         if(playersInfo.length < 2 || playersInfo.length > 4) {
             return false;
         }
-
         //Verificacao tamanho mapa
         if(jungleSize < 2 * playersInfo.length) {
             return false;
         }
-
-        String jogadoresNaPosicao = "";
-        Collections.sort(idsJogador);
-
-        for(int i = 0 ; i <= idsJogador.size() ; i++) {
-
-            if(i != idsJogador.size()) {
-                jogadoresNaPosicao += idsJogador + ",";
-            }else {
-                jogadoresNaPosicao += "" + idsJogador;
-            }
-        }
-
-        //Criação mapa
-        for(int i = 0 ; i <= jungleSize ; i++) {
-            if(i == 0) {
-                Square posicao = new Square(i, "blank.png", "Vazio", jogadoresNaPosicao);
-                this.mapa.add(posicao);
-            }
-            else if(i == jungleSize) {
-                Square posicao = new Square(i,"finish.png", "Meta", "");
-                this.mapa.add(posicao);
-            }
-            else {
-                Square posicao = new Square(i, "blank.png", "Vazio", "");
-                this.mapa.add(posicao);
-            }
-        }
+        //Cria mapa
+        criaMapa(jungleSize, idsJogador);
 
         //cria jogadores
-        for(int i = 0 ; i < playersInfo.length ; i++) {
-            int id = Integer.parseInt(playersInfo[i][0]);
-            String nome = playersInfo[i][1];
-            String idEspecie = playersInfo[i][2];
-
-            Jogador jogador = new Jogador(id, nome, idEspecie, initialEnergy, false, mapa.get(0));
-            jogadores.add(jogador);
-        }
+        criaJogadores(playersInfo, idsJogador);
         
         return true;
-
     }
 
     public int[] getPlayerIds(int squareNr) {
@@ -256,5 +205,85 @@ public class GameManager {
 
     }
 
+    public boolean nomeInvalido(String[][] playersInfo) {
 
+        for(int i = 0 ; i < playersInfo.length ; i++) {
+            if(playersInfo[i][1] == null || playersInfo[i][1].isBlank()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean idEspecieInvalido(String[][] playersInfo) {
+
+        String[][] especies = getSpecies();
+        ArrayList<String> idsEspecie = new ArrayList<>();
+        int nrOcurrenciasTarzan = 0;
+
+        for(int i = 0 ; i < especies.length ; i++) {
+            idsEspecie.add(especies[i][0]);
+        }
+
+        for(int i = 0 ; i < playersInfo.length ; i++) {
+            if(playersInfo[i][2] == null || playersInfo[i][2].isBlank()) {
+                return true;
+            }
+            if(!idsEspecie.contains(playersInfo[i][2])) {
+                return true;
+            }
+            if(playersInfo[i][2].equals("Z")) {
+                nrOcurrenciasTarzan++;
+                if(nrOcurrenciasTarzan > 1) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public void criaMapa(int jungleSize, ArrayList<Integer> idsJogador) {
+        String jogadoresNaPosicao = "";
+        Collections.sort(idsJogador);
+
+        for(int i = 0 ; i <= idsJogador.size() ; i++) {
+            if(i != idsJogador.size()) {
+                jogadoresNaPosicao += idsJogador + ",";
+            }else {
+                jogadoresNaPosicao += "" + idsJogador;
+            }
+        }
+
+        for(int i = 0 ; i <= jungleSize ; i++) {
+            if(i == 0) {
+                Square posicao = new Square(i, "blank.png", "Vazio", jogadoresNaPosicao);
+                this.mapa.add(posicao);
+            }
+            else if(i == jungleSize) {
+                Square posicao = new Square(i,"finish.png", "Meta", "");
+                this.mapa.add(posicao);
+            }
+            else {
+                Square posicao = new Square(i, "blank.png", "Vazio", "");
+                this.mapa.add(posicao);
+            }
+        }
+    }
+
+    public void criaJogadores(String[][] playersInfo, ArrayList<Integer> idsJogador) {
+        Collections.sort(idsJogador);
+
+        for(int i = 0 ; i < playersInfo.length ; i++) {
+            int id = Integer.parseInt(playersInfo[i][0]);
+            String nome = playersInfo[i][1];
+            String idEspecie = playersInfo[i][2];
+            Jogador jogador;
+            if(idsJogador.get(0) == id) {
+                jogador = new Jogador(id, nome, idEspecie, initialEnergy, true, mapa.get(0));
+            }else {
+                jogador = new Jogador(id, nome, idEspecie, initialEnergy, false, mapa.get(0));
+            }
+            this.jogadores.add(jogador);
+        }
+    }
 }
