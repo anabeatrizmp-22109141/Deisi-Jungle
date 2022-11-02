@@ -1,19 +1,19 @@
 package pt.ulusofona.lp2.deisiJungle;
 
-public class Jogadores {
+public class Jogador {
     int id;
     String nome;
-    Especie especie;
+    String idEspecie;
     int energia;
     boolean jogadorAtual;
     boolean ganhou;
     Square casa_Atual;
 
 
-    public Jogadores(int id, String nome, Especie especie, int energia, boolean jogadorAtual,Square casa_Atual) {
+    public Jogador(int id, String nome, String idEspecie, int energia, boolean jogadorAtual,Square casa_Atual) {
         this.id = id;
         this.nome = nome;
-        this.especie = especie;
+        this.idEspecie = idEspecie;
         this.energia = energia;
         this.jogadorAtual = jogadorAtual;
         this.ganhou = false;

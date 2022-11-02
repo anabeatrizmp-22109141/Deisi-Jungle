@@ -1,26 +1,26 @@
 package pt.ulusofona.lp2.deisiJungle;
 
 public class Especie {
-    int id;
+    String id;
     String nome;
     String imagem;
 
-    public Especie(int id, String nome, String imagem) {
+    public Especie(String id, String nome, String imagem) {
         this.id = id;
         this.nome = nome;
         this.imagem = imagem;
     }
 
-    public int getId() {
-        return id;
+    public String getId() {
+        return this.id;
     }
 
     public String getNome() {
-        return nome;
+        return this.nome;
     }
 
     public String getImagem() {
-        return imagem;
+        return this.imagem;
     }
 
     public boolean verificaEspecie(int id, String nome){

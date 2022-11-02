@@ -6,29 +6,30 @@ public class Square {
     String descricao;
     String jogadoresNaPosicao;
 
-    public Square(int nrSquare, String descricao, String jogadoresNaPosicao) {
+    public Square(int nrSquare, String imagem ,String descricao, String jogadoresNaPosicao) {
         this.nrSquare = nrSquare;
+        this.imagem = imagem;
         this.descricao = descricao;
         this.jogadoresNaPosicao = jogadoresNaPosicao;
     }
 
     public int getNrSquare() {
-        return nrSquare;
+        return this.nrSquare;
     }
 
     public String getImagem() {
-        return imagem;
+        return this.imagem;
     }
 
     public String getDescricao() {
-        return descricao;
+        return this.descricao;
     }
 
     public String getJogadoresNaPosicao() {
-        return jogadoresNaPosicao;
+        return this.jogadoresNaPosicao;
     }
 
-    public void setJogadoresAPosicao(int id) {
+    public void adicionaJogadorAPosicao(int id) {
 
     }
 
