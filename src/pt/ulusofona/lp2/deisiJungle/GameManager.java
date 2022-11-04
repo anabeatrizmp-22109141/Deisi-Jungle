@@ -97,18 +97,21 @@ public class GameManager {
 
     public int[] getPlayerIds(int squareNr) {
 
-        String jogadores = this.mapa.get(0).jogadoresNaPosicao;
+        String jogadores = this.mapa.get(squareNr).jogadoresNaPosicao;
         String[] jogadoresSeparados = jogadores.split(",");
 
         int [] id_players = new int[jogadoresSeparados.length];
 
-
         if(squareNr >jungleSize || squareNr < 1){
-            return new int[0];
+            return null;
         }
-
         for(int i = 0 ; i < jogadoresSeparados.length ; i++) {
-            id_players[i] = Integer.parseInt(jogadoresSeparados[i]);
+            if(!jogadores.isBlank()) {
+                id_players[i] = Integer.parseInt(jogadoresSeparados[i]);
+            }
+            else{
+                return new int[0];
+            }
         }
 
         return id_players;
@@ -162,7 +165,7 @@ public class GameManager {
     }
 
     public String[][] getPlayersInfo() {
-        String[][] informacao = new String[jogadores.size()][4];
+        String[][] informacao = new String[jogadores.size()][3];
 
         for(int i = 0 ; i < jogadores.size() ; i++) {
             informacao[i] = getPlayerInfo(jogadores.get(i).id);

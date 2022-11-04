@@ -13,6 +13,8 @@ public class Square {
         this.jogadoresNaPosicao = jogadoresNaPosicao;
     }
 
+
+
     public int getNrSquare() {
         return this.nrSquare;
     }
