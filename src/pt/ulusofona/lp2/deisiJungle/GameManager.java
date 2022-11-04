@@ -100,7 +100,7 @@ public class GameManager {
         String[] jogadoresSeparados = jogadores.split(",");
         int [] id_players = new int[jogadoresSeparados.length];
 
-        if(squareNr > jungleSize || squareNr < 0){
+        if(squareNr > jungleSize || squareNr < 1){
             return id_players;
         }
 
@@ -115,7 +115,7 @@ public class GameManager {
 
         String[] player_info = new String[4];
 
-        if(squareNr > jungleSize || squareNr < 0){
+        if(squareNr > jungleSize || squareNr < 1){
             return null;
         }
 
@@ -255,8 +255,8 @@ public class GameManager {
             }
         }
 
-        for(int i = 0 ; i <= jungleSize ; i++) {
-            if(i == 0) {
+        for(int i = 1 ; i <= jungleSize ; i++) {
+            if(i == 1) {
                 Square posicao = new Square(i, "blank.png", "Vazio", jogadoresNaPosicao);
                 this.mapa.add(posicao);
             }
