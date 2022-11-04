@@ -290,9 +290,9 @@ public class GameManager {
             Jogador jogador;
 
             if(idsJogador.get(0) == id) {
-                jogador = new Jogador(id, nome, idEspecie, initialEnergy, true, mapa.get(idsJogador.get(id)));
+                jogador = new Jogador(id, nome, idEspecie, initialEnergy, true, mapa.get(id));
             }else {
-                jogador = new Jogador(id, nome, idEspecie, initialEnergy, false, mapa.get(idsJogador.get(id)));
+                jogador = new Jogador(id, nome, idEspecie, initialEnergy, false, mapa.get(id));
             }
             this.jogadores.add(jogador);
         }
