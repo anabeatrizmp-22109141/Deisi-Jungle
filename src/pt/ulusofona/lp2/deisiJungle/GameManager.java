@@ -2,16 +2,16 @@ package pt.ulusofona.lp2.deisiJungle;
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 
 public class GameManager {
 
     int nrJogadores;
-    int jungleSize;
+
     int initialEnergy;
     ArrayList<Jogador> jogadores = new ArrayList<>();
-    ArrayList<Especie> especies = new ArrayList<>();
+    ArrayList<Especie> especiesarray = new ArrayList<>();
     ArrayList<Square> mapa = new ArrayList<>();
+    int jungleSize;
 
     String[][] playersInfo;
 
@@ -96,11 +96,12 @@ public class GameManager {
 
     public int[] getPlayerIds(int squareNr) {
 
-        String jogadores = this.mapa.get(squareNr).jogadoresNaPosicao;
+        String jogadores = this.mapa.get(0).jogadoresNaPosicao;
         String[] jogadoresSeparados = jogadores.split(",");
+
         int [] id_players = new int[jogadoresSeparados.length];
 
-        if(squareNr > jungleSize || squareNr < 1){
+        if(squareNr >jungleSize || squareNr < 1){
             return id_players;
         }
 
@@ -132,14 +133,17 @@ public class GameManager {
 
         String[] informacaoJogador = new String[4];
 
+        String[][] especie = getSpecies();
+
         for (Jogador j : jogadores) {
             if(j.id == playerId) {
-                informacaoJogador[0] = playerId + "";
-                informacaoJogador[1] = j.nome;
+                informacaoJogador[0] = j.id + "";
+                informacaoJogador[1] = especie[playerId][1];
                 informacaoJogador[2] = j.idEspecie + "";
                 informacaoJogador[3] = j.energia + "";
                 return informacaoJogador;
             }
+
         }
 
         return null;
@@ -162,6 +166,7 @@ public class GameManager {
         for(int i = 0 ; i < jogadores.size() ; i++) {
             informacao[i] = getPlayerInfo(jogadores.get(i).id);
         }
+        this.playersInfo = informacao;
 
         return informacao;
     }
@@ -247,16 +252,16 @@ public class GameManager {
         String jogadoresNaPosicao = "";
         Collections.sort(idsJogador);
 
-        for(int i = 0 ; i <= idsJogador.size() ; i++) {
+        for(int i = 1 ; i <= idsJogador.size() ; i++) {
             if(i != idsJogador.size()) {
-                jogadoresNaPosicao += idsJogador + ",";
+                jogadoresNaPosicao += idsJogador.get(i-1) + ",";
             }else {
-                jogadoresNaPosicao += "" + idsJogador;
+                jogadoresNaPosicao +=  idsJogador.get(i-1);
             }
         }
 
-        for(int i = 1 ; i <= jungleSize ; i++) {
-            if(i == 1) {
+        for(int i = 0 ; i <= jungleSize ; i++) {
+            if(i == 0) {
                 Square posicao = new Square(i, "blank.png", "Vazio", jogadoresNaPosicao);
                 this.mapa.add(posicao);
             }
@@ -269,11 +274,11 @@ public class GameManager {
                 this.mapa.add(posicao);
             }
         }
+        this.jungleSize = jungleSize;
     }
 
     public void criaJogadores(String[][] playersInfo, ArrayList<Integer> idsJogador) {
         Collections.sort(idsJogador);
-
         for(int i = 0 ; i < playersInfo.length ; i++) {
             int id = Integer.parseInt(playersInfo[i][0]);
             String nome = playersInfo[i][1];

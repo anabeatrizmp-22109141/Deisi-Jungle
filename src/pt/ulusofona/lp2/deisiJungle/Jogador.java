@@ -10,6 +10,7 @@ public class Jogador {
     Square casaAtual;
 
 
+
     public Jogador(int id, String nome, String idEspecie, int energia, boolean jogadorAtual,Square casa_Atual) {
         this.id = id;
         this.nome = nome;
