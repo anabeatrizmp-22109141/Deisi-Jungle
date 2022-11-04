@@ -101,8 +101,9 @@ public class GameManager {
 
         int [] id_players = new int[jogadoresSeparados.length];
 
+
         if(squareNr >jungleSize || squareNr < 1){
-            return id_players;
+            return new int[0];
         }
 
         for(int i = 0 ; i < jogadoresSeparados.length ; i++) {
@@ -114,7 +115,7 @@ public class GameManager {
 
     public String[] getSquareInfo(int squareNr) {
 
-        String[] player_info = new String[4];
+        String[] player_info = new String[3];
 
         if(squareNr > jungleSize || squareNr < 1){
             return null;
@@ -125,6 +126,7 @@ public class GameManager {
             player_info[1] = square.descricao;
             player_info[2] = square.jogadoresNaPosicao;
         }
+
 
         return player_info;
     }
