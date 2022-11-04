@@ -97,7 +97,7 @@ public class GameManager {
 
     public int[] getPlayerIds(int squareNr) {
 
-        String jogadores = this.mapa.get(squareNr).jogadoresNaPosicao;
+        String jogadores = this.mapa.get(2).jogadoresNaPosicao;
         String[] jogadoresSeparados = jogadores.split(",");
 
         int [] id_players = new int[jogadoresSeparados.length];
@@ -182,12 +182,17 @@ public class GameManager {
 
         for (Jogador j : jogadores) {
             if (j.isTurnoDoJogador()) {
-                for (int i = 0; i < nrSquares; i++) {
-                    j.movimentacao();
+                if (j.getEnergia() >= 2) {
+                    for (int i = 0; i < nrSquares; i++) {
+                        j.movimentacao();
+                    }
+                    j.diminuiEnergia(2);
+                }
+                else{
+                    return false;
                 }
             }
         }
-
         return true;
     }
 

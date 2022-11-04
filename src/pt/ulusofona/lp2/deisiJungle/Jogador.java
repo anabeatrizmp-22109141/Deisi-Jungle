@@ -33,4 +33,11 @@ public class Jogador {
         return this.casaAtual.nrSquare++;
     }
 
+    public int getEnergia() {
+        return energia;
+    }
+
+    public void diminuiEnergia(int energia) {
+        this.energia -= energia;
+    }
 }
