@@ -102,6 +102,7 @@ public class GameManager {
 
         int [] id_players = new int[jogadoresSeparados.length];
 
+
         if(squareNr >jungleSize || squareNr < 1){
             return new int[0];
         }
@@ -115,7 +116,7 @@ public class GameManager {
 
     public String[] getSquareInfo(int squareNr) {
 
-        String[] player_info = new String[4];
+        String[] player_info = new String[3];
 
         if(squareNr > jungleSize || squareNr < 1){
             return null;
@@ -124,6 +125,7 @@ public class GameManager {
         player_info[0] = this.mapa.get(squareNr).imagem;
         player_info[1] = this.mapa.get(squareNr).descricao;
         player_info[2] = this.mapa.get(squareNr).jogadoresNaPosicao;
+
 
         return player_info;
     }
