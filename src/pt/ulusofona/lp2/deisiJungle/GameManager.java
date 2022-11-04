@@ -2,6 +2,7 @@ package pt.ulusofona.lp2.deisiJungle;
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 
 public class GameManager {
 
@@ -10,7 +11,7 @@ public class GameManager {
     int initialEnergy;
     ArrayList<Jogador> jogadores = new ArrayList<>();
     ArrayList<Especie> especiesarray = new ArrayList<>();
-    ArrayList<Square> mapa = new ArrayList<>();
+    HashMap<Integer,Square> mapa = new HashMap<>();
     int jungleSize;
 
     String[][] playersInfo;
@@ -102,7 +103,7 @@ public class GameManager {
         int [] id_players = new int[jogadoresSeparados.length];
 
         if(squareNr >jungleSize || squareNr < 1){
-            return id_players;
+            return new int[0];
         }
 
         for(int i = 0 ; i < jogadoresSeparados.length ; i++) {
@@ -120,11 +121,9 @@ public class GameManager {
             return null;
         }
 
-        for (Square square : mapa) {
-            player_info[0] = square.imagem;
-            player_info[1] = square.descricao;
-            player_info[2] = square.jogadoresNaPosicao;
-        }
+        player_info[0] = this.mapa.get(squareNr).imagem;
+        player_info[1] = this.mapa.get(squareNr).descricao;
+        player_info[2] = this.mapa.get(squareNr).jogadoresNaPosicao;
 
         return player_info;
     }
@@ -260,18 +259,18 @@ public class GameManager {
             }
         }
 
-        for(int i = 0 ; i <= jungleSize ; i++) {
-            if(i == 0) {
+        for(int i = 1 ; i <= jungleSize ; i++) {
+            if(i == 1) {
                 Square posicao = new Square(i, "blank.png", "Vazio", jogadoresNaPosicao);
-                this.mapa.add(posicao);
+                this.mapa.put(i, posicao);
             }
             else if(i == jungleSize) {
                 Square posicao = new Square(i,"finish.png", "Meta", "");
-                this.mapa.add(posicao);
+                this.mapa.put(i, posicao);
             }
             else {
                 Square posicao = new Square(i, "blank.png", "Vazio", "");
-                this.mapa.add(posicao);
+                this.mapa.put(i, posicao);
             }
         }
         this.jungleSize = jungleSize;
@@ -284,10 +283,11 @@ public class GameManager {
             String nome = playersInfo[i][1];
             String idEspecie = playersInfo[i][2];
             Jogador jogador;
+
             if(idsJogador.get(0) == id) {
-                jogador = new Jogador(id, nome, idEspecie, initialEnergy, true, mapa.get(0));
+                jogador = new Jogador(id, nome, idEspecie, initialEnergy, true, mapa.get(idsJogador.get(id)));
             }else {
-                jogador = new Jogador(id, nome, idEspecie, initialEnergy, false, mapa.get(0));
+                jogador = new Jogador(id, nome, idEspecie, initialEnergy, false, mapa.get(idsJogador.get(id)));
             }
             this.jogadores.add(jogador);
         }
