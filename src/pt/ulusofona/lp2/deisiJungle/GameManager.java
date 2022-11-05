@@ -102,8 +102,8 @@ public class GameManager {
 
         int [] id_players = new int[jogadoresSeparados.length];
 
-        if(squareNr >jungleSize || squareNr < 1){
-            return null;
+        if(squareNr >jungleSize || squareNr < 1 || getSquareInfo(squareNr) == null ){
+            return new int[0];
         }
         for(int i = 0 ; i < jogadoresSeparados.length ; i++) {
             if(!jogadores.isBlank()) {
