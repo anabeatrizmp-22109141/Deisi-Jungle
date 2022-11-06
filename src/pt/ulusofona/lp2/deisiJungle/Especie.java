@@ -23,7 +23,6 @@ public class Especie {
         return this.imagem;
     }
 
-
     public boolean verificaEspecie(int id, String nome){
         return true;
     }

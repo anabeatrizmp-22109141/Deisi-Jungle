@@ -102,7 +102,7 @@ public class GameManager {
 
         int [] id_players = new int[jogadoresSeparados.length];
 
-        if(squareNr >jungleSize || squareNr < 1 || getSquareInfo(squareNr) == null ){
+        if(squareNr > jungleSize || squareNr < 1 || getSquareInfo(squareNr) == null ){
             return new int[0];
         }
         for(int i = 0 ; i < jogadoresSeparados.length ; i++) {
@@ -125,9 +125,9 @@ public class GameManager {
             return null;
         }
 
-        player_info[0] = this.mapa.get(squareNr).imagem;
-        player_info[1] = this.mapa.get(squareNr).descricao;
-        player_info[2] = this.mapa.get(squareNr).jogadoresNaPosicao;
+        player_info[0] = this.mapa.get(squareNr).getImagem();
+        player_info[1] = this.mapa.get(squareNr).getDescricao();
+        player_info[2] = this.mapa.get(squareNr).getJogadoresNaPosicao();
 
 
         return player_info;
@@ -141,9 +141,9 @@ public class GameManager {
 
         for (Jogador j : jogadores) {
             if(j.id == playerId) {
-                informacaoJogador[0] = j.id + "";
+                informacaoJogador[0] = j.getId() + "";
                 informacaoJogador[1] = especie[playerId][1];
-                informacaoJogador[2] = j.idEspecie + "";
+                informacaoJogador[2] = j.getIdEspecie() + "";
                 informacaoJogador[3] = j.energia + "";
                 return informacaoJogador;
             }
@@ -157,7 +157,7 @@ public class GameManager {
 
         for (Jogador j : jogadores) {
             if(j.isTurnoDoJogador()) {
-                return getPlayerInfo(j.id);
+                return getPlayerInfo(j.getId());
             }
         }
 
@@ -168,7 +168,7 @@ public class GameManager {
         String[][] informacao = new String[jogadores.size()][3];
 
         for(int i = 0 ; i < jogadores.size() ; i++) {
-            informacao[i] = getPlayerInfo(jogadores.get(i).id);
+            informacao[i] = getPlayerInfo(jogadores.get(i).getId());
         }
         this.playersInfo = informacao;
 
@@ -200,7 +200,7 @@ public class GameManager {
 
         for(Jogador j : jogadores){
             if (j.ganhou()){
-                return getPlayerInfo(j.id);
+                return getPlayerInfo(j.getId());
             }
         }
 
@@ -287,7 +287,9 @@ public class GameManager {
     }
 
     public void criaJogadores(String[][] playersInfo, ArrayList<Integer> idsJogador) {
+
         Collections.sort(idsJogador);
+
         for(int i = 0 ; i < playersInfo.length ; i++) {
             int id = Integer.parseInt(playersInfo[i][0]);
             String nome = playersInfo[i][1];

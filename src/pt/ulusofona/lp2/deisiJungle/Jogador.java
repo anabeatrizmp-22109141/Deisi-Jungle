@@ -21,6 +21,8 @@ public class Jogador {
         this.casaAtual = casa_Atual;
     }
 
+
+
     public boolean isTurnoDoJogador(){
         return this.jogadorAtual;
     }
@@ -33,8 +35,24 @@ public class Jogador {
         return this.casaAtual.nrSquare++;
     }
 
+    public int getId() {
+        return this.id;
+    }
+
+    public String getNome() {
+        return this.nome;
+    }
+
+    public String getIdEspecie() {
+        return this.idEspecie;
+    }
+
+    public Square getCasaAtual() {
+        return this.casaAtual;
+    }
+
     public int getEnergia() {
-        return energia;
+        return this.energia;
     }
 
     public void diminuiEnergia(int energia) {
