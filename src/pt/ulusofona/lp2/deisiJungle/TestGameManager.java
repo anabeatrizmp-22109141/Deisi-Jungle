@@ -18,9 +18,9 @@ public class TestGameManager {
         GameManager jogo = new GameManager();
 
         jogo.createInitialJungle(47, 22, playersInfo);
-        jogo.getSquareInfo(1);
-        Assert.assertEquals(0,jogo.getSquareInfo(3).length);
+        Assert.assertEquals("",jogo.getSquareInfo(3)[2]);
     }
+
     @Test
     public void test_retiraJogadorAPosicao() {
         Square posicao = new Square(1, "blank.png" , "Vazio" , "1,2");
@@ -29,4 +29,44 @@ public class TestGameManager {
         Assert.assertEquals("1", posicao.jogadoresNaPosicao);
     }
 
+    @Test
+    public void test_MoveJogadorInicio() {
+        String[][] playersInfo = new String[2][3];
+        playersInfo[0][0] = "1";
+        playersInfo[0][1] = "batata";
+        playersInfo[0][2] = "E";
+
+        playersInfo[1][0] = "2";
+        playersInfo[1][1] = "banana";
+        playersInfo[1][2] = "L";
+
+        GameManager jogo = new GameManager();
+        jogo.createInitialJungle(47, 22, playersInfo);
+        jogo.moveCurrentPlayer(2, true);
+
+        int obtido = jogo.jogadores.get(0).getCasaAtual().nrSquare;
+        int esperado = 3;
+
+        Assert.assertEquals(esperado, obtido);
+    }
+
+    public void test_MoveJogadorSemEnergia() {
+        String[][] playersInfo = new String[2][3];
+        playersInfo[0][0] = "1";
+        playersInfo[0][1] = "batata";
+        playersInfo[0][2] = "E";
+
+        playersInfo[1][0] = "2";
+        playersInfo[1][1] = "banana";
+        playersInfo[1][2] = "L";
+
+        GameManager jogo = new GameManager();
+        jogo.createInitialJungle(47, 0, playersInfo);
+        jogo.moveCurrentPlayer(2, true);
+
+        int obtido = jogo.jogadores.get(0).getCasaAtual().nrSquare;
+        int esperado = 3;
+
+        Assert.assertEquals(esperado, obtido);
+    }
 }

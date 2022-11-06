@@ -32,7 +32,13 @@ public class Square {
     }
 
     public void adicionaJogadorAPosicao(int id) {
-        this.jogadoresNaPosicao = this.jogadoresNaPosicao + "," + id;
+        if(this.jogadoresNaPosicao == "") {
+            this.jogadoresNaPosicao += id;
+        }
+        else {
+            this.jogadoresNaPosicao += "," + id;
+        }
+
     }
 
     public void retiraJogadorAPosicao(int id) {

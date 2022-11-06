@@ -58,6 +58,7 @@ public class GameManager {
         this.idsJogador = new ArrayList<>();
         this.jogadores = new ArrayList<>();
         this.mapa = new HashMap<>();
+        this.initialEnergy = initialEnergy;
 
         // Verificação dos ids de jogador iguais
         for(int i = 0 ; i < playersInfo.length ; i++) {
@@ -322,7 +323,7 @@ public class GameManager {
             if(jogadores.get(i).getId() == id) {
                 jogadores.get(i).trocaJogadorAtual();
             }
-            if(i < jogadores.size()) {
+            if(i < jogadores.size()-1) {
                 jogadores.get(i+1).trocaJogadorAtual();
             }
         }
