@@ -31,9 +31,6 @@ public class Jogador {
         return this.ganhou;
     }
 
-    public int movimentacao(){
-        return this.casaAtual.nrSquare++;
-    }
 
     public int getId() {
         return this.id;
@@ -55,7 +52,15 @@ public class Jogador {
         return this.energia;
     }
 
-    public void diminuiEnergia(int energia) {
-        this.energia -= energia;
+    public boolean temEnergiaParaMover() {
+        return this.energia - 2 >= 0;
+    }
+
+    public void diminuiEnergia() {
+        this.energia -= 2;
+    }
+
+    public void trocaJogadorAtual() {
+        this.jogadorAtual = !isTurnoDoJogador();
     }
 }

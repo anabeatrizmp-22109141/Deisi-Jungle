@@ -32,10 +32,26 @@ public class Square {
     }
 
     public void adicionaJogadorAPosicao(int id) {
-
+        this.jogadoresNaPosicao = this.jogadoresNaPosicao + "," + id;
     }
 
-    public boolean validaNrSquare(){
-        return true;
+    public void retiraJogadorAPosicao(int id) {
+        String[] jogadoresSeparados = this.jogadoresNaPosicao.split(",");
+        String jogadoresNaPosicaoNovo = "";
+
+        for(int i = 0 ; i < jogadoresSeparados.length ; i++) {
+
+            if(!jogadoresSeparados[i].equals(String.valueOf(id))) {
+                if(i == 0 || i == jogadoresSeparados.length-1 ) {
+                    jogadoresNaPosicaoNovo = jogadoresSeparados[i] + "";
+                }
+                else {
+                    jogadoresNaPosicaoNovo = "," + jogadoresSeparados[i];
+                }
+            }
+
+        }
+        this.jogadoresNaPosicao = jogadoresNaPosicaoNovo;
     }
+
 }

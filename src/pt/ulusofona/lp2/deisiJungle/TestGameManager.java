@@ -21,4 +21,12 @@ public class TestGameManager {
         jogo.getSquareInfo(1);
         Assert.assertEquals(0,jogo.getSquareInfo(3).length);
     }
+    @Test
+    public void test_retiraJogadorAPosicao() {
+        Square posicao = new Square(1, "blank.png" , "Vazio" , "1,2");
+        posicao.retiraJogadorAPosicao(2);
+
+        Assert.assertEquals("1", posicao.jogadoresNaPosicao);
+    }
+
 }

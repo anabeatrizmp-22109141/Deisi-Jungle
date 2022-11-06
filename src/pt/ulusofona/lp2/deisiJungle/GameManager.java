@@ -9,11 +9,11 @@ public class GameManager {
     int nrJogadores;
 
     int initialEnergy;
-    ArrayList<Jogador> jogadores = new ArrayList<>();
+    ArrayList<Jogador> jogadores;
+    ArrayList<Integer> idsJogador;
     ArrayList<Especie> especiesarray = new ArrayList<>();
-    HashMap<Integer,Square> mapa = new HashMap<>();
+    HashMap<Integer,Square> mapa;
     int jungleSize;
-
     String[][] playersInfo;
 
     public GameManager() {
@@ -53,9 +53,11 @@ public class GameManager {
     }
 
     public boolean createInitialJungle(int jungleSize, int initialEnergy, String[][] playersInfo) {
-        //WARNING! Cuidado código esparguete
+        //WARNING! Cuidado código semi-esparguete
 
-        ArrayList<Integer> idsJogador = new ArrayList<>();
+        this.idsJogador = new ArrayList<>();
+        this.jogadores = new ArrayList<>();
+        this.mapa = new HashMap<>();
 
         // Verificação dos ids de jogador iguais
         for(int i = 0 ; i < playersInfo.length ; i++) {
@@ -176,22 +178,31 @@ public class GameManager {
     }
 
     public boolean moveCurrentPlayer(int nrSquares, boolean bypassValidations) {
-        if(nrSquares < 1 || nrSquares > 6 && !bypassValidations){
-            return false;
-        }
 
-        for (Jogador j : jogadores) {
-            if (j.isTurnoDoJogador()) {
-                if (j.getEnergia() >= 2) {
-                    for (int i = 0; i < nrSquares; i++) {
-                        j.movimentacao();
-                    }
-                    j.diminuiEnergia(2);
-                }
-                else{
+        for(Jogador j : this.jogadores) {
+
+            if(!bypassValidations) {
+                if(nrSquares < 1 || nrSquares > 6) {
+                    mudaJogadorAtual(j.getId());
                     return false;
                 }
             }
+
+            if(j.isTurnoDoJogador() && j.temEnergiaParaMover()) {
+
+                int nrCasa = j.getCasaAtual().nrSquare;
+                j.getCasaAtual().retiraJogadorAPosicao(j.getId());
+
+                if(nrCasa + nrSquares <= jungleSize) {
+                    mapa.get(nrCasa + nrSquares).adicionaJogadorAPosicao(j.getId());
+                    j.casaAtual = mapa.get(nrCasa + nrSquares);
+                    j.diminuiEnergia();
+                }
+
+                mudaJogadorAtual(j.getId());
+                return true;
+            }
+
         }
         return true;
     }
@@ -302,6 +313,18 @@ public class GameManager {
                 jogador = new Jogador(id, nome, idEspecie, initialEnergy, false, mapa.get(id));
             }
             this.jogadores.add(jogador);
+        }
+    }
+
+    public void mudaJogadorAtual(int id) {
+
+        for(int i = 0 ; i < jogadores.size() ; i++) {
+            if(jogadores.get(i).getId() == id) {
+                jogadores.get(i).trocaJogadorAtual();
+            }
+            if(i < jogadores.size()) {
+                jogadores.get(i+1).trocaJogadorAtual();
+            }
         }
     }
 }
