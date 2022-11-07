@@ -48,7 +48,7 @@ public class Square {
         for(int i = 0 ; i < jogadoresSeparados.length ; i++) {
 
             if(!jogadoresSeparados[i].equals(String.valueOf(id))) {
-                if(i == 0 || i == jogadoresSeparados.length-1 ) {
+                if(i == 0 || i == jogadoresSeparados.length-1) {
                     jogadoresNaPosicaoNovo = jogadoresSeparados[i] + "";
                 }
                 else {

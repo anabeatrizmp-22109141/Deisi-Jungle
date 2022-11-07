@@ -43,30 +43,12 @@ public class TestGameManager {
         GameManager jogo = new GameManager();
         jogo.createInitialJungle(47, 22, playersInfo);
         jogo.moveCurrentPlayer(2, true);
-
-        int obtido = jogo.jogadores.get(0).getCasaAtual().nrSquare;
-        int esperado = 3;
-
-        Assert.assertEquals(esperado, obtido);
-    }
-
-    public void test_MoveJogadorSemEnergia() {
-        String[][] playersInfo = new String[2][3];
-        playersInfo[0][0] = "1";
-        playersInfo[0][1] = "batata";
-        playersInfo[0][2] = "E";
-
-        playersInfo[1][0] = "2";
-        playersInfo[1][1] = "banana";
-        playersInfo[1][2] = "L";
-
-        GameManager jogo = new GameManager();
-        jogo.createInitialJungle(47, 0, playersInfo);
         jogo.moveCurrentPlayer(2, true);
 
-        int obtido = jogo.jogadores.get(0).getCasaAtual().nrSquare;
-        int esperado = 3;
+        String obtido = jogo.mapa.get(1).jogadoresNaPosicao;
+        String esperado = "";
 
         Assert.assertEquals(esperado, obtido);
     }
+
 }

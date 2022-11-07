@@ -143,7 +143,7 @@ public class GameManager {
         String[][] especie = getSpecies();
 
         for (Jogador j : jogadores) {
-            if(j.id == playerId) {
+            if(j.getId() == playerId) {
                 informacaoJogador[0] = j.getId() + "";
                 informacaoJogador[1] = especie[playerId][1];
                 informacaoJogador[2] = j.getIdEspecie() + "";
@@ -196,7 +196,7 @@ public class GameManager {
 
                 if(nrCasa + nrSquares <= jungleSize) {
                     mapa.get(nrCasa + nrSquares).adicionaJogadorAPosicao(j.getId());
-                    j.casaAtual = mapa.get(nrCasa + nrSquares);
+                    j.casaAtual = mapa.get(nrCasa + nrSquares);;
                     j.diminuiEnergia();
                 }
 
@@ -311,7 +311,7 @@ public class GameManager {
             if(idsJogador.get(0) == id) {
                 jogador = new Jogador(id, nome, idEspecie, initialEnergy, true, mapa.get(id));
             }else {
-                jogador = new Jogador(id, nome, idEspecie, initialEnergy, false, mapa.get(id));
+                jogador = new Jogador(id, nome, idEspecie, initialEnergy, false, mapa.get(idsJogador.get(0)));
             }
             this.jogadores.add(jogador);
         }
