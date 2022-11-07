@@ -11,7 +11,7 @@ public class GameManager {
     int initialEnergy;
     ArrayList<Jogador> jogadores;
     ArrayList<Integer> idsJogador;
-    ArrayList<Especie> especiesarray = new ArrayList<>();
+    HashMap<String, String> especies;
     HashMap<Integer,Square> mapa;
     int jungleSize;
     String[][] playersInfo;
@@ -27,27 +27,33 @@ public class GameManager {
     }
 
     public String[][] getSpecies() {
+        this.especies = new HashMap<>();
         String[][] especies = new String[5][3];
 
         especies[0][0] = "E";
         especies[0][1] = "Elefante";
         especies[0][2] = "elephant.png";
+        this.especies.put("E", "Elefante");
 
         especies[1][0] = "L";
         especies[1][1] = "Leão";
         especies[1][2] = "lion.png";
+        this.especies.put("L", "Leão");
 
         especies[2][0] = "T";
         especies[2][1] = "Tartaruga";
         especies[2][2] = "turtle.png";
+        this.especies.put("T", "Tartaruga");
 
         especies[3][0] = "P";
         especies[3][1] = "Pássaro";
         especies[3][2] = "bird.png";
+        this.especies.put("P", "Pássaro");
 
         especies[4][0] = "Z";
         especies[4][1] = "Tarzan";
         especies[4][2] = "tarzan.png";
+        this.especies.put("Z", "Tarzan");
 
         return especies;
     }
@@ -139,14 +145,12 @@ public class GameManager {
 
         String[] informacaoJogador = new String[4];
 
-        String[][] especie = getSpecies();
-
         for (Jogador j : jogadores) {
             if(j.getId() == playerId) {
                 informacaoJogador[0] = j.getId() + "";
-                informacaoJogador[1] = especie[playerId][1];
+                informacaoJogador[1] = this.especies.get(j.getIdEspecie() + "");
                 informacaoJogador[2] = j.getIdEspecie() + "";
-                informacaoJogador[3] = j.energia + "";
+                informacaoJogador[3] = j.getEnergia() + "";
                 return informacaoJogador;
             }
 

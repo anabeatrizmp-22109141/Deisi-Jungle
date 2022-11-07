@@ -91,8 +91,27 @@ public class TestGameManager {
         jogo.createInitialJungle(47, 22, playersInfo);
 
         int esperado = 2;
-        int obtido = jogo.getPlayerIds(-1).length;
+        int obtido = jogo.getPlayerIds(1).length;
 
         Assert.assertEquals(esperado,obtido);
+    }
+    @Test
+    public void test_getPlayersInfo() {
+        String[][] playersInfo = new String[2][3];
+        playersInfo[0][0] = "1";
+        playersInfo[0][1] = "batata";
+        playersInfo[0][2] = "E";
+
+        playersInfo[1][0] = "2";
+        playersInfo[1][1] = "banana";
+        playersInfo[1][2] = "L";
+
+        GameManager jogo = new GameManager();
+        jogo.createInitialJungle(47, 22, playersInfo);
+
+        Assert.assertEquals("1", jogo.getPlayerInfo(1)[0]);
+        Assert.assertEquals("Elefante", jogo.getPlayerInfo(1)[1]);
+        Assert.assertEquals("E", jogo.getPlayerInfo(1)[2]);
+        Assert.assertEquals("22", jogo.getPlayerInfo(1)[3]);
     }
 }
