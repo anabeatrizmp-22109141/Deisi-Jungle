@@ -100,18 +100,17 @@ public class GameManager {
 
     public int[] getPlayerIds(int squareNr) {
 
+        if(squareNr > this.jungleSize || squareNr < 1){
+            return new int[0];
+        }
+        if(mapa.get(squareNr).jogadoresNaPosicao.equals("")) {
+            return new int[0];
+        }
+
         String jogadores = this.mapa.get(squareNr).jogadoresNaPosicao;
         String[] jogadoresSeparados = jogadores.split(",");
 
         int [] id_players = new int[jogadoresSeparados.length];
-
-        if(squareNr > this.jungleSize || squareNr < 1){
-            return new int[0];
-        }
-
-        if(mapa.get(squareNr).jogadoresNaPosicao.equals("")) {
-            return new int[0];
-        }
 
         for(int i = 0 ; i < jogadoresSeparados.length; i++) {
             id_players[i] = Integer.parseInt(jogadoresSeparados[i]);

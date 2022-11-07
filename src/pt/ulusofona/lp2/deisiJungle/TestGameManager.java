@@ -91,7 +91,7 @@ public class TestGameManager {
         jogo.createInitialJungle(47, 22, playersInfo);
 
         int esperado = 2;
-        int obtido = jogo.getPlayerIds(1).length;
+        int obtido = jogo.getPlayerIds(-1).length;
 
         Assert.assertEquals(esperado,obtido);
     }
