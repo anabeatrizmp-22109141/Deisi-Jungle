@@ -118,7 +118,7 @@ public class GameManager {
 
         int [] id_players = new int[jogadoresSeparados.length];
 
-        for(int i = 0 ; i < jogadoresSeparados.length; i++) {
+        for (int i = 0; i < jogadoresSeparados.length; i++) {
             id_players[i] = Integer.parseInt(jogadoresSeparados[i]);
         }
 
@@ -199,11 +199,16 @@ public class GameManager {
                     if(nrCasa + nrSquares <= jungleSize) {
                         j.getCasaAtual().retiraJogadorAPosicao(j.getId());
                         mapa.get(nrCasa + nrSquares).adicionaJogadorAPosicao(j.getId());
-                        j.casaAtual = mapa.get(nrCasa + nrSquares);;
+                        j.casaAtual = mapa.get(nrCasa + nrSquares);
                         j.diminuiEnergia();
                     }
 
                     mudaJogadorAtual(j.getId());
+                    if(j.getCasaAtual().nrSquare == jungleSize){
+                        j.ganhou = true;
+                        getWinnerInfo();
+                    }
+
                     return true;
                 }
                 else {
@@ -227,7 +232,9 @@ public class GameManager {
     }
 
     public ArrayList<String> getGameResults() {
-        return new ArrayList<>();
+        ArrayList<String> resultado = new ArrayList<>();
+
+        return resultado;
     }
 
     public JPanel getAuthorsPanel() {
