@@ -58,7 +58,9 @@ public class Square {
                     jogadoresNaPosicaoNovo += jogadoresSeparados[i] + ",";
                 }
             }
-
+        }
+        if(jogadoresNaPosicaoNovo.length() == 2){
+            jogadoresNaPosicaoNovo = jogadoresNaPosicaoNovo.replaceFirst(".$","");
         }
         //QUE ALDRABAGEM -> culpa do Bruno (mas resulta)
         if(jogadoresNaPosicaoNovo.length() == 2) {
