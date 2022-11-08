@@ -1,6 +1,8 @@
 package pt.ulusofona.lp2.deisiJungle;
 import javax.swing.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 
@@ -100,7 +102,8 @@ public class GameManager {
 
         //cria jogadores
         criaJogadores(playersInfo, idsJogador);
-        
+
+        System.out.println( java.util.Arrays.toString( this.getPlayersInfo()[0] ) );
         return true;
     }
 
@@ -148,7 +151,7 @@ public class GameManager {
         for (Jogador j : jogadores) {
             if(j.getId() == playerId) {
                 informacaoJogador[0] = j.getId() + "";
-                informacaoJogador[1] = this.especies.get(j.getIdEspecie() + "");
+                informacaoJogador[1] = j.getNome();
                 informacaoJogador[2] = j.getIdEspecie() + "";
                 informacaoJogador[3] = j.getEnergia() + "";
                 return informacaoJogador;

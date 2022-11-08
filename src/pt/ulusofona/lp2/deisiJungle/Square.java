@@ -60,6 +60,10 @@ public class Square {
             }
 
         }
+        //QUE ALDRABAGEM -> culpa do Bruno (mas resulta)
+        if(jogadoresNaPosicaoNovo.length() == 2) {
+            jogadoresNaPosicaoNovo = jogadoresNaPosicaoNovo.replaceFirst(".$", "");
+        }
         this.jogadoresNaPosicao = jogadoresNaPosicaoNovo;
     }
 
