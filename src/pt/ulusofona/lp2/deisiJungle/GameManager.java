@@ -1,8 +1,6 @@
 package pt.ulusofona.lp2.deisiJungle;
 import javax.swing.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 
@@ -14,6 +12,7 @@ public class GameManager {
     ArrayList<Jogador> jogadores;
     ArrayList<Integer> idsJogador;
     HashMap<String, String> especies;
+    HashMap<Integer, Jogador> mapaIdsJogadores;
     HashMap<Integer,Square> mapa;
     int jungleSize;
     String[][] playersInfo;
@@ -61,12 +60,12 @@ public class GameManager {
     }
 
     public boolean createInitialJungle(int jungleSize, int initialEnergy, String[][] playersInfo) {
-        //WARNING! Cuidado código semi-esparguete
+        this.initialEnergy = initialEnergy;
 
         this.idsJogador = new ArrayList<>();
         this.jogadores = new ArrayList<>();
         this.mapa = new HashMap<>();
-        this.initialEnergy = initialEnergy;
+        this.mapaIdsJogadores = new HashMap<>();
 
         // Verificação dos ids de jogador iguais
         for(int i = 0 ; i < playersInfo.length ; i++) {
@@ -102,8 +101,6 @@ public class GameManager {
 
         //cria jogadores
         criaJogadores(playersInfo, idsJogador);
-
-        System.out.println( java.util.Arrays.toString( this.getPlayersInfo()[0] ) );
         return true;
     }
 
@@ -146,17 +143,10 @@ public class GameManager {
 
     public String[] getPlayerInfo(int playerId) {
 
-        String[] informacaoJogador = new String[4];
-
         for (Jogador j : jogadores) {
             if(j.getId() == playerId) {
-                informacaoJogador[0] = j.getId() + "";
-                informacaoJogador[1] = j.getNome();
-                informacaoJogador[2] = j.getIdEspecie() + "";
-                informacaoJogador[3] = j.getEnergia() + "";
-                return informacaoJogador;
+                return j.getInfoJogador();
             }
-
         }
 
         return null;
@@ -188,6 +178,10 @@ public class GameManager {
 
         for(Jogador j : this.jogadores) {
 
+            if(verificaTodosSemEnergia()) {
+                return false;
+            }
+
             if(!bypassValidations) {
                 if(nrSquares < 1 || nrSquares > 6) {
                     mudaJogadorAtual(j.getId());
@@ -199,7 +193,16 @@ public class GameManager {
                 if(j.temEnergiaParaMover()) {
                     int nrCasa = j.getCasaAtual().nrSquare;
 
-                    if(nrCasa + nrSquares <= jungleSize) {
+                    if(nrCasa + nrSquares >= jungleSize){
+                        j.getCasaAtual().retiraJogadorAPosicao(j.getId());
+                        j.casaAtual = mapa.get(jungleSize);
+                        mapa.get(jungleSize).adicionaJogadorAPosicao(j.getId());
+                        j.ganhou = true;
+                        //getWinnerInfo();
+                        return true;
+                    }
+
+                    if(nrCasa + nrSquares < jungleSize) {
                         j.getCasaAtual().retiraJogadorAPosicao(j.getId());
                         mapa.get(nrCasa + nrSquares).adicionaJogadorAPosicao(j.getId());
                         j.casaAtual = mapa.get(nrCasa + nrSquares);
@@ -207,14 +210,14 @@ public class GameManager {
                     }
 
                     mudaJogadorAtual(j.getId());
-                    if(j.getCasaAtual().nrSquare == jungleSize){
-                        j.ganhou = true;
-                        getWinnerInfo();
-                    }
+
 
                     return true;
                 }
                 else {
+                    if(verificaTodosSemEnergia()) {
+                        return false;
+                    }
                     mudaJogadorAtual(j.getId());
                     return false;
                 }
@@ -231,13 +234,36 @@ public class GameManager {
             }
         }
 
+        int maiorCasaComJogadores = 0;
+        if(verificaTodosSemEnergia()) {
+
+            for(Jogador j :jogadores) {
+                if(j.casaAtual.getNrSquare() > maiorCasaComJogadores) {
+                    maiorCasaComJogadores = j.casaAtual.getNrSquare();
+                }
+            }
+            return getPlayerInfo(mapa.get(maiorCasaComJogadores).getJogadoresNaPosicaoPorOrdem()[0]);
+        }
+
         return null;
     }
 
     public ArrayList<String> getGameResults() {
-        ArrayList<String> resultado = new ArrayList<>();
 
-        return resultado;
+        ArrayList<String> resultados = new ArrayList<>();
+        int nrClassificacao = 1;
+        for(int i = jungleSize ; i > 1 ; i--) {
+
+            if(mapa.get(i).jogadoresNaPosicao.length() > 1) {
+                int nrJogadoresNaPos = mapa.get(i).getJogadoresNaPosicaoPorOrdem().length;
+                for(int j = 0 ; i < nrJogadoresNaPos ; i++) {
+                    String classificacao = "#" + nrClassificacao + " " +
+                            mapaIdsJogadores.get(mapa.get(i).getJogadoresNaPosicaoPorOrdem()[0]).getInfoJogador();
+                }
+
+            }
+        }
+        return resultados;
     }
 
     public JPanel getAuthorsPanel() {
@@ -326,10 +352,11 @@ public class GameManager {
             Jogador jogador;
 
             if(idsJogador.get(0) == id) {
-                jogador = new Jogador(id, nome, idEspecie, initialEnergy, true, mapa.get(id));
+                jogador = new Jogador(id, nome, idEspecie, initialEnergy, true, mapa.get(id), especies.get(idEspecie));
             }else {
-                jogador = new Jogador(id, nome, idEspecie, initialEnergy, false, mapa.get(idsJogador.get(0)));
+                jogador = new Jogador(id, nome, idEspecie, initialEnergy, false, mapa.get(idsJogador.get(0)),especies.get(idEspecie));
             }
+            this.mapaIdsJogadores.put(id,jogador);
             this.jogadores.add(jogador);
         }
     }
@@ -353,4 +380,16 @@ public class GameManager {
             }
         }
     }
+
+    public boolean verificaTodosSemEnergia() {
+
+        for(Jogador j : jogadores) {
+            if(j.temEnergiaParaMover()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
 }

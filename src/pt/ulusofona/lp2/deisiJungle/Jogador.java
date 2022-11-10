@@ -3,6 +3,7 @@ package pt.ulusofona.lp2.deisiJungle;
 public class Jogador {
     int id;
     String nome;
+    String nomeEspecie;
     String idEspecie;
     int energia;
     boolean jogadorAtual;
@@ -11,7 +12,7 @@ public class Jogador {
 
 
 
-    public Jogador(int id, String nome, String idEspecie, int energia, boolean jogadorAtual,Square casa_Atual) {
+    public Jogador(int id, String nome, String idEspecie, int energia, boolean jogadorAtual,Square casa_Atual, String nomeEspecie) {
         this.id = id;
         this.nome = nome;
         this.idEspecie = idEspecie;
@@ -19,6 +20,7 @@ public class Jogador {
         this.jogadorAtual = jogadorAtual;
         this.ganhou = false;
         this.casaAtual = casa_Atual;
+        this.nomeEspecie = nomeEspecie;
     }
 
 
@@ -62,5 +64,20 @@ public class Jogador {
 
     public void trocaJogadorAtual() {
         this.jogadorAtual = !isTurnoDoJogador();
+    }
+
+    public String[] getInfoJogador() {
+        String[] informacaoJogador = new String[4];
+
+        informacaoJogador[0] = getId() + "";
+        informacaoJogador[1] = getNome();
+        informacaoJogador[2] = getIdEspecie() + "";
+        informacaoJogador[3] = getEnergia() + "";
+
+        return informacaoJogador;
+    }
+
+    public String getClassificacao() {
+        return this.nome + this.nomeEspecie + this.casaAtual.getNrSquare();
     }
 }

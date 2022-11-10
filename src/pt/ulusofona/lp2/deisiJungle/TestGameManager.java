@@ -121,7 +121,7 @@ public class TestGameManager {
         jogo.createInitialJungle(47, 22, playersInfo);
 
         Assert.assertEquals("1", jogo.getPlayerInfo(1)[0]);
-        Assert.assertEquals("Elefante", jogo.getPlayerInfo(1)[1]);
+        Assert.assertEquals("batata", jogo.getPlayerInfo(1)[1]);
         Assert.assertEquals("E", jogo.getPlayerInfo(1)[2]);
         Assert.assertEquals("22", jogo.getPlayerInfo(1)[3]);
     }
@@ -141,21 +141,49 @@ public class TestGameManager {
         jogo.createInitialJungle(47, 22, playersInfo);
 
         Assert.assertEquals("1", jogo.getPlayersInfo()[0][0]);
-        Assert.assertEquals("Elefante", jogo.getPlayersInfo()[0][1]);
+        Assert.assertEquals("batata", jogo.getPlayersInfo()[0][1]);
         Assert.assertEquals("E", jogo.getPlayersInfo()[0][2]);
         Assert.assertEquals("22", jogo.getPlayersInfo()[0][3]);
 
         Assert.assertEquals("2", jogo.getPlayersInfo()[1][0]);
-        Assert.assertEquals("Leão", jogo.getPlayersInfo()[1][1]);
+        Assert.assertEquals("banana", jogo.getPlayersInfo()[1][1]);
         Assert.assertEquals("L", jogo.getPlayersInfo()[1][2]);
         Assert.assertEquals("22", jogo.getPlayersInfo()[1][3]);
 
         jogo.moveCurrentPlayer(1, false);
 
         Assert.assertEquals("1", jogo.getPlayersInfo()[0][0]);
-        Assert.assertEquals("Elefante", jogo.getPlayersInfo()[0][1]);
+        Assert.assertEquals("batata", jogo.getPlayersInfo()[0][1]);
         Assert.assertEquals("E", jogo.getPlayersInfo()[0][2]);
         Assert.assertEquals("20", jogo.getPlayersInfo()[0][3]);
+    }
+
+    @Test
+    public void teste_funcTodosSemEnergia() {
+        String[][] playersInfo = new String[2][3];
+        playersInfo[0][0] = "1";
+        playersInfo[0][1] = "batata";
+        playersInfo[0][2] = "E";
+
+        playersInfo[1][0] = "2";
+        playersInfo[1][1] = "banana";
+        playersInfo[1][2] = "L";
+
+        GameManager jogo = new GameManager();
+        jogo.createInitialJungle(47, 22, playersInfo);
+
+        jogo.jogadores.get(0).energia = 0;
+        jogo.jogadores.get(1).energia = 0;
+
+        Assert.assertEquals(true, jogo.verificaTodosSemEnergia());
+
+        jogo.jogadores.get(0).energia = 2;
+        jogo.jogadores.get(1).energia = 0;
+        Assert.assertEquals(false, jogo.verificaTodosSemEnergia());
+
+        jogo.jogadores.get(1).energia = 2;
+        Assert.assertEquals(false, jogo.verificaTodosSemEnergia());
+
     }
 }
 

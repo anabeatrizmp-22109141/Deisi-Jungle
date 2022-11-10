@@ -1,5 +1,7 @@
 package pt.ulusofona.lp2.deisiJungle;
 
+import java.util.Arrays;
+
 public class Square {
     int nrSquare;
     String imagem;
@@ -67,6 +69,17 @@ public class Square {
             jogadoresNaPosicaoNovo = jogadoresNaPosicaoNovo.replaceFirst(".$", "");
         }
         this.jogadoresNaPosicao = jogadoresNaPosicaoNovo;
+    }
+
+    public int[] getJogadoresNaPosicaoPorOrdem() {
+
+        String[] jogadoresSeparados = this.jogadoresNaPosicao.split(",");
+        int[] jogadoresOrdenados = new int[jogadoresSeparados.length];
+        for(int i = 0; i < jogadoresSeparados.length ; i++) {
+            jogadoresOrdenados[i] = Integer.parseInt(jogadoresSeparados[i]);
+        }
+        Arrays.sort(jogadoresOrdenados);
+        return jogadoresOrdenados;
     }
 
 }
