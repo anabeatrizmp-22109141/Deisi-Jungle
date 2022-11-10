@@ -179,16 +179,17 @@ public class GameManager {
 
         for(Jogador j : this.jogadores) {
 
-            if(verificaTodosSemEnergia() || verificaSeHaVencedor()) {
+            if (verificaTodosSemEnergia() || verificaSeHaVencedor()) {
                 return false;
             }
 
-            if(!bypassValidations) {
-                if(nrSquares < 1 || nrSquares > 6) {
+            if (nrSquares < 1 || nrSquares > 6) {
+                if (!bypassValidations){
                     mudaJogadorAtual(j.getId());
                     return false;
-                }
             }
+        }
+
 
             if(j.isTurnoDoJogador()) {
                 if(j.temEnergiaParaMover()) {
@@ -262,6 +263,7 @@ public class GameManager {
                     nrClassificacao++;
                 }
             }
+
             if(nrClassificacao > jogadores.size()) {
                 return resultados;
             }

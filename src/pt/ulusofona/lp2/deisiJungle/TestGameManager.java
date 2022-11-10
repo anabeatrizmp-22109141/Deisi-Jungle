@@ -291,8 +291,8 @@ public class TestGameManager {
 
         ArrayList<String> obtido = jogo.getGameResults();
         ArrayList<String> esperado = new ArrayList<>();
-        esperado.add("#1 batata, Elefante, 7");
-        esperado.add("#2 banana, Leão, 7");
+        esperado.add("#1 batata, Elefante, 9");
+        esperado.add("#2 banana, Leão, 8");
         esperado.add("#3 almondega, Tartaruga, 5");
         esperado.add("#4 tangerina, Pássaro, 2");
 
@@ -319,9 +319,9 @@ public class TestGameManager {
         GameManager jogo = new GameManager();
         jogo.createInitialJungle(47, 22, playersInfo);
 
+        jogo.moveCurrentPlayer(10, true);
         jogo.moveCurrentPlayer(6, false);
         jogo.moveCurrentPlayer(6, false);
-        jogo.moveCurrentPlayer(4, false);
 
         jogo.jogadores.get(0).energia = 0;
         jogo.jogadores.get(1).energia = 0;
@@ -329,9 +329,9 @@ public class TestGameManager {
 
         ArrayList<String> obtido = jogo.getGameResults();
         ArrayList<String> esperado = new ArrayList<>();
-        esperado.add("#1 batata, Elefante, 7");
+        esperado.add("#1 batata, Elefante, 11");
         esperado.add("#2 banana, Leão, 7");
-        esperado.add("#3 almondega, Tartaruga, 5");
+        esperado.add("#3 almondega, Tartaruga, 7");
 
         Assert.assertEquals(3, esperado.size());
         Assert.assertEquals(obtido, esperado);
