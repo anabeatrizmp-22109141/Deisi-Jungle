@@ -199,7 +199,6 @@ public class GameManager {
                         j.casaAtual = mapa.get(jungleSize);
                         mapa.get(jungleSize).adicionaJogadorAPosicao(j.getId());
                         j.ganhou = true;
-
                         return true;
                     }
 
@@ -357,9 +356,9 @@ public class GameManager {
             Jogador jogador;
 
             if(idsJogador.get(0) == id) {
-                jogador = new Jogador(id, nome, idEspecie, initialEnergy, true, mapa.get(id), especies.get(idEspecie));
+                jogador = new Jogador(id, nome, idEspecie, initialEnergy, true, mapa.get(1), especies.get(idEspecie));
             }else {
-                jogador = new Jogador(id, nome, idEspecie, initialEnergy, false, mapa.get(idsJogador.get(0)),especies.get(idEspecie));
+                jogador = new Jogador(id, nome, idEspecie, initialEnergy, false, mapa.get(1),especies.get(idEspecie));
             }
             this.mapaIdsJogadores.put(id,jogador);
             this.jogadores.add(jogador);
