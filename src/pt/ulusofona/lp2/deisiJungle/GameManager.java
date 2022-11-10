@@ -179,7 +179,7 @@ public class GameManager {
 
         for(Jogador j : this.jogadores) {
 
-            if(verificaTodosSemEnergia()) {
+            if(verificaTodosSemEnergia() || verificaSeHaVencedor()) {
                 return false;
             }
 
@@ -198,7 +198,6 @@ public class GameManager {
                         j.casaAtual = mapa.get(jungleSize);
                         mapa.get(jungleSize).adicionaJogadorAPosicao(j.getId());
                         j.ganhou = true;
-                        //getWinnerInfo();
 
                         return true;
                     }
@@ -211,7 +210,6 @@ public class GameManager {
                     }
 
                     mudaJogadorAtual(j.getId());
-
 
                     return true;
                 }
@@ -396,5 +394,12 @@ public class GameManager {
         return true;
     }
 
-
+    public boolean verificaSeHaVencedor() {
+        for(Jogador j : jogadores) {
+            if(j.ganhou) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
