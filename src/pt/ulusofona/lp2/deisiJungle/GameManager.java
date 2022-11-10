@@ -165,7 +165,7 @@ public class GameManager {
     }
 
     public String[][] getPlayersInfo() {
-        String[][] informacao = new String[jogadores.size()][3];
+        String[][] informacao = new String[jogadores.size()][4];
 
         for(int i = 0 ; i < jogadores.size() ; i++) {
             informacao[i] = getPlayerInfo(jogadores.get(i).getId());
@@ -262,9 +262,10 @@ public class GameManager {
                             mapaIdsJogadores.get(mapa.get(i).getJogadoresNaPosicaoPorOrdem()[j]).getClassificacao();
                     resultados.add(classificacao);
                     nrClassificacao++;
-
                 }
-
+            }
+            if(nrClassificacao > jogadores.size()) {
+                return resultados;
             }
         }
         return resultados;
