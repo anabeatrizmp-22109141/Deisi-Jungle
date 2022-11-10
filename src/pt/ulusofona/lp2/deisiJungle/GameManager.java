@@ -1,6 +1,7 @@
 package pt.ulusofona.lp2.deisiJungle;
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 
@@ -192,13 +193,13 @@ public class GameManager {
             if(j.isTurnoDoJogador()) {
                 if(j.temEnergiaParaMover()) {
                     int nrCasa = j.getCasaAtual().nrSquare;
-
                     if(nrCasa + nrSquares >= jungleSize){
                         j.getCasaAtual().retiraJogadorAPosicao(j.getId());
                         j.casaAtual = mapa.get(jungleSize);
                         mapa.get(jungleSize).adicionaJogadorAPosicao(j.getId());
                         j.ganhou = true;
                         //getWinnerInfo();
+
                         return true;
                     }
 
@@ -252,13 +253,16 @@ public class GameManager {
 
         ArrayList<String> resultados = new ArrayList<>();
         int nrClassificacao = 1;
-        for(int i = jungleSize ; i > 1 ; i--) {
+        for(int i = jungleSize ; i > 0 ; i--) {
 
-            if(mapa.get(i).jogadoresNaPosicao.length() > 1) {
+            if(mapa.get(i).jogadoresNaPosicao.length() >= 1) {
                 int nrJogadoresNaPos = mapa.get(i).getJogadoresNaPosicaoPorOrdem().length;
-                for(int j = 0 ; i < nrJogadoresNaPos ; i++) {
+                for(int j = 0 ; j < nrJogadoresNaPos ; j++) {
                     String classificacao = "#" + nrClassificacao + " " +
-                            mapaIdsJogadores.get(mapa.get(i).getJogadoresNaPosicaoPorOrdem()[0]).getInfoJogador();
+                            mapaIdsJogadores.get(mapa.get(i).getJogadoresNaPosicaoPorOrdem()[j]).getClassificacao();
+                    resultados.add(classificacao);
+                    nrClassificacao++;
+
                 }
 
             }

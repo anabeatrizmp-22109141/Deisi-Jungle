@@ -71,13 +71,13 @@ public class Jogador {
 
         informacaoJogador[0] = getId() + "";
         informacaoJogador[1] = getNome();
-        informacaoJogador[2] = getIdEspecie() + "";
+        informacaoJogador[2] = getIdEspecie()+ "";
         informacaoJogador[3] = getEnergia() + "";
 
         return informacaoJogador;
     }
 
     public String getClassificacao() {
-        return this.nome + this.nomeEspecie + this.casaAtual.getNrSquare();
+        return this.nome + ", " + this.nomeEspecie + ", " + this.casaAtual.getNrSquare();
     }
 }

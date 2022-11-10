@@ -3,6 +3,8 @@ package pt.ulusofona.lp2.deisiJungle;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 public class TestGameManager {
     @Test
     public void test_getSquareInfo() {
@@ -151,6 +153,7 @@ public class TestGameManager {
         Assert.assertEquals("22", jogo.getPlayersInfo()[1][3]);
 
         jogo.moveCurrentPlayer(1, false);
+        jogo.getPlayersInfo();
 
         Assert.assertEquals("1", jogo.getPlayersInfo()[0][0]);
         Assert.assertEquals("batata", jogo.getPlayersInfo()[0][1]);
@@ -183,7 +186,47 @@ public class TestGameManager {
 
         jogo.jogadores.get(1).energia = 2;
         Assert.assertEquals(false, jogo.verificaTodosSemEnergia());
+    }
+
+    @Test
+    public void teste_getResultados() {
+        String[][] playersInfo = new String[4][3];
+        playersInfo[0][0] = "1";
+        playersInfo[0][1] = "batata";
+        playersInfo[0][2] = "E";
+
+        playersInfo[1][0] = "2";
+        playersInfo[1][1] = "banana";
+        playersInfo[1][2] = "L";
+
+        playersInfo[2][0] = "3";
+        playersInfo[2][1] = "almondega";
+        playersInfo[2][2] = "T";
+
+        playersInfo[3][0] = "4";
+        playersInfo[3][1] = "tangerina";
+        playersInfo[3][2] = "P";
+
+        GameManager jogo = new GameManager();
+        jogo.createInitialJungle(47, 22, playersInfo);
+
+        jogo.moveCurrentPlayer(6, false);
+        jogo.moveCurrentPlayer(6, false);
+        jogo.moveCurrentPlayer(4, false);
+        jogo.moveCurrentPlayer(1, false);
+
+        ArrayList<String> obtido = jogo.getGameResults();
+        ArrayList<String> esperado = new ArrayList<>();
+        esperado.add("#1 batata, Elefante, 7");
+        esperado.add("#2 banana, Leão, 7");
+        esperado.add("#3 almondega, Tartaruga, 5");
+        esperado.add("#4 tangerina, Pássaro, 2");
+
+
+        Assert.assertEquals(esperado,obtido);
 
     }
+
+
 }
 
