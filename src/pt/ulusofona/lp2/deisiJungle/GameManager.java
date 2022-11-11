@@ -254,7 +254,9 @@ public class GameManager {
         for(int i = jungleSize ; i > 0 ; i--) {
 
             if(mapa.get(i).jogadoresNaPosicao.length() >= 1) {
+
                 int nrJogadoresNaPos = mapa.get(i).getJogadoresNaPosicaoPorOrdem().length;
+
                 for(int j = 0 ; j < nrJogadoresNaPos ; j++) {
                     String classificacao = "#" + nrClassificacao + " " +
                             mapaIdsJogadores.get(mapa.get(i).getJogadoresNaPosicaoPorOrdem()[j]).getClassificacao();

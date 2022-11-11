@@ -4,7 +4,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class TestGameManager {
     @Test
@@ -283,22 +282,26 @@ public class TestGameManager {
         playersInfo[3][2] = "P";
 
         GameManager jogo = new GameManager();
-        jogo.createInitialJungle(47, 22, playersInfo);
+        jogo.createInitialJungle(47, 2, playersInfo);
 
         jogo.moveCurrentPlayer(6, false);
         jogo.moveCurrentPlayer(6, false);
-        jogo.moveCurrentPlayer(4, false);
-        jogo.moveCurrentPlayer(1, false);
+        jogo.moveCurrentPlayer(6, false);
+        jogo.moveCurrentPlayer(6, false);
 
         ArrayList<String> obtido = jogo.getGameResults();
         ArrayList<String> esperado = new ArrayList<>();
         esperado.add("#1 batata, Elefante, 7");
         esperado.add("#2 banana, Leão, 7");
-        esperado.add("#3 almondega, Tartaruga, 5");
-        esperado.add("#4 tangerina, Pássaro, 2");
-
+        esperado.add("#3 almondega, Tartaruga, 7");
+        esperado.add("#4 tangerina, Pássaro, 7");
 
         Assert.assertEquals(esperado,obtido);
+
+        jogo.moveCurrentPlayer(1, false);
+        jogo.moveCurrentPlayer(1, false);
+        jogo.moveCurrentPlayer(2, false);
+        jogo.moveCurrentPlayer(4, false);
 
     }
 
@@ -336,6 +339,71 @@ public class TestGameManager {
 
         Assert.assertEquals(3, esperado.size());
         Assert.assertEquals(obtido, esperado);
+
+    }
+
+    @Test
+    public void teste_getResultadosJogadorCasaFinal() {
+        String[][] playersInfo = new String[2][3];
+        playersInfo[0][0] = "1";
+        playersInfo[0][1] = "batata";
+        playersInfo[0][2] = "E";
+
+        playersInfo[1][0] = "2";
+        playersInfo[1][1] = "banana";
+        playersInfo[1][2] = "L";
+
+        GameManager jogo = new GameManager();
+        jogo.createInitialJungle(47, 22, playersInfo);
+
+        jogo.moveCurrentPlayer(6,false);
+        jogo.moveCurrentPlayer(6,false);
+        jogo.moveCurrentPlayer(6,false);
+        jogo.moveCurrentPlayer(6,false);
+        jogo.moveCurrentPlayer(6,false);
+        jogo.moveCurrentPlayer(6,false);
+        jogo.moveCurrentPlayer(6,false);
+        jogo.moveCurrentPlayer(6,false);
+        jogo.moveCurrentPlayer(6,false);
+        jogo.moveCurrentPlayer(6,false);
+        jogo.moveCurrentPlayer(6,false);
+        jogo.moveCurrentPlayer(6,false);
+        jogo.moveCurrentPlayer(6,false);
+        jogo.moveCurrentPlayer(6,false);
+        jogo.moveCurrentPlayer(6,false);
+
+
+        ArrayList<String> obtido = jogo.getGameResults();
+        ArrayList<String> esperado = new ArrayList<>();
+        esperado.add("#1 batata, Elefante, 47");
+        esperado.add("#2 banana, Leão, 43");
+
+        Assert.assertEquals(esperado,obtido);
+    }
+
+    @Test
+    public void teste_criaJogoSemIdsConsecutivos() {
+        String[][] playersInfo = new String[3][3];
+        playersInfo[0][0] = "5";
+        playersInfo[0][1] = "batata";
+        playersInfo[0][2] = "E";
+
+        playersInfo[1][0] = "3";
+        playersInfo[1][1] = "banana";
+        playersInfo[1][2] = "L";
+
+        playersInfo[2][0] = "2";
+        playersInfo[2][1] = "almondega";
+        playersInfo[2][2] = "T";
+
+        GameManager jogo = new GameManager();
+        jogo.createInitialJungle(47, 22, playersInfo);
+
+        Assert.assertEquals(true, jogo.mapaIdsJogadores.get(2).isTurnoDoJogador());
+        jogo.moveCurrentPlayer(2,false);
+        Assert.assertEquals(true, jogo.mapaIdsJogadores.get(3).isTurnoDoJogador());
+        jogo.moveCurrentPlayer(2,false);
+        Assert.assertEquals(true, jogo.mapaIdsJogadores.get(5).isTurnoDoJogador());
 
     }
 }
