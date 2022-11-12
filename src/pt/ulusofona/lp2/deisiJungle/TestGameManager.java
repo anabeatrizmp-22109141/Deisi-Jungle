@@ -381,30 +381,5 @@ public class TestGameManager {
         Assert.assertEquals(esperado,obtido);
     }
 
-    @Test
-    public void teste_criaJogoSemIdsConsecutivos() {
-        String[][] playersInfo = new String[3][3];
-        playersInfo[0][0] = "5";
-        playersInfo[0][1] = "batata";
-        playersInfo[0][2] = "E";
-
-        playersInfo[1][0] = "3";
-        playersInfo[1][1] = "banana";
-        playersInfo[1][2] = "L";
-
-        playersInfo[2][0] = "2";
-        playersInfo[2][1] = "almondega";
-        playersInfo[2][2] = "T";
-
-        GameManager jogo = new GameManager();
-        jogo.createInitialJungle(47, 22, playersInfo);
-
-        Assert.assertEquals(true, jogo.mapaIdsJogadores.get(2).isTurnoDoJogador());
-        jogo.moveCurrentPlayer(2,false);
-        Assert.assertEquals(true, jogo.mapaIdsJogadores.get(3).isTurnoDoJogador());
-        jogo.moveCurrentPlayer(2,false);
-        Assert.assertEquals(true, jogo.mapaIdsJogadores.get(5).isTurnoDoJogador());
-
-    }
 }
 
