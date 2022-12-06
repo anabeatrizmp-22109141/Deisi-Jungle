@@ -1,18 +1,13 @@
 package pt.ulusofona.lp2.deisiJungle;
 import javax.swing.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 
 public class GameManager {
 
-    int nrJogadores;
-
-    int initialEnergy;
     ArrayList<Jogador> jogadores;
     ArrayList<Integer> idsJogador;
-    HashMap<String, String> especies;
     HashMap<Integer, Jogador> mapaIdsJogadores;
     HashMap<Integer,Square> mapa;
     int jungleSize;
@@ -21,48 +16,56 @@ public class GameManager {
     public GameManager() {
     }
 
-    public GameManager(int nrJogadores, int jungleSize, int initialEnergy, String[][] playersInfo) {
-        this.nrJogadores = nrJogadores;
+    public GameManager(int jungleSize, String[][] playersInfo) {
         this.jungleSize = jungleSize;
-        this.initialEnergy = initialEnergy;
         this.playersInfo = playersInfo;
     }
 
     public String[][] getSpecies() {
-        this.especies = new HashMap<>();
-        String[][] especies = new String[5][3];
+        String[][] especies = new String[5][7];
+        Especie especie;
 
-        especies[0][0] = "E";
-        especies[0][1] = "Elefante";
-        especies[0][2] = "elephant.png";
-        this.especies.put("E", "Elefante");
+        especie = new Elefante();
+        especies[0] = especie.getInfo();
 
-        especies[1][0] = "L";
-        especies[1][1] = "Leão";
-        especies[1][2] = "lion.png";
-        this.especies.put("L", "Leão");
+        especie = new Leao();
+        especies[1] = especie.getInfo();
 
-        especies[2][0] = "T";
-        especies[2][1] = "Tartaruga";
-        especies[2][2] = "turtle.png";
-        this.especies.put("T", "Tartaruga");
+        especie = new Passaro();
+        especies[2] = especie.getInfo();
 
-        especies[3][0] = "P";
-        especies[3][1] = "Pássaro";
-        especies[3][2] = "bird.png";
-        this.especies.put("P", "Pássaro");
+        especie = new Tartaruga();
+        especies[3] = especie.getInfo();
 
-        especies[4][0] = "Z";
-        especies[4][1] = "Tarzan";
-        especies[4][2] = "tarzan.png";
-        this.especies.put("Z", "Tarzan");
+        especie = new Tarzan();
+        especies[4] = especie.getInfo();
 
         return especies;
     }
 
-    public boolean createInitialJungle(int jungleSize, int initialEnergy, String[][] playersInfo) {
-        this.initialEnergy = initialEnergy;
+    public String[][] getFoodTypes() {
+        String[][] comida = new String[5][4];
+        Alimento alimento;
 
+        alimento = new Banana();
+        comida[0] = alimento.getInfo();
+
+        alimento = new Agua();
+        comida[1] = alimento.getInfo();
+
+        alimento = new Erva();
+        comida[2] = alimento.getInfo();
+
+        alimento = new Carne();
+        comida[3] = alimento.getInfo();
+
+        alimento = new CogumelosMagicos();
+        comida[4] = alimento.getInfo();
+
+        return comida;
+    }
+
+    public boolean createInitialJungle(int jungleSize, String[][] playersInfo) {
         this.idsJogador = new ArrayList<>();
         this.jogadores = new ArrayList<>();
         this.mapa = new HashMap<>();
@@ -355,15 +358,16 @@ public class GameManager {
             int id = Integer.parseInt(playersInfo[i][0]);
             String nome = playersInfo[i][1];
             String idEspecie = playersInfo[i][2];
+
             Jogador jogador;
 
             if(idsJogador.get(0) == id) {
-                jogador = new Jogador(id, nome, idEspecie, initialEnergy, true, mapa.get(1), especies.get(idEspecie));
+                //jogador = new Jogador(id, nome, idEspecie, true, mapa.get(1), especies.get(idEspecie));
             }else {
-                jogador = new Jogador(id, nome, idEspecie, initialEnergy, false, mapa.get(1),especies.get(idEspecie));
+                //jogador = new Jogador(id, nome, idEspecie, false, mapa.get(1),especies.get(idEspecie));
             }
-            this.mapaIdsJogadores.put(id,jogador);
-            this.jogadores.add(jogador);
+            //this.mapaIdsJogadores.put(id,jogador);
+            //this.jogadores.add(jogador);
         }
     }
 
@@ -405,4 +409,5 @@ public class GameManager {
         }
         return false;
     }
+
 }

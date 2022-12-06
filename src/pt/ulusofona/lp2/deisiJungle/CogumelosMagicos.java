@@ -1,0 +1,24 @@
+package pt.ulusofona.lp2.deisiJungle;
+
+import java.util.concurrent.ThreadLocalRandom;
+
+public class CogumelosMagicos extends Alimento {
+    private int numeroAleatorio;
+
+    public CogumelosMagicos() {
+        this.id = 'm';
+        this.nome = "Cogumelos magicos";
+        this.imagem = "mushroom.png";
+        this.numeroAleatorio = ThreadLocalRandom.current().nextInt(10, 50 + 1);
+    }
+
+    @Override
+    String getTipo() {
+        return "CogumelosMagicos";
+    }
+
+    @Override
+    String getDescricaoTooltip() {
+        return "Cogumelo Magico: +- " + numeroAleatorio + "% energia";
+    }
+}

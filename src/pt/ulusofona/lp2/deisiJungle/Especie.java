@@ -1,29 +1,59 @@
 package pt.ulusofona.lp2.deisiJungle;
 
-public class Especie {
-    String id;
-    String nome;
-    String imagem;
+abstract public class Especie {
+    protected char id;
+    protected String nome;
+    protected String ficheiro;
+    protected int energiaInicial;
+    protected int consumoEnergia;
+    protected int energiaEmDescanso;
+    protected String velocidade;
 
-    public Especie(String id, String nome, String imagem) {
-        this.id = id;
-        this.nome = nome;
-        this.imagem = imagem;
+    public Especie() {
     }
 
-    public String getId() {
-        return this.id;
+    public char getId() {
+        return id;
     }
 
     public String getNome() {
-        return this.nome;
+        return nome;
     }
 
-    public String getImagem() {
-        return this.imagem;
+    public String getFicheiro() {
+        return ficheiro;
     }
 
-    public boolean verificaEspecie(int id, String nome){
-        return true;
+    public int getEnergiaInicial() {
+        return energiaInicial;
+    }
+
+    public int getConsumoEnergia() {
+        return consumoEnergia;
+    }
+
+    public int getEnergiaEmDescanso() {
+        return energiaEmDescanso;
+    }
+
+    public String getVelocidade() {
+        return velocidade;
+    }
+
+    abstract boolean eHerbivoro();
+
+    abstract  boolean eCarnivoro();
+
+    public String[] getInfo() {
+        String[] info = new String[7];
+        info[0] = id + "";
+        info[1] = nome;
+        info[2] = ficheiro;
+        info[3] = energiaInicial + "";
+        info[4] = consumoEnergia + "";
+        info[5] = energiaEmDescanso + "";
+        info[6] = velocidade;
+
+        return info;
     }
 }

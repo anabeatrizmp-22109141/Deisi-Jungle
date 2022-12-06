@@ -2,15 +2,16 @@ package pt.ulusofona.lp2.deisiJungle;
 
 public class Jogador {
     int id;
+
     String nome;
     String nomeEspecie;
     String idEspecie;
+
     int energia;
     boolean jogadorAtual;
     boolean ganhou;
+
     Square casaAtual;
-
-
 
     public Jogador(int id, String nome, String idEspecie, int energia, boolean jogadorAtual,Square casa_Atual, String nomeEspecie) {
         this.id = id;
@@ -23,8 +24,6 @@ public class Jogador {
         this.nomeEspecie = nomeEspecie;
     }
 
-
-
     public boolean isTurnoDoJogador(){
         return this.jogadorAtual;
     }
@@ -32,7 +31,6 @@ public class Jogador {
     public boolean ganhou(){
         return this.ganhou;
     }
-
 
     public int getId() {
         return this.id;
