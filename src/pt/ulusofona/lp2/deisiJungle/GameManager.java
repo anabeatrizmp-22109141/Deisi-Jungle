@@ -27,6 +27,7 @@ public class GameManager {
                      Classes Iniciais
 -------------------------------------------------------------------------------
  */
+    //TESTE PARA ISTO
     public String[][] getSpecies() {
         String[][] especies = new String[5][7];
         Especie especie;
@@ -75,7 +76,7 @@ public class GameManager {
 -------------------------------------------------------------------------------
                                  CRIA JUNGLE INICIAL
 -------------------------------------------------------------------------------
-
+    //TESTE PARA ISTO
      */
 
     public InitializationError verificacoesMapaAntigo(int jungleSize, String[][] playersInfo) {
@@ -148,7 +149,7 @@ public class GameManager {
         //Cria Mapa
         criaMapa(jungleSize, playersInfo);
         //CriaJogadores
-        criaJogadores(criaJogadores());
+        //criaJogadores(criaJogadores());
 
         return null;
     }
@@ -158,7 +159,7 @@ public class GameManager {
                               FAZ COISAS NO MAPA
 -------------------------------------------------------------------------------
  */
-
+//TESTE PARA ISTO
     public void criaMapa(int jungleSize, String[][] playersInfo ) {
         String jogadoresNaPrimeiraPosicao = "";
         ArrayList<Integer> idsJogador = getIdsJogadorOrdenados(playersInfo);
@@ -369,16 +370,16 @@ public class GameManager {
                     int nrCasa = j.getCasaAtual().nrSquare;
                     if(nrCasa + nrSquares >= jungleSize){
                         j.getCasaAtual().retiraJogadorAPosicao(j.getId());
-                        j.casaAtual = mapa.get(jungleSize);
+                        //j.casaAtual = mapa.get(jungleSize);
                         mapa.get(jungleSize).adicionaJogadorAPosicao(j.getId());
-                        j.ganhou = true;
+                        //j.ganhou = true;
                         return true;
                     }
 
                     if(nrCasa + nrSquares < jungleSize) {
                         j.getCasaAtual().retiraJogadorAPosicao(j.getId());
                         mapa.get(nrCasa + nrSquares).adicionaJogadorAPosicao(j.getId());
-                        j.casaAtual = mapa.get(nrCasa + nrSquares);
+                        //j.casaAtual = mapa.get(nrCasa + nrSquares);
                         j.diminuiEnergia();
                     }
 
