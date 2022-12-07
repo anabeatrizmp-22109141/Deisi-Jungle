@@ -12,7 +12,6 @@ public class Banana extends Alimento {
         this.nrBananas = 3;
     }
 
-    //É preciso <> ??
     @Override
     String getDescricaoTooltip() {
         return "Bananas : " + this.nrBananas + " : + 40 energia";
@@ -24,5 +23,9 @@ public class Banana extends Alimento {
             return true;
         }
         return false;
+    }
+
+    public int getNrBananas(){
+        return this.nrBananas;
     }
 }
