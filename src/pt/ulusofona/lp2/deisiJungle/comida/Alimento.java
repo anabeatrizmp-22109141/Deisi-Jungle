@@ -17,6 +17,10 @@ abstract public class Alimento {
         return this.id;
     }
 
+    public String getNome(){
+        return this.nome;
+    }
+
     public String getImagem() {
         return this.imagem;
     }
@@ -32,4 +36,6 @@ abstract public class Alimento {
 
         return info;
     }
+
+    public void setnrJogadas(int valor){};
 }
