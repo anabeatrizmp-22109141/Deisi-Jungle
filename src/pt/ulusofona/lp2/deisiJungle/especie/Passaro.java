@@ -3,7 +3,7 @@ package pt.ulusofona.lp2.deisiJungle.especie;
 public class Passaro extends Especie{
 
     public Passaro() {
-        this.id = 'P';
+        this.id = "P";
         this.nome = "Passaro";
         this.ficheiro = "bird.png";
         this.energiaInicial = 70;

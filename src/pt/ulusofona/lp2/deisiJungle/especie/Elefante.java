@@ -2,7 +2,7 @@ package pt.ulusofona.lp2.deisiJungle.especie;
 
 public class Elefante extends Especie{
     public Elefante() {
-        this.id = 'E';
+        this.id = "E";
         this.nome = "Elefante";
         this.ficheiro = "elephant.png";
         this.energiaInicial = 180;

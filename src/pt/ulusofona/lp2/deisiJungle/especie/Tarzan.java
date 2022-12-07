@@ -2,7 +2,7 @@ package pt.ulusofona.lp2.deisiJungle.especie;
 
 public class Tarzan extends Especie{
     public Tarzan(){
-        this.id = 'Z';
+        this.id = "Z";
         this.nome = "Tarzan";
         this.ficheiro = "tarzan.png";
         this.energiaInicial = 70;

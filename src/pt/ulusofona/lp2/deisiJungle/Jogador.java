@@ -1,31 +1,28 @@
 package pt.ulusofona.lp2.deisiJungle;
 
+import pt.ulusofona.lp2.deisiJungle.especie.Especie;
+
 public class Jogador {
-    int id;
+    private int id;
+    private String nome;
+    private Especie especie;
+    private boolean isJogadorAtual;
+    private boolean ganhou;
+    private Square casaAtual;
+    private int energia;
 
-    String nome;
-    String nomeEspecie;
-    String idEspecie;
-
-    int energia;
-    boolean jogadorAtual;
-    boolean ganhou;
-
-    Square casaAtual;
-
-    public Jogador(int id, String nome, String idEspecie, int energia, boolean jogadorAtual,Square casa_Atual, String nomeEspecie) {
+    public Jogador(int id, String nome, Especie especie,Square casaAtual) {
         this.id = id;
         this.nome = nome;
-        this.idEspecie = idEspecie;
-        this.energia = energia;
-        this.jogadorAtual = jogadorAtual;
+        this.especie = especie;
+        this.isJogadorAtual = false;
         this.ganhou = false;
-        this.casaAtual = casa_Atual;
-        this.nomeEspecie = nomeEspecie;
+        this.casaAtual = casaAtual;
+        this.energia = especie.getEnergiaInicial();
     }
 
     public boolean isTurnoDoJogador(){
-        return this.jogadorAtual;
+        return this.isJogadorAtual;
     }
 
     public boolean ganhou(){
@@ -40,28 +37,22 @@ public class Jogador {
         return this.nome;
     }
 
-    public String getIdEspecie() {
-        return this.idEspecie;
-    }
-
     public Square getCasaAtual() {
         return this.casaAtual;
     }
 
-    public int getEnergia() {
-        return this.energia;
-    }
-
     public boolean temEnergiaParaMover() {
-        return this.energia - 2 >= 0;
+        return this.energia - especie.getConsumoEnergia() >= 0;
     }
 
     public void diminuiEnergia() {
-        this.energia -= 2;
+        this.energia -= especie.getConsumoEnergia();
     }
 
+    public void aumentaEnergiaEmDescanso() {this.energia += especie.getEnergiaEmDescanso();}
+
     public void trocaJogadorAtual() {
-        this.jogadorAtual = !isTurnoDoJogador();
+        this.isJogadorAtual = !isTurnoDoJogador();
     }
 
     public String[] getInfoJogador() {
@@ -69,13 +60,13 @@ public class Jogador {
 
         informacaoJogador[0] = getId() + "";
         informacaoJogador[1] = getNome();
-        informacaoJogador[2] = getIdEspecie()+ "";
-        informacaoJogador[3] = getEnergia() + "";
+        informacaoJogador[2] = especie.getId() + "";
+        informacaoJogador[3] = especie.getEnergiaInicial() + "";
 
         return informacaoJogador;
     }
 
     public String getClassificacao() {
-        return this.nome + ", " + this.nomeEspecie + ", " + this.casaAtual.getNrSquare();
+        return this.nome + ", " + this.especie.getNome() + ", " + this.casaAtual.getNrSquare();
     }
 }

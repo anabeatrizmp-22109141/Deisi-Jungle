@@ -5,14 +5,9 @@ import pt.ulusofona.lp2.deisiJungle.comida.Alimento;
 public class Carne extends Alimento {
 
     public Carne() {
-        this.id = 'c';
+        this.id = "c";
         this.nome = "Carne";
         this.imagem = "meat.png";
-    }
-
-    @Override
-    String getTipo() {
-        return nome;
     }
 
     @Override

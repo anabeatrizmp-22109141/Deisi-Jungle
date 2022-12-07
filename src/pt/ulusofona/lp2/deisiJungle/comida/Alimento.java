@@ -1,7 +1,7 @@
 package pt.ulusofona.lp2.deisiJungle.comida;
 
 abstract public class Alimento {
-    protected char id;
+    protected String id;
     protected String nome;
     protected String imagem;
     protected int nrJogadas = 0;
@@ -13,15 +13,13 @@ abstract public class Alimento {
         return nrJogadas;
     }
 
-    public char getId() {
+    public String getId() {
         return this.id;
     }
 
     public String getImagem() {
         return this.imagem;
     }
-
-    abstract String getTipo();
 
     abstract String getDescricaoTooltip();
 

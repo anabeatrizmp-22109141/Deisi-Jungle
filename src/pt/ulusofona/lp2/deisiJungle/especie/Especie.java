@@ -1,7 +1,7 @@
 package pt.ulusofona.lp2.deisiJungle.especie;
 
 abstract public class Especie {
-    protected char id;
+    protected String id;
     protected String nome;
     protected String ficheiro;
     protected int energiaInicial;
@@ -12,7 +12,7 @@ abstract public class Especie {
     public Especie() {
     }
 
-    public char getId() {
+    public String getId() {
         return id;
     }
 

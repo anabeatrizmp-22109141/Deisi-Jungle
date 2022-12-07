@@ -1,5 +1,7 @@
 package pt.ulusofona.lp2.deisiJungle;
 
+import pt.ulusofona.lp2.deisiJungle.comida.Alimento;
+
 import java.util.Arrays;
 
 public class Square {
@@ -7,6 +9,7 @@ public class Square {
     String imagem;
     String descricao;
     String jogadoresNaPosicao;
+    Alimento alimento;
 
     public Square(int nrSquare, String imagem ,String descricao, String jogadoresNaPosicao) {
         this.nrSquare = nrSquare;
@@ -15,7 +18,9 @@ public class Square {
         this.jogadoresNaPosicao = jogadoresNaPosicao;
     }
 
-
+    public void colocaAlimentoNaCasa(Alimento alimento) {
+        this.alimento = alimento;
+    }
 
     public int getNrSquare() {
         return this.nrSquare;

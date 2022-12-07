@@ -6,15 +6,10 @@ public class Banana extends Alimento {
     private int nrBananas;
 
     public Banana() {
-        this.id = 'b';
+        this.id = "b";
         this.nome = "Cacho de bananas";
         this.imagem = "bananas.png";
         this.nrBananas = 3;
-    }
-
-    @Override
-    String getTipo(){
-        return "Banana";
     }
 
     //É preciso <> ??

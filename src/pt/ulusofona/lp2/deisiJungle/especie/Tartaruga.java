@@ -3,7 +3,7 @@ package pt.ulusofona.lp2.deisiJungle.especie;
 public class Tartaruga extends Especie{
 
     public Tartaruga() {
-        this.id = 'T';
+        this.id = "T";
         this.nome = "Tartaruga";
         this.ficheiro = "turtle.png";
         this.energiaInicial = 150;
