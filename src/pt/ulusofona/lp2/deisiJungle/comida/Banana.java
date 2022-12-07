@@ -1,6 +1,8 @@
-package pt.ulusofona.lp2.deisiJungle;
+package pt.ulusofona.lp2.deisiJungle.comida;
 
-public class Banana extends Alimento{
+import pt.ulusofona.lp2.deisiJungle.comida.Alimento;
+
+public class Banana extends Alimento {
     private int nrBananas;
 
     public Banana() {
@@ -18,7 +20,7 @@ public class Banana extends Alimento{
     //É preciso <> ??
     @Override
     String getDescricaoTooltip() {
-        return "Bananas : <" + this.nrBananas + "> : + 40 energia";
+        return "Bananas : " + this.nrBananas + " : + 40 energia";
     }
 
     public boolean diminuiBanana() {

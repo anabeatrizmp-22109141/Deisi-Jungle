@@ -1,6 +1,8 @@
-package pt.ulusofona.lp2.deisiJungle;
+package pt.ulusofona.lp2.deisiJungle.comida;
 
-public class Carne extends Alimento{
+import pt.ulusofona.lp2.deisiJungle.comida.Alimento;
+
+public class Carne extends Alimento {
 
     public Carne() {
         this.id = 'c';

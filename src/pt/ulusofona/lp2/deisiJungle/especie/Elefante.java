@@ -1,4 +1,4 @@
-package pt.ulusofona.lp2.deisiJungle;
+package pt.ulusofona.lp2.deisiJungle.especie;
 
 public class Elefante extends Especie{
     public Elefante() {

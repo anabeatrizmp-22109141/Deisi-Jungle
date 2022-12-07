@@ -1,4 +1,7 @@
 package pt.ulusofona.lp2.deisiJungle;
+import pt.ulusofona.lp2.deisiJungle.comida.*;
+import pt.ulusofona.lp2.deisiJungle.especie.*;
+
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -7,7 +10,6 @@ import java.util.HashMap;
 public class GameManager {
 
     ArrayList<Jogador> jogadores;
-    ArrayList<Integer> idsJogador;
     HashMap<Integer, Jogador> mapaIdsJogadores;
     HashMap<Integer,Square> mapa;
     int jungleSize;
@@ -20,7 +22,11 @@ public class GameManager {
         this.jungleSize = jungleSize;
         this.playersInfo = playersInfo;
     }
-
+/*
+-------------------------------------------------------------------------------
+                     Classes Iniciais
+-------------------------------------------------------------------------------
+ */
     public String[][] getSpecies() {
         String[][] especies = new String[5][7];
         Especie especie;
@@ -65,48 +71,88 @@ public class GameManager {
         return comida;
     }
 
-    public boolean createInitialJungle(int jungleSize, String[][] playersInfo) {
-        this.idsJogador = new ArrayList<>();
+    /*
+-------------------------------------------------------------------------------
+                                 CRIA JUNGLE INICIAL
+-------------------------------------------------------------------------------
+
+     */
+
+    public InitializationError verificacoesMapaAntigo(int jungleSize, String[][] playersInfo) {
         this.jogadores = new ArrayList<>();
         this.mapa = new HashMap<>();
         this.mapaIdsJogadores = new HashMap<>();
 
-        // Verificação dos ids de jogador iguais
-        for(int i = 0 ; i < playersInfo.length ; i++) {
-            if(playersInfo[i][0] == null || playersInfo[i][0].isBlank()) {
-                return false;
-            }
-            if(!playersInfo[i][0].chars().allMatch(Character ::isDigit)) {
-                return false;
-            }
-            if(idsJogador.contains(Integer.parseInt(playersInfo[i][0]))) {
-                return false;
-            }
-            idsJogador.add(Integer.parseInt(playersInfo[i][0]));
-        }
         // Verificação dos nomes
-        if(nomeInvalido(playersInfo)) {
-            return false;
+        if(isNomeInvalido(playersInfo)) {
+            return new InitializationError("Nome é inválido");
         }
+
+        //Verificação dos ids dos jogadores
+        if(isIdJogadorInvalido(playersInfo)) {
+            return new InitializationError("Id do jogador é inválido");
+        }
+
         //Verficação dos ids das especies
         if(idEspecieInvalido(playersInfo)) {
-            return false;
+            return new InitializationError("ID Especie é inválido");
         }
+
         //Verificação de nr de Jogadores
         if(playersInfo.length < 2 || playersInfo.length > 4) {
-            return false;
+            return new InitializationError("Nr de jogadores é inválido");
         }
+
         //Verificacao tamanho mapa
         if(jungleSize < 2 * playersInfo.length) {
-            return false;
+            return new InitializationError("Tamanho do mapa é inválido");
         }
-        //Cria mapa
-        criaMapa(jungleSize, idsJogador);
 
-        //cria jogadores
-        criaJogadores(playersInfo, idsJogador);
-        return true;
+        return null;
     }
+
+    public InitializationError createInitialJungle(int jungleSize, String[][] playersInfo, String[][] foodsInfo) {
+
+        if(verificacoesMapaAntigo(jungleSize, playersInfo) != null) {
+            return verificacoesMapaAntigo(jungleSize, playersInfo);
+        }
+
+        //Verificacao ids da Comida
+        if(idFoodTypesInvalido(foodsInfo)) {
+            return new InitializationError("ID da comida é inválido");
+        }
+
+        //Verificacao posicoes da Comida
+        if(isFoodsPositionsInvalido(foodsInfo, jungleSize)) {
+            return new InitializationError("FoodsInfo possui posições inválidas");
+        }
+
+        //Cria Mapa
+
+        //Cria Jogadores
+
+        //Colocar Comida nas Posicoes
+
+        return null;
+    }
+
+    public InitializationError createInitialJungle(int jungleSize, String[][] playersInfo) {
+
+        if(verificacoesMapaAntigo(jungleSize, playersInfo) != null) {
+            return verificacoesMapaAntigo(jungleSize, playersInfo);
+        }
+
+        //Cria Mapa
+
+        //CriaJogadores
+
+        return null;
+    }
+
+    /*
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+ */
 
     public int[] getPlayerIds(int squareNr) {
 
@@ -281,16 +327,40 @@ public class GameManager {
 
     public String whoIsTaborda() {
         return "Wrestling";
-
     }
 
-    public boolean nomeInvalido(String[][] playersInfo) {
+    /*
+-------------------------------------------------------------------------------
+                        VERIFICAÇÕES DIVERSAS
+-------------------------------------------------------------------------------
+     */
+    public boolean isNomeInvalido(String[][] playersInfo) {
 
         for(int i = 0 ; i < playersInfo.length ; i++) {
             if(playersInfo[i][1] == null || playersInfo[i][1].isBlank()) {
                 return true;
             }
         }
+        return false;
+    }
+
+    public boolean isIdJogadorInvalido(String[][] playersInfo) {
+
+        ArrayList<Integer> idsJogador = new ArrayList<>();
+
+        for(int i = 0 ; i < playersInfo.length ; i++) {
+            if(playersInfo[i][0] == null || playersInfo[i][0].isBlank()) { // Verifica null e vazio
+                return true;
+            }
+            if(!playersInfo[i][0].chars().allMatch(Character ::isDigit)) { // Verifica se o id é só digitos
+                return true;
+            }
+            if(idsJogador.contains(Integer.parseInt(playersInfo[i][0]))) { //Verifica se id já existe
+                return true;
+            }
+            idsJogador.add(Integer.parseInt(playersInfo[i][0]));
+        }
+
         return false;
     }
 
@@ -320,6 +390,63 @@ public class GameManager {
         }
         return false;
     }
+
+    public boolean idFoodTypesInvalido(String[][] foodsInfo) {
+        String[][] comidas = getFoodTypes();
+        ArrayList<String> idsComida = new ArrayList<>();
+
+        for(int i = 0 ; i < comidas.length ; i++) {
+            idsComida.add(comidas[i][0]);
+        }
+
+        for(int i = 0 ; i < foodsInfo.length ; i++) {
+            if(foodsInfo[i][0] == null || foodsInfo[i][0].isBlank()) {
+                return true;
+            }
+            if(!idsComida.contains(foodsInfo[i][0])) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isFoodsPositionsInvalido(String[][] foodsInfo, int jungleSize) {
+
+        for(int i = 0 ; i < foodsInfo.length ; i++) {
+            if(Integer.parseInt(foodsInfo[i][1]) >= jungleSize) {
+                return true;
+            }
+            if(Integer.parseInt(foodsInfo[i][1]) <= 1) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean verificaTodosSemEnergia() {
+
+        for(Jogador j : jogadores) {
+            if(j.temEnergiaParaMover()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean verificaSeHaVencedor() {
+
+        for(Jogador j : jogadores) {
+            if(j.ganhou) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /*
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+     */
 
     public void criaMapa(int jungleSize, ArrayList<Integer> idsJogador) {
         String jogadoresNaPosicao = "";
@@ -391,23 +518,5 @@ public class GameManager {
         }
     }
 
-    public boolean verificaTodosSemEnergia() {
-
-        for(Jogador j : jogadores) {
-            if(j.temEnergiaParaMover()) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public boolean verificaSeHaVencedor() {
-        for(Jogador j : jogadores) {
-            if(j.ganhou) {
-                return true;
-            }
-        }
-        return false;
-    }
 
 }

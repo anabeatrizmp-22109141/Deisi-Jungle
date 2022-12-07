@@ -1,6 +1,8 @@
-package pt.ulusofona.lp2.deisiJungle;
+package pt.ulusofona.lp2.deisiJungle.comida;
 
-public class Agua extends Alimento{
+import pt.ulusofona.lp2.deisiJungle.comida.Alimento;
+
+public class Agua extends Alimento {
     public Agua() {
         this.id = 'a';
         this.nome = "Agua";

@@ -1,5 +1,3 @@
 package pt.ulusofona.lp2.deisiJungle;
 
-public record MovementResult() {
-
-}
+public record MovementResult(MovementResultCode code, String mensagem) { }

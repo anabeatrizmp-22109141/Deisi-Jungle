@@ -1,4 +1,6 @@
-package pt.ulusofona.lp2.deisiJungle;
+package pt.ulusofona.lp2.deisiJungle.comida;
+
+import pt.ulusofona.lp2.deisiJungle.comida.Alimento;
 
 public class Erva extends Alimento {
 
