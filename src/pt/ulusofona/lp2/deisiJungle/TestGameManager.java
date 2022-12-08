@@ -362,7 +362,7 @@ public class TestGameManager {
         playersinfo[3][2] = "T";
 
         playersinfo[4][0] = "5";
-        playersinfo[4][1] = "Tarzam";
+        playersinfo[4][1] = "Tarzan";
         playersinfo[4][2] = "Z";
 
         //Verifica se o numero de jogadores é maior que 4
@@ -385,6 +385,49 @@ public class TestGameManager {
         playersinfo[1][2] = "L";
 
         Assert.assertEquals(erro.getMessage(),jogo.verificacoesMapaAntigo(1,playersinfo).getMessage());
+    }
+
+    @Test
+    public void createInitialJungle_criaMapaCriaJogadores(){
+        GameManager jogo = new GameManager();
+        String[][] playersinfo = new String[4][3];
+
+        playersinfo[0][0] = "1";
+        playersinfo[0][1] = "Astrubal";
+        playersinfo[0][2] = "E";
+
+        playersinfo[1][0] = "2";
+        playersinfo[1][1] = "Bomboca";
+        playersinfo[1][2] = "L";
+
+        playersinfo[2][0] = "3";
+        playersinfo[2][1] = "Chocos";
+        playersinfo[2][2] = "P";
+
+        playersinfo[3][0] = "4";
+        playersinfo[3][1] = "Mimosa";
+        playersinfo[3][2] = "T";
+
+
+        Assert.assertNull(jogo.createInitialJungle(47, playersinfo));
+
+        playersinfo = new String[2][3];
+
+        playersinfo[0][0] = "1";
+        playersinfo[0][1] = "Chocos";
+        playersinfo[0][2] = "P";
+
+        playersinfo[1][0] = "2";
+        playersinfo[1][1] = "Mimosa";
+        playersinfo[1][2] = "Z";
+
+        Assert.assertNull(jogo.createInitialJungle(47, playersinfo));
+    }
+
+    @Test
+    public void createInitialJungle_MapaJogadoresComida(){
+        GameManager jogo = new GameManager();
+        String[][] foodinfo = new String[5][3];
 
 
     }
