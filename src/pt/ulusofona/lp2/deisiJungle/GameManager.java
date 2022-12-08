@@ -446,16 +446,16 @@ public class GameManager {
                     int nrCasa = j.getCasaAtual().nrSquare;
                     if(nrCasa + nrSquares >= jungleSize){
                         j.getCasaAtual().retiraJogadorAPosicao(j.getId());
-                        //j.casaAtual = mapa.get(jungleSize);
+                        j.setCasaAtual(mapa.get(jungleSize));
                         mapa.get(jungleSize).adicionaJogadorAPosicao(j.getId());
-                        //j.ganhou = true;
+                        j.setGanhou(true);
                         return true;
                     }
 
                     if(nrCasa + nrSquares < jungleSize) {
                         j.getCasaAtual().retiraJogadorAPosicao(j.getId());
                         mapa.get(nrCasa + nrSquares).adicionaJogadorAPosicao(j.getId());
-                        //j.casaAtual = mapa.get(nrCasa + nrSquares);
+                        j.setCasaAtual(mapa.get(nrCasa + nrSquares));
                         j.diminuiEnergia();
                     }
 

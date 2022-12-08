@@ -87,5 +87,15 @@ public class Jogador {
         this.isJogadorAtual = !isTurnoDoJogador();
     }
 
+    public void setEnergia(int valor){ //Para fins de teste
+        this.energia = valor;
+    }
 
+    public void setGanhou(boolean valor){
+        ganhou=valor;
+    }
+
+    public void setCasaAtual(Square casa){
+        casaAtual = casa;
+    }
 }

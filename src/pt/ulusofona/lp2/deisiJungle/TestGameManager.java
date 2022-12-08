@@ -5,6 +5,8 @@ import org.junit.Test;
 import pt.ulusofona.lp2.deisiJungle.comida.*;
 import pt.ulusofona.lp2.deisiJungle.especie.*;
 
+import java.util.Arrays;
+
 public class TestGameManager {
 
     @Test
@@ -388,7 +390,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_createInitialJungle_criaMapaCriaJogadores(){
+    public void test_010_createInitialJungle_criaMapaCriaJogadores(){
         GameManager jogo = new GameManager();
         String[][] playersinfo = new String[4][3];
 
@@ -423,14 +425,9 @@ public class TestGameManager {
         Assert.assertNull(jogo.createInitialJungle(47, playersinfo));
     }
 
-    @Test
-    public void test_createInitialJungle_MapaJogadoresComida(){
-        GameManager jogo = new GameManager();
-        String[][] foodinfo = new String[5][3];
-    }
 
     @Test
-    public void test_getSquareInfoInicial() {
+    public void test_011_getSquareInfoInicial() {
         GameManager jogo = new GameManager();
 
         String[][] playersinfo = new String[2][3];
@@ -459,8 +456,160 @@ public class TestGameManager {
         Assert.assertEquals(infoEsperada[0], infoObtida[0]);
         Assert.assertEquals(infoEsperada[1], infoObtida[1]);
         Assert.assertEquals(infoEsperada[2], infoObtida[2]);
+
+        Assert.assertNull(jogo.getSquareInfo(0));
     }
 
+    @Test
+    public void test_012_createInitialJungle_criaMapaCriaJogadoresPoeComida(){
+        GameManager jogo = new GameManager();
+        String[][] foodinfo = new String[5][2];
+        String[][] playersinfo = new String[2][3];
+
+        playersinfo[0][0] = "1";
+        playersinfo[0][1] = "Chocos";
+        playersinfo[0][2] = "P";
+
+        playersinfo[1][0] = "2";
+        playersinfo[1][1] = "Mimosa";
+        playersinfo[1][2] = "Z";
+
+
+        foodinfo[0][0] = "a";
+        foodinfo[0][1] = 2 + "";
+
+        foodinfo[1][0] = "e";
+        foodinfo[1][1] = 4 + "";
+
+        foodinfo[2][0] = "b";
+        foodinfo[2][1] = 7 + "";
+
+        foodinfo[3][0] = "c";
+        foodinfo[3][1] = 9 + "";
+
+        foodinfo[4][0] = "m";
+        foodinfo[4][1] = 13 + "";
+
+        Assert.assertNull(jogo.createInitialJungle(30,playersinfo,foodinfo));
+    }
+
+    @Test
+    public void test_013_getPlayerIds(){
+        GameManager jogo = new GameManager();
+        String[][] playersinfo = new String[2][3];
+
+        playersinfo[0][0] = "1";
+        playersinfo[0][1] = "Chocos";
+        playersinfo[0][2] = "P";
+
+        playersinfo[1][0] = "2";
+        playersinfo[1][1] = "Mimosa";
+        playersinfo[1][2] = "Z";
+
+        int[] ids = new int[2];
+        ids[0] = 1;
+        ids[1] = 2;
+        jogo.createInitialJungle(47, playersinfo);
+
+        Assert.assertEquals(2,jogo.getPlayerIds(1).length);
+        Assert.assertEquals(Arrays.toString(ids),Arrays.toString(jogo.getPlayerIds(1)));
+
+        Assert.assertEquals(Arrays.toString(new int[0]),Arrays.toString(jogo.getPlayerIds(2)));
+        Assert.assertEquals(Arrays.toString(new int[0]),Arrays.toString(jogo.getPlayerIds(0)));
+    }
+
+    @Test
+    public void test_014_getPlayerInfo(){
+        GameManager jogo = new GameManager();
+        String[][] playersInfo = new String[2][3];
+
+        playersInfo[0][0] = "1";
+        playersInfo[0][1] = "Montra";
+        playersInfo[0][2] = "E";
+
+        playersInfo[1][0] = "2";
+        playersInfo[1][1] = "Joabalhau";
+        playersInfo[1][2] = "L";
+
+        jogo.createInitialJungle(47, playersInfo);
+
+        Assert.assertEquals("1", jogo.getPlayerInfo(1)[0]);
+        Assert.assertEquals("Montra", jogo.getPlayerInfo(1)[1]);
+        Assert.assertEquals("E", jogo.getPlayerInfo(1)[2]);
+        Assert.assertEquals("180", jogo.getPlayerInfo(1)[3]);
+        Assert.assertEquals("1..6", jogo.getPlayerInfo(1)[4]);
+
+        Assert.assertNull(jogo.getPlayerInfo(3));
+    }
+    @Test
+    public void test_015_getPlayersInfo() {
+        GameManager jogo = new GameManager();
+        String[][] playersInfo = new String[2][3];
+        playersInfo[0][0] = "1";
+        playersInfo[0][1] = "batata";
+        playersInfo[0][2] = "E";
+
+        playersInfo[1][0] = "2";
+        playersInfo[1][1] = "banana";
+        playersInfo[1][2] = "L";
+
+        jogo.createInitialJungle(47, playersInfo);
+
+        Assert.assertEquals("1", jogo.getPlayersInfo()[0][0]);
+        Assert.assertEquals("batata", jogo.getPlayersInfo()[0][1]);
+        Assert.assertEquals("E", jogo.getPlayersInfo()[0][2]);
+        Assert.assertEquals("180", jogo.getPlayersInfo()[0][3]);
+
+        Assert.assertEquals("2", jogo.getPlayersInfo()[1][0]);
+        Assert.assertEquals("banana", jogo.getPlayersInfo()[1][1]);
+        Assert.assertEquals("L", jogo.getPlayersInfo()[1][2]);
+        Assert.assertEquals("80", jogo.getPlayersInfo()[1][3]);
+
+    }
+
+    @Test
+    public void test_016_verificaTodosSemEnergia(){
+        GameManager jogo = new GameManager();
+        String[][] playersInfo = new String[2][3];
+        playersInfo[0][0] = "1";
+        playersInfo[0][1] = "batata";
+        playersInfo[0][2] = "E";
+
+        playersInfo[1][0] = "2";
+        playersInfo[1][1] = "banana";
+        playersInfo[1][2] = "L";
+
+        jogo.createInitialJungle(47, playersInfo);
+        jogo.jogadores.get(0).setEnergia(0);
+        jogo.jogadores.get(1).setEnergia(0);
+        Assert.assertTrue(jogo.verificaTodosSemEnergia());
+
+        jogo.jogadores.get(1).setEnergia(5);
+        jogo.jogadores.get(0).setEnergia(5);
+        Assert.assertFalse(jogo.verificaTodosSemEnergia());
+
+    }
+
+    @Test
+    public void test_017_verificaSeHaVencedor(){
+        GameManager jogo = new GameManager();
+        String[][] playersInfo = new String[2][3];
+        playersInfo[0][0] = "1";
+        playersInfo[0][1] = "batata";
+        playersInfo[0][2] = "E";
+
+        playersInfo[1][0] = "2";
+        playersInfo[1][1] = "banana";
+        playersInfo[1][2] = "L";
+
+        jogo.createInitialJungle(47, playersInfo);
+
+        jogo.jogadores.get(0).setGanhou(true);
+        Assert.assertTrue(jogo.verificaSeHaVencedor());
+
+        jogo.jogadores.get(0).setGanhou(false);
+        Assert.assertFalse(jogo.verificaSeHaVencedor());
+    }
     @Test
     public void test_retiraJogadorAPosicao() {
         Square posicao = new Square(1, "blank.png" , "Vazio" , "1,2,3,4");
