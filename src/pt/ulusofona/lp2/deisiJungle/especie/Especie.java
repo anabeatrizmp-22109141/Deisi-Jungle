@@ -16,6 +16,10 @@ abstract public class Especie {
         return id;
     }
 
+    public void setId(String valor){ //para fins de teste
+        id = valor;
+    }
+
     public String getNome() {
         return nome;
     }

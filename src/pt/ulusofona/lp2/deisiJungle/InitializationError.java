@@ -11,4 +11,5 @@ public class InitializationError {
     public String getMessage() {
         return mensagem;
     }
+
 }

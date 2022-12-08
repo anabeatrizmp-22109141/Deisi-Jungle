@@ -521,7 +521,7 @@ public class GameManager {
         }
 
         for(int i = 0 ; i < playersInfo.length ; i++) {
-            if(playersInfo[i][2] == null || playersInfo[i][2].isBlank()) {
+            if(playersInfo[i][2] == null || playersInfo[i][2].isBlank()) { //Verifica null e vazio
                 return true;
             }
             if(!idsEspecie.contains(playersInfo[i][2])) {
