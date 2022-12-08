@@ -17,10 +17,6 @@ public class GameManager {
 
     public GameManager() {
     }
-
-    public GameManager(int jungleSize, String[][] playersInfo) {
-        this.jungleSize = jungleSize;
-    }
 /*
 -------------------------------------------------------------------------------
                      Classes Iniciais
@@ -370,7 +366,16 @@ public class GameManager {
     }
 
     public String[] getCurrentPlayerEnergyInfo(int nrPositions) {
-        return new String[2];
+        String[] info = new String[2];
+
+        for(Jogador j : jogadores) {
+            if(j.isTurnoDoJogador()) {
+                info[0] = j.getInfoEnergiaSeMover(nrPositions) + "";
+                info[1] = j.getInfoEnergiaSeFicar() + "";
+                return info;
+            }
+        }
+        return info;
     }
 
     // REFAZ ESTA MERDA
@@ -476,6 +481,7 @@ public class GameManager {
                         VERIFICAÇÕES DIVERSAS
 -------------------------------------------------------------------------------
      */
+
     public boolean isNomeInvalido(String[][] playersInfo) {
 
         for(int i = 0 ; i < playersInfo.length ; i++) {

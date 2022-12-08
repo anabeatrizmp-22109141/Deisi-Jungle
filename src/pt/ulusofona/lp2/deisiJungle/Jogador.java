@@ -1,6 +1,7 @@
 package pt.ulusofona.lp2.deisiJungle;
 
 import pt.ulusofona.lp2.deisiJungle.especie.Especie;
+import static java.lang.Math.abs;
 
 public class Jogador {
     private int id;
@@ -50,12 +51,12 @@ public class Jogador {
     }
 
     public int getInfoEnergiaSeMover(int nrCasas) {
-        return 0;
+        return abs(nrCasas) * especie.getConsumoEnergia();
     }
 
     public int getInfoEnergiaSeFicar() {
         if(energia + especie.getEnergiaEmDescanso() != 200) {
-            return energia + especie.getEnergiaEmDescanso();
+            return especie.getEnergiaEmDescanso();
         }
         return 200;
     }
@@ -71,7 +72,6 @@ public class Jogador {
     public boolean ganhou(){
         return this.ganhou;
     }
-
 
     public boolean temEnergiaParaMover() {
         return this.energia - especie.getConsumoEnergia() >= 0;

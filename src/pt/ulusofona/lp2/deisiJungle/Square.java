@@ -21,6 +21,7 @@ public class Square {
     public void colocaAlimentoNaCasa(Alimento alimento) {
         this.alimento = alimento;
         this.descricao = alimento.getDescricaoTooltip();
+        this.imagem = alimento.getImagem();
     }
 
     public int getNrSquare() {

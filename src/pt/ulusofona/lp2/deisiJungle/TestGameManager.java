@@ -388,7 +388,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void createInitialJungle_criaMapaCriaJogadores(){
+    public void test_createInitialJungle_criaMapaCriaJogadores(){
         GameManager jogo = new GameManager();
         String[][] playersinfo = new String[4][3];
 
@@ -408,7 +408,6 @@ public class TestGameManager {
         playersinfo[3][1] = "Mimosa";
         playersinfo[3][2] = "T";
 
-
         Assert.assertNull(jogo.createInitialJungle(47, playersinfo));
 
         playersinfo = new String[2][3];
@@ -425,12 +424,43 @@ public class TestGameManager {
     }
 
     @Test
-    public void createInitialJungle_MapaJogadoresComida(){
+    public void test_createInitialJungle_MapaJogadoresComida(){
         GameManager jogo = new GameManager();
         String[][] foodinfo = new String[5][3];
-
-
     }
+
+    @Test
+    public void test_getSquareInfoInicial() {
+        GameManager jogo = new GameManager();
+
+        String[][] playersinfo = new String[2][3];
+
+        playersinfo[0][0] = "1";
+        playersinfo[0][1] = "Manteiga";
+        playersinfo[0][2] = "E";
+
+        playersinfo[1][0] = "2";
+        playersinfo[1][1] = "Florzinha";
+        playersinfo[1][2] = "L";
+
+        String[][] foodsInfo = new String[1][2];
+        foodsInfo[0][0] = "a";
+        foodsInfo[0][1] = "10";
+
+        jogo.createInitialJungle(37, playersinfo, foodsInfo);
+
+        String[] infoEsperada = new String[3];
+        infoEsperada[0] = "water.png";
+        infoEsperada[1] = "Agua : + 10U|20% energia";
+        infoEsperada[2] = "";
+
+        String[] infoObtida = jogo.getSquareInfo(10);
+
+        Assert.assertEquals(infoEsperada[0], infoObtida[0]);
+        Assert.assertEquals(infoEsperada[1], infoObtida[1]);
+        Assert.assertEquals(infoEsperada[2], infoObtida[2]);
+    }
+
     @Test
     public void test_retiraJogadorAPosicao() {
         Square posicao = new Square(1, "blank.png" , "Vazio" , "1,2,3,4");
