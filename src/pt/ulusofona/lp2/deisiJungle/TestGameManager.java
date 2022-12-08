@@ -143,10 +143,22 @@ public class TestGameManager {
         playersinfo[1][2] = "L";
 
         Assert.assertFalse(jogo.isIdJogadorInvalido(playersinfo));
+
+        playersinfo = new String[2][3];
+
+        playersinfo[0][0] = "a";
+        playersinfo[0][1] = "Banana";
+        playersinfo[0][2] = "E";
+
+        playersinfo[1][0] = "2";
+        playersinfo[1][1] = "Mantinhas";
+        playersinfo[1][2] = "L";
+
+        Assert.assertEquals(erro2.getMessage(),jogo.verificacoesMapaAntigo(30,playersinfo).getMessage());
     }
 
     @Test
-    public void test_verificacoesMapaAntigoIdEspecie(){
+    public void test_005_verificacoesMapaAntigoIdEspecie(){
         GameManager jogo = new GameManager();
         InitializationError erro = new InitializationError("ID Especie é inválido");
 
@@ -212,11 +224,12 @@ public class TestGameManager {
         playersinfo[1][1] = "Mantinhas";
         playersinfo[1][2] = "L";
 
+        //verifica se ta tudo bem
         Assert.assertFalse(jogo.idEspecieInvalido(playersinfo));
     }
 
     @Test
-    public void test_verificacoesMapaNovoIdComida() {
+    public void test_006_verificacoesMapaNovoIdComida() {
 
         GameManager jogo = new GameManager();
         InitializationError erro = new InitializationError("ID da comida é inválido");
@@ -262,7 +275,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_verificacoesMapaNovoPosicoesComida() {
+    public void test_007_verificacoesMapaNovoPosicoesComida() {
         GameManager jogo = new GameManager();
         InitializationError erro = new InitializationError("FoodsInfo possui posições inválidas");
 
@@ -316,6 +329,65 @@ public class TestGameManager {
         Assert.assertFalse(jogo.isFoodsPositionsInvalido(foodsInfo, 50));
     }
 
+    @Test
+    public void test_008_verificacoesMapaAntigoNrJogadores(){
+        GameManager jogo = new GameManager();
+        InitializationError erro = new InitializationError("Nr de jogadores é inválido");
+
+        String[][] playersinfo = new String[1][3];
+
+        playersinfo[0][0] = "1";
+        playersinfo[0][1] = "Manteiga";
+        playersinfo[0][2] = "L";
+
+        //Verifica se o numero de jogadores é menos de 2
+        Assert.assertEquals(erro.getMessage(),jogo.verificacoesMapaAntigo(47,playersinfo).getMessage());
+
+        playersinfo = new String[5][3];
+
+        playersinfo[0][0] = "1";
+        playersinfo[0][1] = "Manteiga";
+        playersinfo[0][2] = "E";
+
+        playersinfo[1][0] = "2";
+        playersinfo[1][1] = "Amendoim";
+        playersinfo[1][2] = "L";
+
+        playersinfo[2][0] = "3";
+        playersinfo[2][1] = "Barco";
+        playersinfo[2][2] = "P";
+
+        playersinfo[3][0] = "4";
+        playersinfo[3][1] = "Joaquim";
+        playersinfo[3][2] = "T";
+
+        playersinfo[4][0] = "5";
+        playersinfo[4][1] = "Tarzam";
+        playersinfo[4][2] = "Z";
+
+        //Verifica se o numero de jogadores é maior que 4
+        Assert.assertEquals(erro.getMessage(),jogo.verificacoesMapaAntigo(47,playersinfo).getMessage());
+    }
+
+    @Test
+    public void test_009_verificacoesMapaAntigoMapa(){
+        GameManager jogo = new GameManager();
+        InitializationError erro = new InitializationError("Tamanho do mapa é inválido");
+
+        String[][] playersinfo = new String[2][3];
+
+        playersinfo[0][0] = "1";
+        playersinfo[0][1] = "Manteiga";
+        playersinfo[0][2] = "E";
+
+        playersinfo[1][0] = "2";
+        playersinfo[1][1] = "Florzinha";
+        playersinfo[1][2] = "L";
+
+        Assert.assertEquals(erro.getMessage(),jogo.verificacoesMapaAntigo(1,playersinfo).getMessage());
+
+
+    }
     @Test
     public void test_retiraJogadorAPosicao() {
         Square posicao = new Square(1, "blank.png" , "Vazio" , "1,2,3,4");
