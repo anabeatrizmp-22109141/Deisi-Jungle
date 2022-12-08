@@ -13,7 +13,7 @@ public class Banana extends Alimento {
     }
 
     @Override
-    String getDescricaoTooltip() {
+    public String getDescricaoTooltip() {
         return "Bananas : " + this.nrBananas + " : + 40 energia";
     }
 

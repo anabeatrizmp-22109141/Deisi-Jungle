@@ -20,6 +20,7 @@ public class Square {
 
     public void colocaAlimentoNaCasa(Alimento alimento) {
         this.alimento = alimento;
+        this.descricao = alimento.getDescricaoTooltip();
     }
 
     public int getNrSquare() {

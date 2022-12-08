@@ -14,7 +14,6 @@ public class TestComida {
         info[2] = "water.png";
 
         Assert.assertEquals(info,agua.getInfo());
-
     }
 
     @Test
@@ -43,7 +42,6 @@ public class TestComida {
         carne.setnrJogadas(13);
         desc = "Carne toxica";
         Assert.assertEquals(desc,carne.getDescricaoTooltip());
-
     }
 
     @Test

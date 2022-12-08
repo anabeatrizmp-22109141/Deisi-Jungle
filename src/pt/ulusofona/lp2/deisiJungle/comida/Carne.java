@@ -11,7 +11,7 @@ public class Carne extends Alimento {
     }
 
     @Override
-    String getDescricaoTooltip() {
+    public String getDescricaoTooltip() {
         if(nrJogadas <= 12) {
             return "Carne : +- 50 energia : " + nrJogadas + " jogadas";
         }

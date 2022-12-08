@@ -5,7 +5,6 @@ import org.junit.Test;
 import pt.ulusofona.lp2.deisiJungle.comida.*;
 import pt.ulusofona.lp2.deisiJungle.especie.*;
 
-
 public class TestGameManager {
 
     @Test
@@ -60,92 +59,161 @@ public class TestGameManager {
 
     @Test
     public void test_003_verificacoesMapaAntigoNomeJogador(){
-        Elefante elefante = new Elefante();
-        Square posicao = new Square(30,"blank.png","Vazio","1,2,3,4");
-        Jogador jogador = new Jogador(1,null,elefante,posicao);
-        InitializationError erro = new InitializationError("Nome é inválido");
         GameManager jogo = new GameManager();
-        String[][] playersinfo = new String[1][5];
-        playersinfo[0] = jogador.getInfoJogador();
+        InitializationError erro = new InitializationError("Nome é inválido");
+
+        String[][] playersinfo = new String[2][3];
+
+        playersinfo[0][0] = "1";
+        playersinfo[0][1] = null;
+        playersinfo[0][2] = "E";
+
+        playersinfo[1][0] = "2";
+        playersinfo[1][1] = "Mantinhas";
+        playersinfo[1][2] = "L";
 
         //Teste para nome Invalido
-        Assert.assertEquals(erro.getMessage(),jogo.verificacoesMapaAntigo(30,playersinfo).getMessage());
+        Assert.assertEquals(erro.getMessage(), jogo.verificacoesMapaAntigo(37,playersinfo).getMessage());
 
+        playersinfo = new String[2][3];
 
+        playersinfo[0][0] = "1";
+        playersinfo[0][1] = "";
+        playersinfo[0][2] = "E";
+
+        playersinfo[1][0] = "2";
+        playersinfo[1][1] = "Mantinhas";
+        playersinfo[1][2] = "L";
+
+        Assert.assertEquals(erro.getMessage(), jogo.verificacoesMapaAntigo(37,playersinfo).getMessage());
     }
 
     @Test
     public void test_004_verificacoesMapaAntigoIdJogador(){
-        Passaro passaro = new Passaro();
-        Tartaruga tartaruga = new Tartaruga();
-        Square posicao = new Square(30,"blank.png","Vazio","1,2,3,4");
-        Jogador jogador = new Jogador(1,"Antonio",passaro,posicao);
-        Jogador jogador2 = new Jogador(1,"Joao",tartaruga,posicao);
-        InitializationError erro2 = new InitializationError("Id do jogador é inválido");
         GameManager jogo = new GameManager();
-        String[][] playersinfo = new String[2][5];
-        playersinfo[0] = jogador.getInfoJogador();
-        playersinfo[1] = jogador2.getInfoJogador();
+        InitializationError erro2 = new InitializationError("Id do jogador é inválido");
 
+        String[][] playersinfo = new String[2][3];
+
+        playersinfo[0][0] = null;
+        playersinfo[0][1] = "Banana";
+        playersinfo[0][2] = "E";
+
+        playersinfo[1][0] = "2";
+        playersinfo[1][1] = "Mantinhas";
+        playersinfo[1][2] = "L";
+
+        //Verifica null
         Assert.assertEquals(erro2.getMessage(),jogo.verificacoesMapaAntigo(30,playersinfo).getMessage());
 
+        playersinfo = new String[2][3];
+
+        playersinfo[0][0] = "";
+        playersinfo[0][1] = "Banana";
+        playersinfo[0][2] = "E";
+
+        playersinfo[1][0] = "2";
+        playersinfo[1][1] = "Mantinhas";
+        playersinfo[1][2] = "L";
+
+        //Verifica vazio
+        Assert.assertEquals(erro2.getMessage(),jogo.verificacoesMapaAntigo(30,playersinfo).getMessage());
+
+        playersinfo = new String[2][3];
+
+        playersinfo[0][0] = "1";
+        playersinfo[0][1] = "Banana";
+        playersinfo[0][2] = "E";
+
+        playersinfo[1][0] = "1";
+        playersinfo[1][1] = "Mantinhas";
+        playersinfo[1][2] = "L";
+
+        //verifica ids iguais
+        Assert.assertEquals(erro2.getMessage(),jogo.verificacoesMapaAntigo(30,playersinfo).getMessage());
+
+        playersinfo = new String[2][3];
+
+        playersinfo[0][0] = "1";
+        playersinfo[0][1] = "Banana";
+        playersinfo[0][2] = "E";
+
+        playersinfo[1][0] = "2";
+        playersinfo[1][1] = "Mantinhas";
+        playersinfo[1][2] = "L";
+
+        Assert.assertFalse(jogo.isIdJogadorInvalido(playersinfo));
     }
+
     @Test
     public void test_005_verificacoesMapaAntigoIdEspecie(){
         GameManager jogo = new GameManager();
-        Passaro passaro = new Passaro();
-        Passaro passaro1 = new Passaro();
-        passaro1.setId("ç");
-        Square posicao = new Square(30,"blank.png","Vazio","1,2");
-        Jogador jogador = new Jogador(1,"Antonio",passaro,posicao);
-        Jogador jogador2 = new Jogador(2,"Joao",passaro1,posicao);
-
         InitializationError erro2 = new InitializationError("ID Especie é inválido");
 
         String[][] playersinfo = new String[2][5];
-        playersinfo[0] = jogador.getInfoJogador();
-        playersinfo[1] = jogador2.getInfoJogador();
+
+        playersinfo[0][0] = "1";
+        playersinfo[0][1] = "Banana";
+        playersinfo[0][2] = "Ç";
+
+        playersinfo[1][0] = "2";
+        playersinfo[1][1] = "Mantinhas";
+        playersinfo[1][2] = "L";
 
         //Verifica se o idespecie não contém no getspecies
         Assert.assertEquals(erro2.getMessage(),jogo.verificacoesMapaAntigo(30,playersinfo).getMessage());
 
-        Tarzan tarzan = new Tarzan();
-        jogador = new Jogador(1,"Antonio",tarzan,posicao);
-        jogador2 = new Jogador(2,"Joao",tarzan,posicao);
-
         playersinfo = new String[2][5];
-        playersinfo[0] = jogador.getInfoJogador();
-        playersinfo[1] = jogador2.getInfoJogador();
+
+        playersinfo[0][0] = "1";
+        playersinfo[0][1] = "Banana";
+        playersinfo[0][2] = "Z";
+
+        playersinfo[1][0] = "2";
+        playersinfo[1][1] = "Mantinhas";
+        playersinfo[1][2] = "Z";
 
         //verifica se existe mais que 1 tarzan
         Assert.assertEquals(erro2.getMessage(),jogo.verificacoesMapaAntigo(30,playersinfo).getMessage());
 
-        tarzan = new Tarzan();
-        passaro = new Passaro();
-        passaro.setId("");
-        jogador = new Jogador(1,"Antonio",tarzan,posicao);
-        jogador2 = new Jogador(2,"Joao",passaro,posicao);
-
         playersinfo = new String[2][5];
-        playersinfo[0] = jogador.getInfoJogador();
-        playersinfo[1] = jogador2.getInfoJogador();
+
+        playersinfo[0][0] = "1";
+        playersinfo[0][1] = "Banana";
+        playersinfo[0][2] = null;
+
+        playersinfo[1][0] = "2";
+        playersinfo[1][1] = "Mantinhas";
+        playersinfo[1][2] = "L";
 
         //verifica se é null
         Assert.assertEquals(erro2.getMessage(),jogo.verificacoesMapaAntigo(30,playersinfo).getMessage());
 
-        tarzan = new Tarzan();
-        passaro = new Passaro();
+        playersinfo = new String[2][5];
 
-        jogador = new Jogador(1,"Antonio",tarzan,posicao);
-        jogador2 = new Jogador(2,"Joao",passaro,posicao);
+        playersinfo[0][0] = "2";
+        playersinfo[0][1] = "Banana";
+        playersinfo[0][2] = "";
+
+        playersinfo[1][0] = "1";
+        playersinfo[1][1] = "Mantinhas";
+        playersinfo[1][2] = "";
+
+        //Verifica vazio
+        Assert.assertEquals(erro2.getMessage(),jogo.verificacoesMapaAntigo(30,playersinfo).getMessage());
 
         playersinfo = new String[2][5];
-        playersinfo[0] = jogador.getInfoJogador();
-        playersinfo[1] = jogador2.getInfoJogador();
+
+        playersinfo[0][0] = "1";
+        playersinfo[0][1] = "Banana";
+        playersinfo[0][2] = "E";
+
+        playersinfo[1][0] = "2";
+        playersinfo[1][1] = "Mantinhas";
+        playersinfo[1][2] = "L";
 
         Assert.assertFalse(jogo.idEspecieInvalido(playersinfo));
     }
-
 
     @Test
     public void test_retiraJogadorAPosicao() {
@@ -159,10 +227,5 @@ public class TestGameManager {
         posicao.retiraJogadorAPosicao(4);
         Assert.assertEquals("1", posicao.jogadoresNaPosicao);
     }
-
-
-
-
-
 }
 

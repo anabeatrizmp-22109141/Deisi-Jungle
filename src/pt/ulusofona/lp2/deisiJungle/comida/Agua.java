@@ -10,7 +10,7 @@ public class Agua extends Alimento {
     }
 
     @Override
-    String getDescricaoTooltip() {
+    public String getDescricaoTooltip() {
         return "Agua : + 10U|20% energia";
     }
 }

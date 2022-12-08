@@ -1,8 +1,9 @@
 package pt.ulusofona.lp2.deisiJungle;
+
 import pt.ulusofona.lp2.deisiJungle.comida.*;
 import pt.ulusofona.lp2.deisiJungle.especie.*;
-
 import javax.swing.*;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -13,14 +14,12 @@ public class GameManager {
     HashMap<Integer, Jogador> mapaIdsJogadores;
     HashMap<Integer,Square> mapa;
     int jungleSize;
-    String[][] playersInfo;
 
     public GameManager() {
     }
 
     public GameManager(int jungleSize, String[][] playersInfo) {
         this.jungleSize = jungleSize;
-        this.playersInfo = playersInfo;
     }
 /*
 -------------------------------------------------------------------------------
@@ -149,7 +148,7 @@ public class GameManager {
         //Cria Mapa
         criaMapa(jungleSize, playersInfo);
         //CriaJogadores
-        //criaJogadores(criaJogadores());
+        criaJogadores(playersInfo);
 
         return null;
     }
@@ -344,9 +343,81 @@ public class GameManager {
         for(int i = 0 ; i < jogadores.size() ; i++) {
             informacao[i] = getPlayerInfo(jogadores.get(i).getId());
         }
-        this.playersInfo = informacao;
 
         return informacao;
+    }
+
+    public String[] getWinnerInfo() {
+
+        for(Jogador j : jogadores){
+            if (j.ganhou()){
+                return getPlayerInfo(j.getId());
+            }
+        }
+
+        int maiorCasaComJogadores = 0;
+        if(verificaTodosSemEnergia()) {
+
+            for(Jogador j :jogadores) {
+                if(j.getCasaAtual().getNrSquare() > maiorCasaComJogadores) {
+                    maiorCasaComJogadores = j.getCasaAtual().getNrSquare();
+                }
+            }
+            return getPlayerInfo(mapa.get(maiorCasaComJogadores).getJogadoresNaPosicaoPorOrdem()[0]);
+        }
+
+        return null;
+    }
+
+    public String[] getCurrentPlayerEnergyInfo(int nrPositions) {
+        return new String[2];
+    }
+
+    // REFAZ ESTA MERDA
+    public ArrayList<String> getGameResults() {
+
+        ArrayList<String> resultados = new ArrayList<>();
+        int nrClassificacao = 1;
+        for(int i = jungleSize ; i > 0 ; i--) {
+
+            if(mapa.get(i).jogadoresNaPosicao.length() >= 1) {
+
+                int nrJogadoresNaPos = mapa.get(i).getJogadoresNaPosicaoPorOrdem().length;
+
+                for(int j = 0 ; j < nrJogadoresNaPos ; j++) {
+                    String classificacao = "#" + nrClassificacao + " " +
+                            mapaIdsJogadores.get(mapa.get(i).getJogadoresNaPosicaoPorOrdem()[j]).getClassificacao();
+                    resultados.add(classificacao);
+                    nrClassificacao++;
+                }
+            }
+
+            if(nrClassificacao > jogadores.size()) {
+                return resultados;
+            }
+        }
+        return resultados;
+    }
+
+    // REFAZ ESTA MERDA TBM
+    public void mudaJogadorAtual(int id) {
+
+        for(int i = 0 ; i < jogadores.size() ; i++) {
+            if(jogadores.get(i).getId() == id) {
+                if(i == 0) {
+                    jogadores.get(i).trocaJogadorAtual();
+                    jogadores.get(i+1).trocaJogadorAtual();
+                }
+                else if(i == jogadores.size()-1) {
+                    jogadores.get(i).trocaJogadorAtual();
+                    jogadores.get(0).trocaJogadorAtual();
+                }
+                else {
+                    jogadores.get(i).trocaJogadorAtual();
+                    jogadores.get(i+1).trocaJogadorAtual();
+                }
+            }
+        }
     }
 
     public boolean moveCurrentPlayer(int nrSquares, boolean bypassValidations) {
@@ -399,81 +470,6 @@ public class GameManager {
         return true;
     }
 
-    public String[] getWinnerInfo() {
-
-        for(Jogador j : jogadores){
-            if (j.ganhou()){
-                return getPlayerInfo(j.getId());
-            }
-        }
-
-        int maiorCasaComJogadores = 0;
-        if(verificaTodosSemEnergia()) {
-
-            for(Jogador j :jogadores) {
-                if(j.getCasaAtual().getNrSquare() > maiorCasaComJogadores) {
-                    maiorCasaComJogadores = j.getCasaAtual().getNrSquare();
-                }
-            }
-            return getPlayerInfo(mapa.get(maiorCasaComJogadores).getJogadoresNaPosicaoPorOrdem()[0]);
-        }
-
-        return null;
-    }
-
-    // REFAZ ESTA MERDA
-    public ArrayList<String> getGameResults() {
-
-        ArrayList<String> resultados = new ArrayList<>();
-        int nrClassificacao = 1;
-        for(int i = jungleSize ; i > 0 ; i--) {
-
-            if(mapa.get(i).jogadoresNaPosicao.length() >= 1) {
-
-                int nrJogadoresNaPos = mapa.get(i).getJogadoresNaPosicaoPorOrdem().length;
-
-                for(int j = 0 ; j < nrJogadoresNaPos ; j++) {
-                    String classificacao = "#" + nrClassificacao + " " +
-                            mapaIdsJogadores.get(mapa.get(i).getJogadoresNaPosicaoPorOrdem()[j]).getClassificacao();
-                    resultados.add(classificacao);
-                    nrClassificacao++;
-                }
-            }
-
-            if(nrClassificacao > jogadores.size()) {
-                return resultados;
-            }
-        }
-        return resultados;
-    }
-
-    public JPanel getAuthorsPanel() {
-        return new JPanel();
-    }
-
-    public String whoIsTaborda() {
-        return "Wrestling";
-    }
-    // REFAZ ESTA MERDA TBM
-    public void mudaJogadorAtual(int id) {
-
-        for(int i = 0 ; i < jogadores.size() ; i++) {
-            if(jogadores.get(i).getId() == id) {
-                if(i == 0) {
-                    jogadores.get(i).trocaJogadorAtual();
-                    jogadores.get(i+1).trocaJogadorAtual();
-                }
-                else if(i == jogadores.size()-1) {
-                    jogadores.get(i).trocaJogadorAtual();
-                    jogadores.get(0).trocaJogadorAtual();
-                }
-                else {
-                    jogadores.get(i).trocaJogadorAtual();
-                    jogadores.get(i+1).trocaJogadorAtual();
-                }
-            }
-        }
-    }
 
     /*
 -------------------------------------------------------------------------------
@@ -594,6 +590,20 @@ public class GameManager {
 -------------------------------------------------------------------------------
      */
 
+    public boolean saveGame(File file) {
+        return true;
+    }
 
+    public boolean loadGame(File file) {
+        return true;
+    }
+
+    public JPanel getAuthorsPanel() {
+        return new JPanel();
+    }
+
+    public String whoIsTaborda() {
+        return "Wrestling";
+    }
 
 }

@@ -11,7 +11,7 @@ public class Erva extends Alimento {
     }
 
     @Override
-    String getDescricaoTooltip() {
+    public String getDescricaoTooltip() {
         return  "Erva : +- 20 energia";
     }
 }

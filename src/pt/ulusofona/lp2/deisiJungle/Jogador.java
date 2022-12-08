@@ -21,14 +21,6 @@ public class Jogador {
         this.energia = especie.getEnergiaInicial();
     }
 
-    public boolean isTurnoDoJogador(){
-        return this.isJogadorAtual;
-    }
-
-    public boolean ganhou(){
-        return this.ganhou;
-    }
-
     public int getId() {
         return this.id;
     }
@@ -40,6 +32,46 @@ public class Jogador {
     public Square getCasaAtual() {
         return this.casaAtual;
     }
+
+    public String[] getInfoJogador() {
+        String[] informacaoJogador = new String[5];
+
+        informacaoJogador[0] = getId() + "";
+        informacaoJogador[1] = getNome();
+        informacaoJogador[2] = especie.getId() + "";
+        informacaoJogador[3] = especie.getEnergiaInicial() + "";
+        informacaoJogador[4] = especie.getVelocidade();
+
+        return informacaoJogador;
+    }
+
+    public int getInfoEnergiaAtual() {
+        return energia;
+    }
+
+    public int getInfoEnergiaSeMover(int nrCasas) {
+        return 0;
+    }
+
+    public int getInfoEnergiaSeFicar() {
+        if(energia + especie.getEnergiaEmDescanso() != 200) {
+            return energia + especie.getEnergiaEmDescanso();
+        }
+        return 200;
+    }
+
+    public String getClassificacao() {
+        return this.nome + ", " + this.especie.getNome() + ", " + this.casaAtual.getNrSquare();
+    }
+
+    public boolean isTurnoDoJogador(){
+        return this.isJogadorAtual;
+    }
+
+    public boolean ganhou(){
+        return this.ganhou;
+    }
+
 
     public boolean temEnergiaParaMover() {
         return this.energia - especie.getConsumoEnergia() >= 0;
@@ -55,18 +87,5 @@ public class Jogador {
         this.isJogadorAtual = !isTurnoDoJogador();
     }
 
-    public String[] getInfoJogador() {
-        String[] informacaoJogador = new String[4];
 
-        informacaoJogador[0] = getId() + "";
-        informacaoJogador[1] = getNome();
-        informacaoJogador[2] = especie.getId() + "";
-        informacaoJogador[3] = especie.getEnergiaInicial() + "";
-
-        return informacaoJogador;
-    }
-
-    public String getClassificacao() {
-        return this.nome + ", " + this.especie.getNome() + ", " + this.casaAtual.getNrSquare();
-    }
 }
