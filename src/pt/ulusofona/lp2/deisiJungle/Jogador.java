@@ -50,15 +50,12 @@ public class Jogador {
         return energia;
     }
 
-    public int getInfoEnergiaSeMover(int nrCasas) {
+    public int getInfoEnergiaGastaSeMover(int nrCasas) {
         return abs(nrCasas) * especie.getConsumoEnergia();
     }
 
-    public int getInfoEnergiaSeFicar() {
-        if(energia + especie.getEnergiaEmDescanso() != 200) {
-            return especie.getEnergiaEmDescanso();
-        }
-        return 200;
+    public int getInfoEnergiaConseguidaSeFicar() {
+        return especie.getEnergiaEmDescanso();
     }
 
     public String getClassificacao() {
@@ -73,15 +70,23 @@ public class Jogador {
         return this.ganhou;
     }
 
-    public boolean temEnergiaParaMover() {
-        return this.energia - especie.getConsumoEnergia() >= 0;
+    public boolean temEnergiaParaMover(int nrCasas) {
+        return this.energia - getInfoEnergiaGastaSeMover(nrCasas) >= 0;
     }
 
     public void diminuiEnergia() {
         this.energia -= especie.getConsumoEnergia();
     }
 
-    public void aumentaEnergiaEmDescanso() {this.energia += especie.getEnergiaEmDescanso();}
+    public void descansa() {
+
+        if(this.energia + especie.getEnergiaEmDescanso() >= 200) {
+            this.energia = 200;
+        }
+        else {
+            this.energia += especie.getEnergiaEmDescanso();
+        }
+    }
 
     public void trocaJogadorAtual() {
         this.isJogadorAtual = !isTurnoDoJogador();
@@ -91,7 +96,7 @@ public class Jogador {
         this.energia = valor;
     }
 
-    public void setGanhou(boolean valor){
+    public void setGanhou (boolean valor){
         ganhou=valor;
     }
 

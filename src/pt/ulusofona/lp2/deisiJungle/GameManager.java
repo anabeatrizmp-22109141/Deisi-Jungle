@@ -22,7 +22,6 @@ public class GameManager {
                      Classes Iniciais
 -------------------------------------------------------------------------------
  */
-    //TESTE PARA ISTO
     public String[][] getSpecies() {
         String[][] especies = new String[5][7];
         Especie especie;
@@ -71,7 +70,6 @@ public class GameManager {
 -------------------------------------------------------------------------------
                                  CRIA JUNGLE INICIAL
 -------------------------------------------------------------------------------
-    //TESTE PARA ISTO
      */
 
     public InitializationError verificacoesMapaAntigo(int jungleSize, String[][] playersInfo) {
@@ -154,7 +152,7 @@ public class GameManager {
                               FAZ COISAS NO MAPA
 -------------------------------------------------------------------------------
  */
-//TESTE PARA ISTO
+
     public void criaMapa(int jungleSize, String[][] playersInfo ) {
         String jogadoresNaPrimeiraPosicao = "";
         ArrayList<Integer> idsJogador = getIdsJogadorOrdenados(playersInfo);
@@ -262,6 +260,15 @@ public class GameManager {
 -------------------------------------------------------------------------------
 -------------------------------------------------------------------------------
 */
+    public Jogador getCurrentPlayer() {
+        for(Jogador j : jogadores) {
+            if(j.isTurnoDoJogador()) {
+                return j;
+            }
+        }
+        return null;
+    }
+
     public ArrayList<Integer> getIdsJogadorOrdenados(String[][] playersInfo) {
 
         ArrayList<Integer> idsJogador = new ArrayList<>();
@@ -323,14 +330,9 @@ public class GameManager {
     }
 
     public String[] getCurrentPlayerInfo() {
+        Jogador jogadorAtual = getCurrentPlayer();
 
-        for (Jogador j : jogadores) {
-            if(j.isTurnoDoJogador()) {
-                return getPlayerInfo(j.getId());
-            }
-        }
-
-        return null;
+        return getPlayerInfo(jogadorAtual.getId());
     }
 
     public String[][] getPlayersInfo() {
@@ -368,13 +370,11 @@ public class GameManager {
     public String[] getCurrentPlayerEnergyInfo(int nrPositions) {
         String[] info = new String[2];
 
-        for(Jogador j : jogadores) {
-            if(j.isTurnoDoJogador()) {
-                info[0] = j.getInfoEnergiaSeMover(nrPositions) + "";
-                info[1] = j.getInfoEnergiaSeFicar() + "";
-                return info;
-            }
-        }
+        Jogador jogadorAtual = getCurrentPlayer();
+
+        info[0] = jogadorAtual.getInfoEnergiaGastaSeMover(nrPositions) + "";
+        info[1] = jogadorAtual.getInfoEnergiaConseguidaSeFicar() + "";
+
         return info;
     }
 
@@ -405,77 +405,28 @@ public class GameManager {
     }
 
     // REFAZ ESTA MERDA TBM
-    public void mudaJogadorAtual(int id) {
-
-        for(int i = 0 ; i < jogadores.size() ; i++) {
-            if(jogadores.get(i).getId() == id) {
-                if(i == 0) {
-                    jogadores.get(i).trocaJogadorAtual();
-                    jogadores.get(i+1).trocaJogadorAtual();
-                }
-                else if(i == jogadores.size()-1) {
-                    jogadores.get(i).trocaJogadorAtual();
-                    jogadores.get(0).trocaJogadorAtual();
-                }
-                else {
-                    jogadores.get(i).trocaJogadorAtual();
-                    jogadores.get(i+1).trocaJogadorAtual();
-                }
-            }
-        }
+    public void mudaJogadorAtual() {
+        Jogador jogadorAtual = getCurrentPlayer();
     }
 
-    public boolean moveCurrentPlayer(int nrSquares, boolean bypassValidations) {
+    public MovementResult moveCurrentPlayer(int nrSquares, boolean bypassValidations) {
 
-        for(Jogador j : this.jogadores) {
+        Jogador jogadorAtual = getCurrentPlayer();
 
-            if (verificaTodosSemEnergia() || verificaSeHaVencedor()) {
-                return false;
-            }
+        if(!isNrSquareInvalid(nrSquares, bypassValidations)){
+            return new MovementResult(MovementResultCode.INVALID_MOVEMENT, "Movimento inválido");
+        }
 
-            if (nrSquares < 1 || nrSquares > 6) {
-                if (!bypassValidations){
-                    mudaJogadorAtual(j.getId());
-                    return false;
-            }
+        if(jogadorAtual.temEnergiaParaMover(nrSquares)) {
+            jogadorAtual.descansa();
+            mudaJogadorAtual();
+            return new MovementResult(MovementResultCode.NO_ENERGY, "Jogador sem energia para o movimento");
         }
 
 
-            if(j.isTurnoDoJogador()) {
-                if(j.temEnergiaParaMover()) {
-                    int nrCasa = j.getCasaAtual().nrSquare;
-                    if(nrCasa + nrSquares >= jungleSize){
-                        j.getCasaAtual().retiraJogadorAPosicao(j.getId());
-                        j.setCasaAtual(mapa.get(jungleSize));
-                        mapa.get(jungleSize).adicionaJogadorAPosicao(j.getId());
-                        j.setGanhou(true);
-                        return true;
-                    }
 
-                    if(nrCasa + nrSquares < jungleSize) {
-                        j.getCasaAtual().retiraJogadorAPosicao(j.getId());
-                        mapa.get(nrCasa + nrSquares).adicionaJogadorAPosicao(j.getId());
-                        j.setCasaAtual(mapa.get(nrCasa + nrSquares));
-                        j.diminuiEnergia();
-                    }
-
-                    mudaJogadorAtual(j.getId());
-
-                    return true;
-                }
-                else {
-                    if(verificaTodosSemEnergia()) {
-                        return false;
-                    }
-                    mudaJogadorAtual(j.getId());
-                    return false;
-                }
-            }
-        }
-        return true;
+        return new MovementResult(MovementResultCode.VALID_MOVEMENT, "Movimento válido");
     }
-
-
     /*
 -------------------------------------------------------------------------------
                         VERIFICAÇÕES DIVERSAS
@@ -571,10 +522,25 @@ public class GameManager {
         return false;
     }
 
+    public boolean isNrSquareInvalid(int nrSquares , boolean bypassValidations) {
+
+        Jogador jogadorAtual = getCurrentPlayer();
+
+        if(nrSquares > 6 || nrSquares < -6 && !bypassValidations) {
+            return true;
+        }
+
+        if(nrSquares < 0 && jogadorAtual.getCasaAtual().getNrSquare() + nrSquares < 1) { // é + pq + (-nrCasa)
+            return true;
+        }
+
+        return false;
+    }
+
     public boolean verificaTodosSemEnergia() {
 
         for(Jogador j : jogadores) {
-            if(j.temEnergiaParaMover()) {
+            if(j.getInfoEnergiaAtual() == 0) {
                 return false;
             }
         }
