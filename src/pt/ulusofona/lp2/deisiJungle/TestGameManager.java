@@ -146,11 +146,11 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_005_verificacoesMapaAntigoIdEspecie(){
+    public void test_verificacoesMapaAntigoIdEspecie(){
         GameManager jogo = new GameManager();
-        InitializationError erro2 = new InitializationError("ID Especie é inválido");
+        InitializationError erro = new InitializationError("ID Especie é inválido");
 
-        String[][] playersinfo = new String[2][5];
+        String[][] playersinfo = new String[2][3];
 
         playersinfo[0][0] = "1";
         playersinfo[0][1] = "Banana";
@@ -161,9 +161,9 @@ public class TestGameManager {
         playersinfo[1][2] = "L";
 
         //Verifica se o idespecie não contém no getspecies
-        Assert.assertEquals(erro2.getMessage(),jogo.verificacoesMapaAntigo(30,playersinfo).getMessage());
+        Assert.assertEquals(erro.getMessage(),jogo.verificacoesMapaAntigo(30,playersinfo).getMessage());
 
-        playersinfo = new String[2][5];
+        playersinfo = new String[2][3];
 
         playersinfo[0][0] = "1";
         playersinfo[0][1] = "Banana";
@@ -174,9 +174,9 @@ public class TestGameManager {
         playersinfo[1][2] = "Z";
 
         //verifica se existe mais que 1 tarzan
-        Assert.assertEquals(erro2.getMessage(),jogo.verificacoesMapaAntigo(30,playersinfo).getMessage());
+        Assert.assertEquals(erro.getMessage(),jogo.verificacoesMapaAntigo(30,playersinfo).getMessage());
 
-        playersinfo = new String[2][5];
+        playersinfo = new String[2][3];
 
         playersinfo[0][0] = "1";
         playersinfo[0][1] = "Banana";
@@ -187,9 +187,9 @@ public class TestGameManager {
         playersinfo[1][2] = "L";
 
         //verifica se é null
-        Assert.assertEquals(erro2.getMessage(),jogo.verificacoesMapaAntigo(30,playersinfo).getMessage());
+        Assert.assertEquals(erro.getMessage(),jogo.verificacoesMapaAntigo(30,playersinfo).getMessage());
 
-        playersinfo = new String[2][5];
+        playersinfo = new String[2][3];
 
         playersinfo[0][0] = "2";
         playersinfo[0][1] = "Banana";
@@ -200,9 +200,9 @@ public class TestGameManager {
         playersinfo[1][2] = "";
 
         //Verifica vazio
-        Assert.assertEquals(erro2.getMessage(),jogo.verificacoesMapaAntigo(30,playersinfo).getMessage());
+        Assert.assertEquals(erro.getMessage(),jogo.verificacoesMapaAntigo(30,playersinfo).getMessage());
 
-        playersinfo = new String[2][5];
+        playersinfo = new String[2][3];
 
         playersinfo[0][0] = "1";
         playersinfo[0][1] = "Banana";
@@ -213,6 +213,107 @@ public class TestGameManager {
         playersinfo[1][2] = "L";
 
         Assert.assertFalse(jogo.idEspecieInvalido(playersinfo));
+    }
+
+    @Test
+    public void test_verificacoesMapaNovoIdComida() {
+
+        GameManager jogo = new GameManager();
+        InitializationError erro = new InitializationError("ID da comida é inválido");
+
+        String[][] playersinfo = new String[2][3];
+
+        playersinfo[0][0] = "1";
+        playersinfo[0][1] = "Banana";
+        playersinfo[0][2] = "E";
+
+        playersinfo[1][0] = "2";
+        playersinfo[1][1] = "Mantinhas";
+        playersinfo[1][2] = "L";
+
+        String[][] foodsInfo = new String[1][2];
+
+        foodsInfo[0][0] = "ç";
+        foodsInfo[0][1] = "5";
+
+        //Verifica id que não existe
+        Assert.assertEquals(erro.getMessage() , jogo.createInitialJungle(50, playersinfo,foodsInfo).getMessage());
+
+        foodsInfo = new String[1][2];
+
+        foodsInfo[0][0] = "";
+        foodsInfo[0][1] = "5";
+
+        //Verifica vazio
+        Assert.assertEquals(erro.getMessage() , jogo.createInitialJungle(50, playersinfo,foodsInfo).getMessage());
+
+        foodsInfo = new String[1][2];
+
+        foodsInfo[0][0] = null;
+        foodsInfo[0][1] = "5";
+
+        //Verifica null
+        Assert.assertEquals(erro.getMessage() , jogo.createInitialJungle(50, playersinfo,foodsInfo).getMessage());
+
+        foodsInfo[0][0] = "c";
+        foodsInfo[0][1] = "5";
+
+        Assert.assertFalse(jogo.idFoodTypesInvalido(foodsInfo));
+    }
+
+    @Test
+    public void test_verificacoesMapaNovoPosicoesComida() {
+        GameManager jogo = new GameManager();
+        InitializationError erro = new InitializationError("FoodsInfo possui posições inválidas");
+
+        String[][] playersinfo = new String[2][3];
+
+        playersinfo[0][0] = "1";
+        playersinfo[0][1] = "Banana";
+        playersinfo[0][2] = "E";
+
+        playersinfo[1][0] = "2";
+        playersinfo[1][1] = "Mantinhas";
+        playersinfo[1][2] = "L";
+
+        String[][] foodsInfo = new String[1][2];
+
+        foodsInfo[0][0] = "c";
+        foodsInfo[0][1] = "-10";
+
+        //Verifica posicao < 1
+        Assert.assertEquals(erro.getMessage() , jogo.createInitialJungle(50, playersinfo,foodsInfo).getMessage());
+
+        foodsInfo = new String[1][2];
+
+        foodsInfo[0][0] = "c";
+        foodsInfo[0][1] = "1";
+
+        //Verifica posicao = 1
+        Assert.assertEquals(erro.getMessage() , jogo.createInitialJungle(50, playersinfo,foodsInfo).getMessage());
+
+        foodsInfo = new String[1][2];
+
+        foodsInfo[0][0] = "c";
+        foodsInfo[0][1] = "51";
+
+        //Verifica posicao > jungleSize
+        Assert.assertEquals(erro.getMessage() , jogo.createInitialJungle(50, playersinfo,foodsInfo).getMessage());
+
+        foodsInfo = new String[1][2];
+
+        foodsInfo[0][0] = "c";
+        foodsInfo[0][1] = "50";
+
+        //Verifica posicao = jungleSize
+        Assert.assertEquals(erro.getMessage() , jogo.createInitialJungle(50, playersinfo,foodsInfo).getMessage());
+
+        foodsInfo = new String[1][2];
+
+        foodsInfo[0][0] = "c";
+        foodsInfo[0][1] = "10";
+
+        Assert.assertFalse(jogo.isFoodsPositionsInvalido(foodsInfo, 50));
     }
 
     @Test
