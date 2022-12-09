@@ -5,6 +5,7 @@ import pt.ulusofona.lp2.deisiJungle.especie.*;
 import javax.swing.*;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 
@@ -14,6 +15,7 @@ public class GameManager {
     HashMap<Integer, Jogador> mapaIdsJogadores;
     HashMap<Integer,Square> mapa;
     int jungleSize;
+    private String[][] playersInfo;
 
     public GameManager() {
     }
@@ -76,6 +78,7 @@ public class GameManager {
         this.jogadores = new ArrayList<>();
         this.mapa = new HashMap<>();
         this.mapaIdsJogadores = new HashMap<>();
+        this.playersInfo = playersInfo;
 
         // Verificação dos nomes
         if(isNomeInvalido(playersInfo)) {
@@ -404,9 +407,36 @@ public class GameManager {
         return resultados;
     }
 
-    // REFAZ ESTA MERDA TBM
+    //acho que já está?
     public void mudaJogadorAtual() {
         Jogador jogadorAtual = getCurrentPlayer();
+        ArrayList<Integer> idsJogadorOrdenados = getIdsJogadorOrdenados(playersInfo);
+
+        int idPlayerAtual = jogadorAtual.getId();
+        int idPlayerNovo = 0;
+
+        for(int i = 0; i < idsJogadorOrdenados.size() ; i++) {
+
+            if(idsJogadorOrdenados.get(i) == idPlayerAtual) {
+                if(idPlayerAtual == idsJogadorOrdenados.get(idsJogadorOrdenados.size() - 1 ) ) {
+                    idPlayerNovo = idsJogadorOrdenados.get(0);
+                }
+                else {
+                    idPlayerNovo = idsJogadorOrdenados.get(i + 1);
+                }
+            }
+        }
+
+
+        for(Jogador j : jogadores) {
+            if(j.getId() == idPlayerAtual) {
+                j.trocaJogadorAtual();
+            }
+            if(j.getId() == idPlayerNovo) {
+                j.trocaJogadorAtual();
+            }
+        }
+
     }
 
     public MovementResult moveCurrentPlayer(int nrSquares, boolean bypassValidations) {
@@ -414,6 +444,7 @@ public class GameManager {
         Jogador jogadorAtual = getCurrentPlayer();
 
         if(!isNrSquareInvalid(nrSquares, bypassValidations)){
+            mudaJogadorAtual();
             return new MovementResult(MovementResultCode.INVALID_MOVEMENT, "Movimento inválido");
         }
 
@@ -422,7 +453,6 @@ public class GameManager {
             mudaJogadorAtual();
             return new MovementResult(MovementResultCode.NO_ENERGY, "Jogador sem energia para o movimento");
         }
-
 
 
         return new MovementResult(MovementResultCode.VALID_MOVEMENT, "Movimento válido");
@@ -540,7 +570,7 @@ public class GameManager {
     public boolean verificaTodosSemEnergia() {
 
         for(Jogador j : jogadores) {
-            if(j.getInfoEnergiaAtual() == 0) {
+            if(j.getInfoEnergiaAtual() != 0) {
                 return false;
             }
         }

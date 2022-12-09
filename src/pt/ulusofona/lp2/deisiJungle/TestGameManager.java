@@ -425,7 +425,6 @@ public class TestGameManager {
         Assert.assertNull(jogo.createInitialJungle(47, playersinfo));
     }
 
-
     @Test
     public void test_011_getSquareInfoInicial() {
         GameManager jogo = new GameManager();
@@ -541,6 +540,7 @@ public class TestGameManager {
 
         Assert.assertNull(jogo.getPlayerInfo(3));
     }
+
     @Test
     public void test_015_getPlayersInfo() {
         GameManager jogo = new GameManager();
@@ -571,6 +571,7 @@ public class TestGameManager {
     public void test_016_verificaTodosSemEnergia(){
         GameManager jogo = new GameManager();
         String[][] playersInfo = new String[2][3];
+
         playersInfo[0][0] = "1";
         playersInfo[0][1] = "batata";
         playersInfo[0][2] = "E";
@@ -610,6 +611,81 @@ public class TestGameManager {
         jogo.jogadores.get(0).setGanhou(false);
         Assert.assertFalse(jogo.verificaSeHaVencedor());
     }
+
+    @Test
+    public void test_018_mudaJogadorAtualIdsSeguidos() {
+        GameManager jogo = new GameManager();
+
+        String[][] playersinfo = new String[2][3];
+
+        playersinfo[0][0] = "1";
+        playersinfo[0][1] = "Banana";
+        playersinfo[0][2] = "E";
+
+        playersinfo[1][0] = "2";
+        playersinfo[1][1] = "Mantinhas";
+        playersinfo[1][2] = "L";
+
+        String[][] foodsInfo = new String[1][2];
+
+        foodsInfo[0][0] = "c";
+        foodsInfo[0][1] = "2";
+
+        jogo.createInitialJungle(5, playersinfo, foodsInfo);
+
+        int idCurrentPlayerEsperado = 1;
+        int idCurrentPlayerObtido = jogo.getCurrentPlayer().getId();
+
+        Assert.assertEquals(idCurrentPlayerEsperado,idCurrentPlayerObtido);
+
+        jogo.mudaJogadorAtual();
+        idCurrentPlayerEsperado = 2;
+        idCurrentPlayerObtido = jogo.getCurrentPlayer().getId();
+
+        Assert.assertEquals(idCurrentPlayerEsperado,idCurrentPlayerObtido);
+
+        jogo.mudaJogadorAtual();
+        idCurrentPlayerEsperado = 1;
+        idCurrentPlayerObtido = jogo.getCurrentPlayer().getId();
+
+        Assert.assertEquals(idCurrentPlayerEsperado,idCurrentPlayerObtido);
+    }
+
+    @Test
+    public void test_019_mudaJogadorAtualComIdsNaoSeguidos() {
+
+        GameManager jogo = new GameManager();
+
+        String[][] playersinfo = new String[2][3];
+
+        playersinfo[0][0] = "15";
+        playersinfo[0][1] = "Banana";
+        playersinfo[0][2] = "E";
+
+        playersinfo[1][0] = "4";
+        playersinfo[1][1] = "Mantinhas";
+        playersinfo[1][2] = "L";
+
+        String[][] foodsInfo = new String[1][2];
+
+        foodsInfo[0][0] = "c";
+        foodsInfo[0][1] = "2";
+
+        jogo.createInitialJungle(5, playersinfo, foodsInfo);
+
+        int idCurrentPlayerEsperado = 4;
+        int idCurrentPlayerObtido = jogo.getCurrentPlayer().getId();
+
+        Assert.assertEquals(idCurrentPlayerEsperado,idCurrentPlayerObtido);
+
+        jogo.mudaJogadorAtual();
+
+        idCurrentPlayerEsperado = 15;
+        idCurrentPlayerObtido = jogo.getCurrentPlayer().getId();
+
+        Assert.assertEquals(idCurrentPlayerEsperado,idCurrentPlayerObtido);
+    }
+
     @Test
     public void test_retiraJogadorAPosicao() {
         Square posicao = new Square(1, "blank.png" , "Vazio" , "1,2,3,4");
@@ -622,5 +698,6 @@ public class TestGameManager {
         posicao.retiraJogadorAPosicao(4);
         Assert.assertEquals("1", posicao.jogadoresNaPosicao);
     }
+
 }
 
