@@ -74,8 +74,12 @@ public class Jogador {
         return this.energia - getInfoEnergiaGastaSeMover(nrCasas) >= 0;
     }
 
-    public void diminuiEnergia() {
-        this.energia -= especie.getConsumoEnergia();
+    public void diminuiEnergiaMovimento(int nrCasas) {
+        this.energia -= abs(nrCasas) * especie.getConsumoEnergia();
+    }
+
+    public int getProximoNrSquare(int nrCasas) {
+        return this.casaAtual.getNrSquare() + nrCasas;
     }
 
     public void descansa() {

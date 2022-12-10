@@ -14,7 +14,7 @@ public class GameManager {
     ArrayList<Jogador> jogadores;
     HashMap<Integer, Jogador> mapaIdsJogadores;
     HashMap<Integer,Square> mapa;
-    int jungleSize;
+    private int jungleSize;
     private String[][] playersInfo;
 
     public GameManager() {
@@ -438,21 +438,40 @@ public class GameManager {
 
     }
 
+    public void aplicaEfeitoComida(Square casa) {
+
+    }
+
     public MovementResult moveCurrentPlayer(int nrSquares, boolean bypassValidations) {
 
         Jogador jogadorAtual = getCurrentPlayer();
 
-        if(!isNrSquareInvalid(nrSquares, bypassValidations)){
+        if(isNrSquareInvalid(nrSquares, bypassValidations)){
             mudaJogadorAtual();
             return new MovementResult(MovementResultCode.INVALID_MOVEMENT, "Movimento inválido");
         }
 
-        if(jogadorAtual.temEnergiaParaMover(nrSquares)) {
+        if(!jogadorAtual.temEnergiaParaMover(nrSquares)) {
+            System.out.println("a");
             jogadorAtual.descansa();
             mudaJogadorAtual();
             return new MovementResult(MovementResultCode.NO_ENERGY, "Jogador sem energia para o movimento");
         }
 
+        if(nrSquares == 0) {
+            jogadorAtual.descansa();
+            mudaJogadorAtual();
+            //efeito comida?
+        }
+        else {
+            int nrCasaNova = jogadorAtual.getProximoNrSquare(nrSquares);
+            Square novaCasa = mapa.get(nrCasaNova);
+            jogadorAtual.diminuiEnergiaMovimento(nrSquares);
+            jogadorAtual.setCasaAtual(novaCasa);
+
+            //efeito comida?
+            jogadorAtual.trocaJogadorAtual();
+        }
 
         return new MovementResult(MovementResultCode.VALID_MOVEMENT, "Movimento válido");
     }
@@ -555,7 +574,7 @@ public class GameManager {
 
         Jogador jogadorAtual = getCurrentPlayer();
 
-        if(nrSquares > 6 || nrSquares < -6 && !bypassValidations) {
+        if((nrSquares > 6 || nrSquares < -6) && !bypassValidations) {
             return true;
         }
 
