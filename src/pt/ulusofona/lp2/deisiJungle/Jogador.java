@@ -101,6 +101,6 @@ public class Jogador {
     }
 
     public void setCasaAtual(Square casa){
-        casaAtual = casa;
+        this.casaAtual = casa;
     }
 }

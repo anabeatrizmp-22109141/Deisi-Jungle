@@ -589,6 +589,10 @@ public class TestGameManager {
         jogo.jogadores.get(0).setEnergia(5);
         Assert.assertFalse(jogo.verificaTodosSemEnergia());
 
+        jogo.jogadores.get(1).setEnergia(0);
+        jogo.jogadores.get(0).setEnergia(5);
+        Assert.assertFalse(jogo.verificaTodosSemEnergia());
+
     }
 
     @Test
@@ -684,8 +688,134 @@ public class TestGameManager {
         idCurrentPlayerObtido = jogo.getCurrentPlayer().getId();
 
         Assert.assertEquals(idCurrentPlayerEsperado,idCurrentPlayerObtido);
+
+        jogo.mudaJogadorAtual();
+
+        String[] info = new String[5];
+        info[0] = 4 + "";
+        info[1] = "Mantinhas";
+        info[2] = "L";
+        info[3] = 80 + "";
+        info[4] = "4..6";
+
+        Assert.assertEquals(info,jogo.getCurrentPlayerInfo());
+
+        jogo.mudaJogadorAtual();
+
+        info = new String[5];
+        info[0] = 15 + "";
+        info[1] = "Banana";
+        info[2] = "E";
+        info[3] = 180 + "";
+        info[4] = "1..6";
+
+        Assert.assertEquals(info,jogo.getCurrentPlayerInfo());
+
     }
 
+    @Test
+    public void test_020_getCurrentPlayerSemJogadores(){
+        String[][] playersinfo = new String[0][0];
+        GameManager jogo = new GameManager();
+        jogo.createInitialJungle(5, playersinfo);
+
+        Assert.assertNull(jogo.getCurrentPlayer());
+    }
+
+    @Test
+    public void test_021_getWinnerInfoUmGanhou(){
+        GameManager jogo = new GameManager();
+        String[][] playersinfo = new String[2][3];
+
+        playersinfo[0][0] = "15";
+        playersinfo[0][1] = "Banana";
+        playersinfo[0][2] = "E";
+
+        playersinfo[1][0] = "4";
+        playersinfo[1][1] = "Mantinhas";
+        playersinfo[1][2] = "L";
+
+        String[][] foodsInfo = new String[1][2];
+
+        foodsInfo[0][0] = "c";
+        foodsInfo[0][1] = "2";
+
+        jogo.createInitialJungle(5, playersinfo, foodsInfo);
+
+        jogo.jogadores.get(0).setCasaAtual(new Square(5,"a","a","1"));
+        //Jogador 0 ganhou
+        jogo.jogadores.get(0).setGanhou(true);
+
+        String[] info = new String[5];
+        info[0] = 15 + "";
+        info[1] = "Banana";
+        info[2] = "E";
+        info[3] = 180 + "";
+        info[4] = "1..6";
+
+        //Dá o resultado do jogador vencedor
+        Assert.assertEquals(info, jogo.getWinnerInfo());
+
+    }
+
+    @Test
+    public void test_022_getWinnerInfoNinguemGanhou() {
+        GameManager jogo = new GameManager();
+        String[][] playersinfo = new String[2][3];
+
+        playersinfo[0][0] = "15";
+        playersinfo[0][1] = "Banana";
+        playersinfo[0][2] = "E";
+
+        playersinfo[1][0] = "4";
+        playersinfo[1][1] = "Mantinhas";
+        playersinfo[1][2] = "L";
+
+        String[][] foodsInfo = new String[1][2];
+
+        foodsInfo[0][0] = "c";
+        foodsInfo[0][1] = "2";
+
+        jogo.createInitialJungle(5, playersinfo, foodsInfo);
+        Square pos = new Square(15,"a","a","15");
+        Square pos2 = new Square(10,"a","a","4");
+
+        jogo.jogadores.get(0).setCasaAtual(pos);
+        jogo.jogadores.get(1).setCasaAtual(pos2);
+
+        jogo.mapa.put(1,pos);
+        jogo.mapa.put(2,pos2);
+        Assert.assertEquals("[15]", Arrays.toString(pos.getJogadoresNaPosicaoPorOrdem()));
+
+        //NENHUM DOS JOGADORES GANHOU
+        jogo.jogadores.get(0).setGanhou(false);
+        jogo.jogadores.get(1).setGanhou(false);
+
+        //Jogadores sem energia
+        jogo.jogadores.get(0).setEnergia(0);
+        jogo.jogadores.get(1).setEnergia(0);
+
+
+        String[] info = new String[5];
+        info[0] = 15 + "";
+        info[1] = "Banana";
+        info[2] = "E";
+        info[3] = 180 + "";
+        info[4] = "1..6";
+
+        //Dá o resultado do jogador vencedor
+        //Assert.assertEquals(info, jogo.getWinnerInfo());
+
+    }
+
+
+
+    @Test
+    public void getJogadoresNaPosicaoPorOrdem(){
+        Square posicao = new Square(2,"blank.png","Vazio","4,1,2");
+
+        Assert.assertEquals("[1, 2, 4]", Arrays.toString(posicao.getJogadoresNaPosicaoPorOrdem()));
+    }
     @Test
     public void test_retiraJogadorAPosicao() {
         Square posicao = new Square(1, "blank.png" , "Vazio" , "1,2,3,4");

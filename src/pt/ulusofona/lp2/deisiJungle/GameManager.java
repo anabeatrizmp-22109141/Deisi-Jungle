@@ -358,7 +358,6 @@ public class GameManager {
 
         int maiorCasaComJogadores = 0;
         if(verificaTodosSemEnergia()) {
-
             for(Jogador j :jogadores) {
                 if(j.getCasaAtual().getNrSquare() > maiorCasaComJogadores) {
                     maiorCasaComJogadores = j.getCasaAtual().getNrSquare();
