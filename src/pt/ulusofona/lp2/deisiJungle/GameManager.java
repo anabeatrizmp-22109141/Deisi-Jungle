@@ -452,7 +452,6 @@ public class GameManager {
         }
 
         if(!jogadorAtual.temEnergiaParaMover(nrSquares)) {
-            System.out.println("a");
             jogadorAtual.descansa();
             mudaJogadorAtual();
             return new MovementResult(MovementResultCode.NO_ENERGY, "Jogador sem energia para o movimento");
