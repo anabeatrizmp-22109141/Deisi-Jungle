@@ -231,7 +231,31 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_006_verificacoesMapaNovoIdComida() {
+    public void test_006_verificacoesMapaNovoRecebeErroMapaAntigo() {
+
+        GameManager jogo = new GameManager();
+        InitializationError erro = new InitializationError("ID Especie é inválido");
+
+        String[][] playersinfo = new String[2][3];
+
+        playersinfo[0][0] = "1";
+        playersinfo[0][1] = "Banana";
+        playersinfo[0][2] = "Ç";
+
+        playersinfo[1][0] = "2";
+        playersinfo[1][1] = "Mantinhas";
+        playersinfo[1][2] = "L";
+
+        String[][] foodsInfo = new String[1][2];
+
+        foodsInfo[0][0] = "c";
+        foodsInfo[0][1] = "5";
+
+        Assert.assertEquals(erro.getMessage(),jogo.createInitialJungle(10, playersinfo, foodsInfo).getMessage());
+    }
+
+    @Test
+    public void test_007_verificacoesMapaNovoIdComida() {
 
         GameManager jogo = new GameManager();
         InitializationError erro = new InitializationError("ID da comida é inválido");
@@ -277,7 +301,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_007_verificacoesMapaNovoPosicoesComida() {
+    public void test_008_verificacoesMapaNovoPosicoesComida() {
         GameManager jogo = new GameManager();
         InitializationError erro = new InitializationError("FoodsInfo possui posições inválidas");
 
@@ -332,7 +356,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_008_verificacoesMapaAntigoNrJogadores(){
+    public void test_009_verificacoesMapaAntigoNrJogadores(){
         GameManager jogo = new GameManager();
         InitializationError erro = new InitializationError("Nr de jogadores é inválido");
 
@@ -372,7 +396,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_009_verificacoesMapaAntigoMapa(){
+    public void test_010_verificacoesMapaAntigoMapa(){
         GameManager jogo = new GameManager();
         InitializationError erro = new InitializationError("Tamanho do mapa é inválido");
 
@@ -390,7 +414,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_010_createInitialJungle_criaMapaCriaJogadores(){
+    public void test_011_createInitialJungle_criaMapaCriaJogadores(){
         GameManager jogo = new GameManager();
         String[][] playersinfo = new String[4][3];
 
@@ -426,7 +450,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_011_getSquareInfoInicial() {
+    public void test_012_getSquareInfoInicial() {
         GameManager jogo = new GameManager();
 
         String[][] playersinfo = new String[2][3];
@@ -460,7 +484,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_012_createInitialJungle_criaMapaCriaJogadoresPoeComida(){
+    public void test_013_createInitialJungle_criaMapaCriaJogadoresPoeComida(){
         GameManager jogo = new GameManager();
         String[][] foodinfo = new String[5][2];
         String[][] playersinfo = new String[2][3];
@@ -493,7 +517,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_013_getPlayerIds(){
+    public void test_014_getPlayerIds(){
         GameManager jogo = new GameManager();
         String[][] playersinfo = new String[2][3];
 
@@ -518,7 +542,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_014_getPlayerInfo(){
+    public void test_015_getPlayerInfo(){
         GameManager jogo = new GameManager();
         String[][] playersInfo = new String[2][3];
 
@@ -542,7 +566,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_015_getPlayersInfo() {
+    public void test_016_getPlayersInfo() {
         GameManager jogo = new GameManager();
         String[][] playersInfo = new String[2][3];
         playersInfo[0][0] = "1";
@@ -568,7 +592,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_016_verificaTodosSemEnergia(){
+    public void test_017_verificaTodosSemEnergia(){
         GameManager jogo = new GameManager();
         String[][] playersInfo = new String[2][3];
 
@@ -596,7 +620,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_017_verificaSeHaVencedor(){
+    public void test_018_verificaSeHaVencedor(){
         GameManager jogo = new GameManager();
         String[][] playersInfo = new String[2][3];
         playersInfo[0][0] = "1";
@@ -617,7 +641,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_018_mudaJogadorAtualSemIdsSeguidos() {
+    public void test_019_mudaJogadorAtualSemIdsSeguidos() {
         GameManager jogo = new GameManager();
 
         String[][] playersinfo = new String[3][3];
@@ -663,9 +687,8 @@ public class TestGameManager {
 
     }
 
-
     @Test
-    public void test_019_mudaJogadorAtualComIdsNaoSeguidos() {
+    public void test_020_mudaJogadorAtualComIdsNaoSeguidos() {
 
         GameManager jogo = new GameManager();
 
@@ -723,7 +746,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_020_getCurrentPlayerSemJogadores(){
+    public void test_021_getCurrentPlayerSemJogadores(){
         String[][] playersinfo = new String[0][0];
         GameManager jogo = new GameManager();
         jogo.createInitialJungle(5, playersinfo);
@@ -732,7 +755,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_021_getWinnerInfoUmGanhou(){
+    public void test_022_getWinnerInfoUmGanhou(){
         GameManager jogo = new GameManager();
         String[][] playersinfo = new String[2][3];
 
@@ -768,7 +791,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_022_getWinnerInfoEmpatouSemEnergia() {
+    public void test_023_getWinnerInfoEmpatouSemEnergia() {
         GameManager jogo = new GameManager();
         String[][] playersinfo = new String[2][3];
 
@@ -808,7 +831,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_023_getWinnerInfoNinguemGanhou() {
+    public void test_024_getWinnerInfoNinguemGanhou() {
         GameManager jogo = new GameManager();
         String[][] playersinfo = new String[2][3];
 
@@ -835,8 +858,9 @@ public class TestGameManager {
 
         Assert.assertNull(jogo.getWinnerInfo());
     }
+    
     @Test
-    public void test_024_moveCurrentPlayer(){
+    public void test_025_moveCurrentPlayer(){
         GameManager jogo = new GameManager();
 
         String[][] playersinfo = new String[2][3];
@@ -879,7 +903,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_025_moveCurrentPlayer_NOENERY(){
+    public void test_026_moveCurrentPlayer_NOENERY(){
         GameManager jogo = new GameManager();
 
         String[][] playersinfo = new String[2][3];
@@ -913,7 +937,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_026_getCurrentPlayerEnergyInfo(){
+    public void test_027_getCurrentPlayerEnergyInfo(){
         GameManager jogo = new GameManager();
 
         String[][] playersinfo = new String[2][3];
@@ -941,16 +965,15 @@ public class TestGameManager {
         Assert.assertEquals(info,jogo.getCurrentPlayerEnergyInfo(1));
     }
 
-
     @Test
-    public void getJogadoresNaPosicaoPorOrdem(){
+    public void test_027_getJogadoresNaPosicaoPorOrdem(){
         Square posicao = new Square(2,"blank.png","Vazio","4,1,2");
 
         Assert.assertEquals("[1, 2, 4]", Arrays.toString(posicao.getJogadoresNaPosicaoPorOrdem()));
     }
 
     @Test
-    public void test_retiraJogadorAPosicao() {
+    public void test_028_retiraJogadorAPosicao() {
         Square posicao = new Square(1, "blank.png" , "Vazio" , "1,2,3,4");
         posicao.retiraJogadorAPosicao(2);
         Assert.assertEquals("1,3,4", posicao.jogadoresNaPosicao);
@@ -961,6 +984,14 @@ public class TestGameManager {
         posicao.retiraJogadorAPosicao(4);
         Assert.assertEquals("1", posicao.jogadoresNaPosicao);
     }
+
+    @Test
+    public void test_029_getJogadoresNaPosicaoPorOrdem(){
+        Square posicao = new Square(2,"blank.png","Vazio","4,1,2");
+
+        Assert.assertEquals("[1, 2, 4]", Arrays.toString(posicao.getJogadoresNaPosicaoPorOrdem()));
+    }
+    
 
 }
 
