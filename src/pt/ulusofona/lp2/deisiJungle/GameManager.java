@@ -467,10 +467,12 @@ public class GameManager {
             int nrCasaNova = jogadorAtual.getProximoNrSquare(nrSquares);
             Square novaCasa = mapa.get(nrCasaNova);
             jogadorAtual.diminuiEnergiaMovimento(nrSquares);
+            mapa.get(jogadorAtual.getCasaAtual().getNrSquare()).retiraJogadorAPosicao(jogadorAtual.getId());
+            mapa.get(nrCasaNova).adicionaJogadorAPosicao(jogadorAtual.getId());
             jogadorAtual.setCasaAtual(novaCasa);
 
             //efeito comida?
-            jogadorAtual.trocaJogadorAtual();
+            mudaJogadorAtual();
         }
 
         return new MovementResult(MovementResultCode.VALID_MOVEMENT, "Movimento válido");

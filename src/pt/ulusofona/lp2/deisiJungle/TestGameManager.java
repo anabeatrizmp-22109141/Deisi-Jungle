@@ -617,25 +617,30 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_018_mudaJogadorAtualIdsSeguidos() {
+    public void test_018_mudaJogadorAtualSemIdsSeguidos() {
         GameManager jogo = new GameManager();
 
-        String[][] playersinfo = new String[2][3];
+        String[][] playersinfo = new String[3][3];
 
-        playersinfo[0][0] = "1";
+        playersinfo[0][0] = "2";
         playersinfo[0][1] = "Banana";
         playersinfo[0][2] = "E";
 
-        playersinfo[1][0] = "2";
+        playersinfo[1][0] = "1";
         playersinfo[1][1] = "Mantinhas";
         playersinfo[1][2] = "L";
+
+        playersinfo[2][0] = "4";
+        playersinfo[2][1] = "Zols";
+        playersinfo[2][2] = "Z";
+
 
         String[][] foodsInfo = new String[1][2];
 
         foodsInfo[0][0] = "c";
         foodsInfo[0][1] = "2";
 
-        jogo.createInitialJungle(5, playersinfo, foodsInfo);
+        jogo.createInitialJungle(30, playersinfo, foodsInfo);
 
         int idCurrentPlayerEsperado = 1;
         int idCurrentPlayerObtido = jogo.getCurrentPlayer().getId();
@@ -643,16 +648,19 @@ public class TestGameManager {
         Assert.assertEquals(idCurrentPlayerEsperado,idCurrentPlayerObtido);
 
         jogo.mudaJogadorAtual();
+
         idCurrentPlayerEsperado = 2;
         idCurrentPlayerObtido = jogo.getCurrentPlayer().getId();
 
         Assert.assertEquals(idCurrentPlayerEsperado,idCurrentPlayerObtido);
 
         jogo.mudaJogadorAtual();
-        idCurrentPlayerEsperado = 1;
+
+        idCurrentPlayerEsperado = 4;
         idCurrentPlayerObtido = jogo.getCurrentPlayer().getId();
 
         Assert.assertEquals(idCurrentPlayerEsperado,idCurrentPlayerObtido);
+
     }
 
     @Test
@@ -826,6 +834,8 @@ public class TestGameManager {
 
         Assert.assertNull(jogo.getWinnerInfo());
     }
+
+
 
     @Test
     public void getJogadoresNaPosicaoPorOrdem(){
