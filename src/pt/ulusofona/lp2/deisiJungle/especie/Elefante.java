@@ -1,6 +1,7 @@
 package pt.ulusofona.lp2.deisiJungle.especie;
 
 public class Elefante extends Especie{
+
     public Elefante() {
         this.id = "E";
         this.nome = "Elefante";
@@ -12,14 +13,17 @@ public class Elefante extends Especie{
     }
 
     @Override
-    boolean eHerbivoro() {
+    public boolean eHerbivoro() {
         return true;
     }
 
     @Override
-    boolean eCarnivoro() {
+    public boolean eCarnivoro() {
         return false;
     }
 
-
+    @Override
+    public boolean eOmnivoro() {
+        return false;
+    }
 }

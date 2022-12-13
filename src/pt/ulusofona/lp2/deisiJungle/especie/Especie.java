@@ -44,9 +44,11 @@ abstract public class Especie {
         return velocidade;
     }
 
-    abstract boolean eHerbivoro();
+    public abstract boolean eHerbivoro();
 
-    abstract  boolean eCarnivoro();
+    public abstract boolean eCarnivoro();
+
+    public abstract boolean eOmnivoro();
 
     public String[] getInfo() {
         String[] info = new String[7];

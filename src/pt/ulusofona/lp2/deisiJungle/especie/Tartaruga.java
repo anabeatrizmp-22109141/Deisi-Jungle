@@ -13,12 +13,17 @@ public class Tartaruga extends Especie{
     }
 
     @Override
-    boolean eHerbivoro() {
+    public boolean eHerbivoro() {
         return true;
     }
 
     @Override
-    boolean eCarnivoro() {
+    public boolean eCarnivoro() {
+        return false;
+    }
+
+    @Override
+    public boolean eOmnivoro() {
         return false;
     }
 }

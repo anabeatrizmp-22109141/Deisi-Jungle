@@ -858,7 +858,7 @@ public class TestGameManager {
 
         Assert.assertNull(jogo.getWinnerInfo());
     }
-    
+
     @Test
     public void test_025_moveCurrentPlayer(){
         GameManager jogo = new GameManager();

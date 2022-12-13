@@ -1,7 +1,5 @@
 package pt.ulusofona.lp2.deisiJungle.comida;
 
-import pt.ulusofona.lp2.deisiJungle.comida.Alimento;
-
 public class Banana extends Alimento {
     private int nrBananas;
 
@@ -23,6 +21,10 @@ public class Banana extends Alimento {
             return true;
         }
         return false;
+    }
+
+    public boolean temBananas() {
+        return nrBananas > 0;
     }
 
     public int getNrBananas(){

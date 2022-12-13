@@ -12,12 +12,18 @@ public class Tarzan extends Especie{
     }
 
     @Override
-    boolean eHerbivoro() {
-        return true;
+    public boolean eHerbivoro() {
+        return false;
     }
 
     @Override
-    boolean eCarnivoro() {
+    public boolean eCarnivoro() {
+        return false;
+    }
+
+    @Override
+    public boolean eOmnivoro() {
         return true;
     }
+
 }

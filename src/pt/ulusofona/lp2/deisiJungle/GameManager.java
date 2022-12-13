@@ -5,7 +5,6 @@ import pt.ulusofona.lp2.deisiJungle.especie.*;
 import javax.swing.*;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 
@@ -438,9 +437,11 @@ public class GameManager {
 
     }
 
-    public void aplicaEfeitoComida(Square casa) {
-
-    }
+    /*
+-------------------------------------------------------------------------------
+                        MOVER JOGADOR + EFEITOS DAS COMIDAS
+-------------------------------------------------------------------------------
+     */
 
     public MovementResult moveCurrentPlayer(int nrSquares, boolean bypassValidations) {
 
@@ -459,8 +460,6 @@ public class GameManager {
 
         if(nrSquares == 0) {
             jogadorAtual.descansa();
-            mudaJogadorAtual();
-            //efeito comida?
         }
         else {
             int nrCasaNova = jogadorAtual.getProximoNrSquare(nrSquares);
@@ -471,13 +470,83 @@ public class GameManager {
             mapa.get(nrCasaNova).adicionaJogadorAPosicao(jogadorAtual.getId());
 
             jogadorAtual.setCasaAtual(novaCasa);
-
-            //efeito comida?
-            mudaJogadorAtual();
         }
+
+        if(jogadorAtual.getCasaAtual().getAlimento() != null) {
+            aplicaEfeitoComida(jogadorAtual.getCasaAtual().getNrSquare(),jogadorAtual);
+        }
+
+        mudaJogadorAtual();
 
         return new MovementResult(MovementResultCode.VALID_MOVEMENT, "Movimento válido");
     }
+
+    public void aplicaEfeitoComida(int nrSquare, Jogador jogador) {
+        Alimento alimentoNaCasa = mapa.get(nrSquare).getAlimento();
+
+        switch (alimentoNaCasa.getId()) {
+            case "e":
+                efeitoErva(jogador);
+                break;
+            case "a":
+                efeitoAgua(jogador);
+                break;
+            case "b":
+                Banana cacho = (Banana) alimentoNaCasa;
+                if(cacho.temBananas()) {
+                    efeitoBananas(jogador);
+                    cacho.diminuiBanana();
+                }
+                break;
+            case "c":
+                if(jogador.getEspecie().eHerbivoro()) {
+                    break;
+                }
+
+                break;
+            case "m":
+                break;
+        }
+    }
+
+    public void efeitoErva(Jogador jogador) {
+        if(jogador.getEspecie().eHerbivoro() || jogador.getEspecie().eOmnivoro()) {
+            jogador.mudaEnergiaComidaValorInteiro(20);
+        }
+        else if(jogador.getEspecie().eCarnivoro()) {
+            jogador.mudaEnergiaComidaValorInteiro(-20);
+        }
+    }
+
+    public void efeitoAgua(Jogador jogador) {
+        if(jogador.getEspecie().eHerbivoro() || jogador.getEspecie().eOmnivoro()) {
+            jogador.mudaEnergiaComidaValorInteiro(15);
+        }
+        else if(jogador.getEspecie().eCarnivoro()) {
+            jogador.mudaEnergiaComidaPercentagem(20);
+        }
+    }
+
+    public void efeitoBananas(Jogador jogador) {
+
+        if(jogador.getNrBananasComidas() > 2) {
+            jogador.mudaEnergiaComidaValorInteiro(-40);
+        }
+        else {
+            jogador.mudaEnergiaComidaValorInteiro(40);
+        }
+
+        jogador.aumentaNrBananasComidas();
+    }
+
+    public void efeitoCarne(Jogador jogador) {
+
+    }
+
+    public void efeitoCogumelos(Jogador jogador) {
+
+    }
+
     /*
 -------------------------------------------------------------------------------
                         VERIFICAÇÕES DIVERSAS

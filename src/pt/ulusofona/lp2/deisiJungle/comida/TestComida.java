@@ -39,7 +39,7 @@ public class TestComida {
         desc = "Carne : +- 50 energia : " + carne.getNrJogadas() + " jogadas";
         Assert.assertEquals(desc,carne.getDescricaoTooltip());
 
-        carne.setnrJogadas(13);
+        carne.setNrJogadas(13);
         desc = "Carne toxica";
         Assert.assertEquals(desc,carne.getDescricaoTooltip());
     }

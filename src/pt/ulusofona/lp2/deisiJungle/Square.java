@@ -40,6 +40,10 @@ public class Square {
         return this.jogadoresNaPosicao;
     }
 
+    public Alimento getAlimento() {
+        return this.alimento;
+    }
+
     public void adicionaJogadorAPosicao(int id) {
         if(this.jogadoresNaPosicao == "") {
             this.jogadoresNaPosicao += id;

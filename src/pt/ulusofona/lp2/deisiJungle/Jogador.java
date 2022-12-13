@@ -4,13 +4,14 @@ import pt.ulusofona.lp2.deisiJungle.especie.Especie;
 import static java.lang.Math.abs;
 
 public class Jogador {
-    private int id;
-    private String nome;
-    private Especie especie;
+    private final int id;
+    private final String nome;
+    private final Especie especie;
     private boolean isJogadorAtual;
     private boolean ganhou;
     private Square casaAtual;
     private int energia;
+    private int nrBananasComidas = 0;
 
     public Jogador(int id, String nome, Especie especie,Square casaAtual) {
         this.id = id;
@@ -21,9 +22,18 @@ public class Jogador {
         this.casaAtual = casaAtual;
         this.energia = especie.getEnergiaInicial();
     }
+    /*
+----------------------------------------------------------------------------------
+                                   GETTERS
+----------------------------------------------------------------------------------
+     */
 
     public int getId() {
         return this.id;
+    }
+
+    public Especie getEspecie() {
+        return this.especie;
     }
 
     public String getNome() {
@@ -62,6 +72,18 @@ public class Jogador {
         return this.nome + ", " + this.especie.getNome() + ", " + this.casaAtual.getNrSquare();
     }
 
+    public int getProximoNrSquare(int nrCasas) {
+        return this.casaAtual.getNrSquare() + nrCasas;
+    }
+
+    public int getNrBananasComidas() {
+        return this.nrBananasComidas;
+    }
+
+    /*
+----------------------------------------------------------------------------------
+     */
+
     public boolean isTurnoDoJogador(){
         return this.isJogadorAtual;
     }
@@ -78,10 +100,6 @@ public class Jogador {
         this.energia -= getInfoEnergiaGastaSeMover(nrCasas);
     }
 
-    public int getProximoNrSquare(int nrCasas) {
-        return this.casaAtual.getNrSquare() + nrCasas;
-    }
-
     public void descansa() {
 
         if(this.energia + especie.getEnergiaEmDescanso() >= 200) {
@@ -95,6 +113,33 @@ public class Jogador {
     public void trocaJogadorAtual() {
         this.isJogadorAtual = !isTurnoDoJogador();
     }
+
+    public void aumentaNrBananasComidas() {
+        this.nrBananasComidas++;
+    }
+
+    public void mudaEnergiaComidaValorInteiro(int nrEnergia) {
+        if(this.energia + nrEnergia >= 200) {
+            this.energia = 200;
+        }
+        else {
+            this.energia += nrEnergia;
+        }
+    }
+
+    public void mudaEnergiaComidaPercentagem(int valorPercentagem) {
+        if(this.energia * (1 + valorPercentagem/100) >= 200) {
+            this.energia = 200;
+        }
+        else {
+            this.energia *= (1 + valorPercentagem/100);
+        }
+    }
+    /*
+----------------------------------------------------------------------------------
+                                SETTERS
+----------------------------------------------------------------------------------
+     */
 
     public void setEnergia(int valor){ //Para fins de teste
         this.energia = valor;

@@ -39,5 +39,5 @@ abstract public class Alimento {
         return info;
     }
 
-    public void setnrJogadas(int valor){};
+    public void setNrJogadas(int valor){};
 }
