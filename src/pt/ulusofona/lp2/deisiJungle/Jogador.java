@@ -50,7 +50,7 @@ public class Jogador {
         informacaoJogador[0] = getId() + "";
         informacaoJogador[1] = getNome();
         informacaoJogador[2] = especie.getId() + "";
-        informacaoJogador[3] = especie.getEnergiaInicial() + "";
+        informacaoJogador[3] = energia + "";
         informacaoJogador[4] = especie.getVelocidade();
 
         return informacaoJogador;

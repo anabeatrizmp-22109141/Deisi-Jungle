@@ -823,7 +823,7 @@ public class TestGameManager {
         info[0] = 15 + "";
         info[1] = "Banana";
         info[2] = "E";
-        info[3] = 180 + "";
+        info[3] = 0 + "";
         info[4] = "1..6";
 
         //Dá o resultado do jogador vencedor
