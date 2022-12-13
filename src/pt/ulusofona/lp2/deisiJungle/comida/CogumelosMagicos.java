@@ -18,4 +18,8 @@ public class CogumelosMagicos extends Alimento {
     public String getDescricaoTooltip() {
         return "Cogumelo Magico: +- " + numeroAleatorio + "% energia";
     }
+
+    public int getNumeroAleatorio() {
+        return numeroAleatorio;
+    }
 }

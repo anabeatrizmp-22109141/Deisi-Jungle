@@ -16,6 +16,8 @@ public class GameManager {
     private int jungleSize;
     private String[][] playersInfo;
 
+    public int nrjogadas = 0;
+
     public GameManager() {
     }
 /*
@@ -470,6 +472,8 @@ public class GameManager {
             mapa.get(nrCasaNova).adicionaJogadorAPosicao(jogadorAtual.getId());
 
             jogadorAtual.setCasaAtual(novaCasa);
+
+            nrjogadas++;
         }
 
         if(jogadorAtual.getCasaAtual().getAlimento() != null) {
@@ -499,12 +503,19 @@ public class GameManager {
                 }
                 break;
             case "c":
+                Carne carne = (Carne) alimentoNaCasa;
+                carne.setNrJogadas(nrjogadas);
+                if(jogador.getEspecie().eCarnivoro() || jogador.getEspecie().eOmnivoro()){
+                    efeitoCarne(jogador);
+                }
                 if(jogador.getEspecie().eHerbivoro()) {
                     break;
                 }
 
                 break;
             case "m":
+                CogumelosMagicos cogumelosMagicos = (CogumelosMagicos) alimentoNaCasa;
+                efeitoCogumelos(jogador,cogumelosMagicos);
                 break;
         }
     }
@@ -519,17 +530,17 @@ public class GameManager {
     }
 
     public void efeitoAgua(Jogador jogador) {
-        if(jogador.getEspecie().eHerbivoro() || jogador.getEspecie().eOmnivoro()) {
+        if(jogador.getEspecie().eHerbivoro() || jogador.getEspecie().eCarnivoro()) {
             jogador.mudaEnergiaComidaValorInteiro(15);
         }
-        else if(jogador.getEspecie().eCarnivoro()) {
+        else if(jogador.getEspecie().eOmnivoro()) {
             jogador.mudaEnergiaComidaPercentagem(20);
         }
     }
 
     public void efeitoBananas(Jogador jogador) {
 
-        if(jogador.getNrBananasComidas() > 2) {
+        if(jogador.getNrBananasComidas() > 0) {
             jogador.mudaEnergiaComidaValorInteiro(-40);
         }
         else {
@@ -540,11 +551,23 @@ public class GameManager {
     }
 
     public void efeitoCarne(Jogador jogador) {
-
+        if(nrjogadas > 12){
+            jogador.reduzEnergiaComidaPercentagem(50);
+        }
+        else {
+            if (jogador.getEspecie().eCarnivoro() || jogador.getEspecie().eOmnivoro()) {
+                jogador.mudaEnergiaComidaValorInteiro(50);
+            }
+        }
     }
 
-    public void efeitoCogumelos(Jogador jogador) {
-
+    public void efeitoCogumelos(Jogador jogador,CogumelosMagicos cogumelos) {
+        if(nrjogadas%2 == 0){
+            jogador.mudaEnergiaComidaPercentagem(cogumelos.getNumeroAleatorio());
+        }
+        else{
+            jogador.reduzEnergiaComidaPercentagem(cogumelos.getNumeroAleatorio());
+        }
     }
 
     /*

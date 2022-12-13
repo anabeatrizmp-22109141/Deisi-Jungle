@@ -4,7 +4,7 @@ abstract public class Alimento {
     protected String id;
     protected String nome;
     protected String imagem;
-    protected int nrJogadas = 0;
+    protected int nrJogadas;
 
     public Alimento() {
     }
@@ -39,5 +39,7 @@ abstract public class Alimento {
         return info;
     }
 
-    public void setNrJogadas(int valor){};
+    public void setNrJogadas(int valor){
+        nrJogadas = valor;
+    };
 }

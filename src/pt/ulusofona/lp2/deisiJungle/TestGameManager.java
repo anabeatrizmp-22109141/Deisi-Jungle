@@ -972,6 +972,7 @@ public class TestGameManager {
         Assert.assertEquals("[1, 2, 4]", Arrays.toString(posicao.getJogadoresNaPosicaoPorOrdem()));
     }
 
+
     @Test
     public void test_028_retiraJogadorAPosicao() {
         Square posicao = new Square(1, "blank.png" , "Vazio" , "1,2,3,4");
@@ -991,7 +992,218 @@ public class TestGameManager {
 
         Assert.assertEquals("[1, 2, 4]", Arrays.toString(posicao.getJogadoresNaPosicaoPorOrdem()));
     }
-    
 
+
+    @Test
+    public void test_EfeitosErva(){
+        GameManager jogo = new GameManager();
+
+        String[][] playersinfo = new String[2][3];
+
+        playersinfo[0][0] = "2";
+        playersinfo[0][1] = "Banana";
+        playersinfo[0][2] = "E";
+
+        playersinfo[1][0] = "1";
+        playersinfo[1][1] = "Mantinhas";
+        playersinfo[1][2] = "L";
+
+
+        String[][] foodsInfo = new String[1][2];
+
+        foodsInfo[0][0] = "e";
+        foodsInfo[0][1] = "2";
+
+        jogo.createInitialJungle(30, playersinfo, foodsInfo);
+
+        int energiaElefante = 200;
+        int energiaLeao = 60;
+
+        Jogador jogador1 = jogo.jogadores.get(0);
+        Jogador jogador2 = jogo.jogadores.get(1);
+        jogo.aplicaEfeitoComida(2,jogador1);
+        jogo.aplicaEfeitoComida(2,jogador2);
+
+        Assert.assertEquals(energiaElefante,jogador1.getInfoEnergiaAtual());
+        Assert.assertEquals(energiaLeao,jogador2.getInfoEnergiaAtual());
+    }
+
+
+    @Test
+    public void test_EfeitosAgua(){
+        GameManager jogo = new GameManager();
+
+        String[][] playersinfo = new String[2][3];
+
+        playersinfo[0][0] = "2";
+        playersinfo[0][1] = "Banana";
+        playersinfo[0][2] = "E";
+
+        playersinfo[1][0] = "1";
+        playersinfo[1][1] = "Mantinhas";
+        playersinfo[1][2] = "Z";
+
+        String[][] foodsInfo = new String[1][2];
+
+        foodsInfo[0][0] = "a";
+        foodsInfo[0][1] = "2";
+
+        jogo.createInitialJungle(30, playersinfo, foodsInfo);
+
+        int energiaElefante = 195;
+        int energiaTarzan = 84;
+
+        Jogador jogador1 = jogo.jogadores.get(0);
+        Jogador jogador2 = jogo.jogadores.get(1);
+
+        jogo.aplicaEfeitoComida(2,jogador1);
+        jogo.aplicaEfeitoComida(2,jogador2);
+
+        Assert.assertEquals(energiaElefante,jogador1.getInfoEnergiaAtual());
+
+        Assert.assertEquals(energiaTarzan,jogador2.getInfoEnergiaAtual());
+    }
+
+    @Test
+    public void test_EfeitosBananas(){
+        GameManager jogo = new GameManager();
+
+        String[][] playersinfo = new String[2][3];
+
+        playersinfo[0][0] = "2";
+        playersinfo[0][1] = "Banana";
+        playersinfo[0][2] = "E";
+
+        playersinfo[1][0] = "1";
+        playersinfo[1][1] = "Mantinhas";
+        playersinfo[1][2] = "Z";
+
+        String[][] foodsInfo = new String[2][2];
+
+        foodsInfo[0][0] = "b";
+        foodsInfo[0][1] = "2";
+
+        foodsInfo[1][0] = "b";
+        foodsInfo[1][1] = "4";
+
+        jogo.createInitialJungle(30, playersinfo, foodsInfo);
+
+        int energiaElefante = 200;
+        int energiaTarzan = 110;
+
+        Jogador jogador1 = jogo.jogadores.get(0);
+        Jogador jogador2 = jogo.jogadores.get(1);
+
+        jogo.aplicaEfeitoComida(2,jogador1);
+        jogo.aplicaEfeitoComida(2,jogador2);
+
+        Assert.assertEquals(energiaElefante,jogador1.getInfoEnergiaAtual());
+        Assert.assertEquals(energiaTarzan,jogador2.getInfoEnergiaAtual());
+
+        jogo.aplicaEfeitoComida(4,jogador1);
+        energiaElefante = 160;
+        Assert.assertEquals(energiaElefante,jogador1.getInfoEnergiaAtual());
+
+    }
+
+    @Test
+    public void test_EfeitosCarne(){
+        GameManager jogo = new GameManager();
+
+        String[][] playersinfo = new String[2][3];
+
+        playersinfo[0][0] = "1";
+        playersinfo[0][1] = "Banana";
+        playersinfo[0][2] = "E";
+
+        playersinfo[1][0] = "2";
+        playersinfo[1][1] = "Mantinhas";
+        playersinfo[1][2] = "L";
+
+        String[][] foodsInfo = new String[2][2];
+
+        foodsInfo[0][0] = "c";
+        foodsInfo[0][1] = "2";
+
+        foodsInfo[1][0] = "c";
+        foodsInfo[1][1] = "8";
+
+        jogo.createInitialJungle(30, playersinfo, foodsInfo);
+
+        int energiaElefante = 180;
+        int energiaLeao = 80;
+
+        Jogador jogador1 = jogo.jogadores.get(0); //elefante
+        Jogador jogador2 = jogo.jogadores.get(1); //leao
+
+        Assert.assertEquals(energiaElefante,jogador1.getInfoEnergiaAtual());
+        Assert.assertEquals(energiaLeao,jogador2.getInfoEnergiaAtual());
+
+        jogo.moveCurrentPlayer(1,false);
+        jogo.moveCurrentPlayer(1,false);
+
+        Assert.assertEquals(176,jogador1.getInfoEnergiaAtual());
+        Assert.assertEquals(128,jogador2.getInfoEnergiaAtual());
+
+        for(int i = 0; i < 11;i++){
+            jogo.moveCurrentPlayer(1,false);
+        }
+
+        Assert.assertEquals(152,jogador1.getInfoEnergiaAtual());
+        Assert.assertEquals(118,jogador2.getInfoEnergiaAtual());
+        jogo.moveCurrentPlayer(1,false);
+        Assert.assertEquals(58,jogador2.getInfoEnergiaAtual());
+
+    }
+
+    @Test
+    public void test_EfeitosCogumelos(){
+        GameManager jogo = new GameManager();
+
+        String[][] playersinfo = new String[2][3];
+
+        playersinfo[0][0] = "1";
+        playersinfo[0][1] = "Banana";
+        playersinfo[0][2] = "E";
+
+        playersinfo[1][0] = "2";
+        playersinfo[1][1] = "Mantinhas";
+        playersinfo[1][2] = "L";
+
+        String[][] foodsInfo = new String[2][2];
+
+        foodsInfo[0][0] = "m";
+        foodsInfo[0][1] = "2";
+
+        foodsInfo[1][0] = "m";
+        foodsInfo[1][1] = "5";
+
+        jogo.createInitialJungle(30, playersinfo, foodsInfo);
+
+        int energiaElefante = 180;
+        int energiaLeao = 80;
+
+        Jogador jogador1 = jogo.jogadores.get(0); //elefante
+        Jogador jogador2 = jogo.jogadores.get(1); //leao
+
+        Assert.assertEquals(energiaElefante,jogador1.getInfoEnergiaAtual());
+        Assert.assertEquals(energiaLeao,jogador2.getInfoEnergiaAtual());
+
+        //jogo.moveCurrentPlayer(1,false);
+        //jogo.moveCurrentPlayer(1,false);
+
+       // Assert.assertEquals(144,jogador1.getInfoEnergiaAtual());
+        //Assert.assertEquals(139,jogador2.getInfoEnergiaAtual());
+
+        jogo.moveCurrentPlayer(1,false);
+        jogo.moveCurrentPlayer(4,false);
+        jogo.moveCurrentPlayer(1,false);
+        jogo.moveCurrentPlayer(4,false);
+
+
+        //Assert.assertEquals(121,jogador1.getInfoEnergiaAtual());
+        //Assert.assertEquals(128,jogador2.getInfoEnergiaAtual());
+
+    }
 }
 

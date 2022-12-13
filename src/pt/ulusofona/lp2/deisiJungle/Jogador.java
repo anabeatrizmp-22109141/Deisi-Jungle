@@ -132,7 +132,16 @@ public class Jogador {
             this.energia = 200;
         }
         else {
-            this.energia *= (1 + valorPercentagem/100);
+            this.energia *=  (1 + (double) valorPercentagem/100);
+        }
+    }
+
+    public void reduzEnergiaComidaPercentagem(int valorPercentagem) {
+        if(this.energia * (1 + valorPercentagem/100) >= 200) {
+            this.energia = 200;
+        }
+        else {
+            this.energia *= (1 - (double) valorPercentagem/100);
         }
     }
     /*
