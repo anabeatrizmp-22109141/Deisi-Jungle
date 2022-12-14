@@ -2,6 +2,8 @@ package pt.ulusofona.lp2.deisiJungle.comida;
 
 import org.junit.Assert;
 import org.junit.Test;
+import pt.ulusofona.lp2.deisiJungle.GameManager;
+import pt.ulusofona.lp2.deisiJungle.Jogador;
 
 public class TestComida {
     @Test
@@ -47,14 +49,23 @@ public class TestComida {
     @Test
     public void test_003_diminuiBananas(){
         Banana banana = new Banana();
-        String desc =  "Bananas : " + banana.getNrBananas() + " : + 40 energia";
+        String desc =  "Bananas : " + 3 + " : + 40 energia";
         Assert.assertEquals(desc,banana.getDescricaoTooltip());
 
         Assert.assertTrue(banana.diminuiBanana());
-        Assert.assertTrue(banana.diminuiBanana());
-        Assert.assertTrue(banana.diminuiBanana());
-        Assert.assertFalse(banana.diminuiBanana());
-    }
 
+        desc =  "Bananas : " + 2 + " : + 40 energia";
+        Assert.assertEquals(desc,banana.getDescricaoTooltip());
+
+        Assert.assertTrue(banana.diminuiBanana());
+
+        desc =  "Bananas : " + 1 + " : + 40 energia";
+        Assert.assertEquals(desc,banana.getDescricaoTooltip());
+
+        banana.diminuiBanana();
+
+        desc =  "Bananas : " + 0 + " : + 40 energia";
+        Assert.assertEquals(desc,banana.getDescricaoTooltip());
+    }
 
 }

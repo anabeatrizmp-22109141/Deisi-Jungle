@@ -1120,13 +1120,16 @@ public class TestGameManager {
         playersinfo[1][1] = "Mantinhas";
         playersinfo[1][2] = "L";
 
-        String[][] foodsInfo = new String[2][2];
+        String[][] foodsInfo = new String[3][2];
 
         foodsInfo[0][0] = "c";
         foodsInfo[0][1] = "2";
 
         foodsInfo[1][0] = "c";
         foodsInfo[1][1] = "8";
+
+        foodsInfo[2][0] = "c";
+        foodsInfo[2][1] = "18";
 
         jogo.createInitialJungle(30, playersinfo, foodsInfo);
 
@@ -1153,6 +1156,8 @@ public class TestGameManager {
         Assert.assertEquals(118,jogador2.getInfoEnergiaAtual());
         jogo.moveCurrentPlayer(1,false);
         Assert.assertEquals(58,jogador2.getInfoEnergiaAtual());
+
+
 
     }
 
@@ -1203,6 +1208,37 @@ public class TestGameManager {
 
         //Assert.assertEquals(121,jogador1.getInfoEnergiaAtual());
         //Assert.assertEquals(128,jogador2.getInfoEnergiaAtual());
+
+    }
+
+    @Test
+    public void teste_moverdiminuibanana(){
+        GameManager jogo = new GameManager();
+
+        String[][] playersinfo = new String[2][3];
+
+        playersinfo[0][0] = "1";
+        playersinfo[0][1] = "Banana";
+        playersinfo[0][2] = "E";
+
+        playersinfo[1][0] = "2";
+        playersinfo[1][1] = "Mantinhas";
+        playersinfo[1][2] = "L";
+
+        String[][] foodsInfo = new String[1][2];
+
+        foodsInfo[0][0] = "b";
+        foodsInfo[0][1] = "2";
+
+        jogo.createInitialJungle(30, playersinfo, foodsInfo);
+
+        String desc =  "Bananas : " + 3 + " : + 40 energia";
+        Assert.assertEquals(desc,jogo.mapa.get(2).getAlimento().getDescricaoTooltip());
+
+        jogo.moveCurrentPlayer(1,false);
+
+        desc =  "Bananas : " + 2 + " : + 40 energia";
+        Assert.assertEquals(desc,jogo.mapa.get(2).getAlimento().getDescricaoTooltip());
 
     }
 }
