@@ -1,6 +1,7 @@
 package pt.ulusofona.lp2.deisiJungle.comida;
 
 public class Carne extends Alimento {
+    protected int nrJogadas;
 
     public Carne() {
         this.id = "c";
@@ -18,4 +19,7 @@ public class Carne extends Alimento {
         }
     }
 
+    public void aumentaNrJogadas(){
+        nrJogadas++;
+    }
 }

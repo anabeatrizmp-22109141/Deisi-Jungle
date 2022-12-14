@@ -510,8 +510,6 @@ public class GameManager {
                 }
                 break;
             case "c":
-                Carne carne = (Carne) alimentoNaCasa;
-                carne.setNrJogadas(nrjogadas);
                 if(jogador.getEspecie().eCarnivoro() || jogador.getEspecie().eOmnivoro()){
                     efeitoCarne(jogador);
                 }
