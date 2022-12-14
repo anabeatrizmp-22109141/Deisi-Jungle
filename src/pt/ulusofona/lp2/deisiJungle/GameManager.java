@@ -454,8 +454,7 @@ public class GameManager {
             return new MovementResult(MovementResultCode.INVALID_MOVEMENT, "Movimento inválido");
         }
 
-        if(!jogadorAtual.temEnergiaParaMover(nrSquares)) {
-            jogadorAtual.descansa();
+        if(!jogadorAtual.temEnergiaParaMover(nrSquares) && nrSquares != 0) {
             mudaJogadorAtual();
             return new MovementResult(MovementResultCode.NO_ENERGY, "Jogador sem energia para o movimento");
         }
@@ -465,6 +464,11 @@ public class GameManager {
         }
         else {
             int nrCasaNova = jogadorAtual.getProximoNrSquare(nrSquares);
+
+            if(nrCasaNova >= mapa.size()) {
+                nrCasaNova = mapa.size();
+            }
+
             Square novaCasa = mapa.get(nrCasaNova);
             jogadorAtual.diminuiEnergiaMovimento(nrSquares);
 
@@ -676,7 +680,6 @@ public class GameManager {
         if(nrSquares < 0 && jogadorAtual.getCasaAtual().getNrSquare() + nrSquares < 1) { // é + pq + (-nrCasa)
             return true;
         }
-
         return false;
     }
 

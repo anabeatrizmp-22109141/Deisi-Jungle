@@ -97,7 +97,11 @@ public class Jogador {
     }
 
     public void diminuiEnergiaMovimento(int nrCasas) {
-        this.energia -= getInfoEnergiaGastaSeMover(nrCasas);
+        if(this.energia - getInfoEnergiaGastaSeMover(nrCasas) <= 0) {
+            this.energia = 0;
+        }else {
+            this.energia -= getInfoEnergiaGastaSeMover(nrCasas);
+        }
     }
 
     public void descansa() {
