@@ -25,9 +25,7 @@ abstract public class Alimento {
         return this.imagem;
     }
 
-    public String getDescricaoTooltip() {
-        return "";
-    }
+    abstract public String getDescricaoTooltip();
 
     public String[] getInfo() {
         String[] info = new String[3];

@@ -313,8 +313,16 @@ public class GameManager {
         }
 
         player_info[0] = this.mapa.get(squareNr).getImagem();
-        player_info[1] = this.mapa.get(squareNr).getDescricao();
+        if(mapa.get(squareNr).getAlimento() != null){
+            player_info[1] = this.mapa.get(squareNr).alimento.getDescricaoTooltip();
+        }
+        else {
+            player_info[1] = this.mapa.get(squareNr).getDescricao();
+        }
+
         player_info[2] = this.mapa.get(squareNr).getJogadoresNaPosicao();
+
+
 
 
         return player_info;
@@ -475,7 +483,6 @@ public class GameManager {
             mapa.get(nrCasaNova).adicionaJogadorAPosicao(jogadorAtual.getId());
 
             jogadorAtual.setCasaAtual(novaCasa);
-
             jogadorAtual.adicionaNrMovimentacoes(nrSquares);
 
             nrjogadas++;
