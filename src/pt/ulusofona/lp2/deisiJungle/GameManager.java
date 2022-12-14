@@ -503,7 +503,10 @@ public class GameManager {
                 Banana cacho = (Banana) alimentoNaCasa;
                 if(cacho.temBananas()) {
                     efeitoBananas(jogador);
+                    System.out.println(cacho.getDescricaoTooltip());
                     cacho.diminuiBanana();
+                    System.out.println(cacho.getDescricaoTooltip());
+
                 }
                 break;
             case "c":
