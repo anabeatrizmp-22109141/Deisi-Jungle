@@ -26,4 +26,6 @@ public class Elefante extends Especie{
     public boolean eOmnivoro() {
         return false;
     }
+
+
 }

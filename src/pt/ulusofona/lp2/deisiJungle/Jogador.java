@@ -12,6 +12,8 @@ public class Jogador {
     private Square casaAtual;
     private int energia;
     private int nrBananasComidas = 0;
+    private int nrMovimentacoes=0;
+    private int nrAlimentos = 0;
 
     public Jogador(int id, String nome, Especie especie,Square casaAtual) {
         this.id = id;
@@ -69,7 +71,7 @@ public class Jogador {
     }
 
     public String getClassificacao() {
-        return this.nome + ", " + this.especie.getNome() + ", " + this.casaAtual.getNrSquare();
+        return nome + ", " + especie.getNome() + ", " + casaAtual.getNrSquare() + ", " + nrMovimentacoes + ", " + nrAlimentos;
     }
 
     public int getProximoNrSquare(int nrCasas) {
@@ -78,6 +80,22 @@ public class Jogador {
 
     public int getNrBananasComidas() {
         return this.nrBananasComidas;
+    }
+
+    public void adicionaNrMovimentacoes(int valor){
+        this.nrMovimentacoes+=valor;
+    }
+
+    public int getNrMovimentacoes(){
+        return nrMovimentacoes;
+    }
+
+    public void adicionaNrAlimentos(){
+        this.nrAlimentos++;
+    }
+
+    public int getNrAlimentos(){
+        return nrAlimentos;
     }
 
     /*

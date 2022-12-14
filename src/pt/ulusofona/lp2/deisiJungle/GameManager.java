@@ -11,12 +11,11 @@ import java.util.HashMap;
 public class GameManager {
 
     ArrayList<Jogador> jogadores;
-    HashMap<Integer, Jogador> mapaIdsJogadores;
     HashMap<Integer,Square> mapa;
     private int jungleSize;
     private String[][] playersInfo;
 
-    public int nrjogadas = 0;
+    private int nrjogadas = 0;
 
     public GameManager() {
     }
@@ -78,7 +77,6 @@ public class GameManager {
     public InitializationError verificacoesMapaAntigo(int jungleSize, String[][] playersInfo) {
         this.jogadores = new ArrayList<>();
         this.mapa = new HashMap<>();
-        this.mapaIdsJogadores = new HashMap<>();
         this.playersInfo = playersInfo;
 
         // Verificação dos nomes
@@ -381,7 +379,7 @@ public class GameManager {
         return info;
     }
 
-    // REFAZ ESTA MERDA
+    // REFAZ ESTA MERDA -- acrescentei as movimentacoes e alimentos consumidos
     public ArrayList<String> getGameResults() {
 
         ArrayList<String> resultados = new ArrayList<>();
@@ -390,11 +388,11 @@ public class GameManager {
 
             if(mapa.get(i).jogadoresNaPosicao.length() >= 1) {
 
-                int nrJogadoresNaPos = mapa.get(i).getJogadoresNaPosicaoPorOrdem().length;
+                int nrJogadores = jogadores.size();
 
-                for(int j = 0 ; j < nrJogadoresNaPos ; j++) {
+                for(int j = 0 ; j < nrJogadores; j++) {
                     String classificacao = "#" + nrClassificacao + " " +
-                            mapaIdsJogadores.get(mapa.get(i).getJogadoresNaPosicaoPorOrdem()[j]).getClassificacao();
+                            jogadores.get(j).getClassificacao();
                     resultados.add(classificacao);
                     nrClassificacao++;
                 }
@@ -467,6 +465,7 @@ public class GameManager {
 
             if(nrCasaNova >= mapa.size()) {
                 nrCasaNova = mapa.size();
+                jogadorAtual.setGanhou(true);
             }
 
             Square novaCasa = mapa.get(nrCasaNova);
@@ -477,11 +476,14 @@ public class GameManager {
 
             jogadorAtual.setCasaAtual(novaCasa);
 
+            jogadorAtual.adicionaNrMovimentacoes(nrSquares);
+
             nrjogadas++;
         }
 
         if(jogadorAtual.getCasaAtual().getAlimento() != null) {
             aplicaEfeitoComida(jogadorAtual.getCasaAtual().getNrSquare(),jogadorAtual);
+            jogadorAtual.adicionaNrAlimentos();
         }
 
         mudaJogadorAtual();
