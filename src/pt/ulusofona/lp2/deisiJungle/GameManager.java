@@ -487,8 +487,10 @@ public class GameManager {
         }
 
         if(jogadorAtual.getCasaAtual().getAlimento() != null) {
-            aplicaEfeitoComida(jogadorAtual.getCasaAtual().getNrSquare(),jogadorAtual);
+            MovementResult result = aplicaEfeitoComida(jogadorAtual.getCasaAtual().getNrSquare(),jogadorAtual);
             jogadorAtual.aumentaNrAlimentos();
+            mudaJogadorAtual();
+            return result;
         }
 
         mudaJogadorAtual();
@@ -573,7 +575,7 @@ public class GameManager {
     }
 
     public void efeitoCogumelos(Jogador jogador,CogumelosMagicos cogumelos) {
-        if(nrjogadas%2 == 0){
+        if(nrjogadas % 2 == 0){
             jogador.mudaEnergiaComidaPercentagem(cogumelos.getNumeroAleatorio());
         }
         else{
@@ -666,6 +668,9 @@ public class GameManager {
     public boolean isFoodsPositionsInvalido(String[][] foodsInfo, int jungleSize) {
 
         for(int i = 0 ; i < foodsInfo.length ; i++) {
+            if(!foodsInfo[i][1].chars().allMatch(Character ::isDigit)) { //Verifica se posição é número
+                return true;
+            }
             if(Integer.parseInt(foodsInfo[i][1]) >= jungleSize) {
                 return true;
             }

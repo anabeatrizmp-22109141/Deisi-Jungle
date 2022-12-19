@@ -903,7 +903,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_026_moveCurrentPlayer_NOENERY(){
+    public void test_026_moveCurrentPlayer_NOENERGY(){
         GameManager jogo = new GameManager();
 
         String[][] playersinfo = new String[2][3];
@@ -1035,11 +1035,11 @@ public class TestGameManager {
 
         String[][] playersinfo = new String[2][3];
 
-        playersinfo[0][0] = "2";
+        playersinfo[0][0] = "1";
         playersinfo[0][1] = "Banana";
         playersinfo[0][2] = "E";
 
-        playersinfo[1][0] = "1";
+        playersinfo[1][0] = "2";
         playersinfo[1][1] = "Mantinhas";
         playersinfo[1][2] = "Z";
 
