@@ -389,18 +389,15 @@ public class GameManager {
 
     // REFAZ ESTA MERDA -- acrescentei as movimentacoes e alimentos consumidos
     public ArrayList<String> getGameResults() {
-
         ArrayList<String> resultados = new ArrayList<>();
         int nrClassificacao = 1;
+
         for(int i = jungleSize ; i > 0 ; i--) {
-
             if(mapa.get(i).jogadoresNaPosicao.length() >= 1) {
-
                 int nrJogadores = jogadores.size();
 
                 for(int j = 0 ; j < nrJogadores; j++) {
-                    String classificacao = "#" + nrClassificacao + " " +
-                            jogadores.get(j).getClassificacao();
+                    String classificacao = "#" + nrClassificacao + " " + jogadores.get(j).getClassificacao();
                     resultados.add(classificacao);
                     nrClassificacao++;
                 }
@@ -409,6 +406,7 @@ public class GameManager {
             if(nrClassificacao > jogadores.size()) {
                 return resultados;
             }
+
         }
         return resultados;
     }
@@ -457,12 +455,12 @@ public class GameManager {
 
         if(isNrSquareInvalid(nrSquares, bypassValidations)){
             mudaJogadorAtual();
-            return new MovementResult(MovementResultCode.INVALID_MOVEMENT, "Movimento inválido");
+            return new MovementResult(MovementResultCode.INVALID_MOVEMENT, "");
         }
 
         if(!jogadorAtual.temEnergiaParaMover(nrSquares) && nrSquares != 0) {
             mudaJogadorAtual();
-            return new MovementResult(MovementResultCode.NO_ENERGY, "Jogador sem energia para o movimento");
+            return new MovementResult(MovementResultCode.NO_ENERGY, "");
         }
 
         if(nrSquares == 0) {
@@ -490,48 +488,47 @@ public class GameManager {
 
         if(jogadorAtual.getCasaAtual().getAlimento() != null) {
             aplicaEfeitoComida(jogadorAtual.getCasaAtual().getNrSquare(),jogadorAtual);
-            jogadorAtual.adicionaNrAlimentos();
+            jogadorAtual.aumentaNrAlimentos();
         }
 
         mudaJogadorAtual();
 
-        return new MovementResult(MovementResultCode.VALID_MOVEMENT, "Movimento válido");
+        return new MovementResult(MovementResultCode.VALID_MOVEMENT, "");
     }
 
-    public void aplicaEfeitoComida(int nrSquare, Jogador jogador) {
+    public MovementResult aplicaEfeitoComida(int nrSquare, Jogador jogador) {
         Alimento alimentoNaCasa = mapa.get(nrSquare).getAlimento();
 
         switch (alimentoNaCasa.getId()) {
-            case "e":
+            case "e" -> {
                 efeitoErva(jogador);
-                break;
-            case "a":
+                return new MovementResult(MovementResultCode.CAUGHT_FOOD, "Apanhou Erva");
+            }
+            case "a" -> {
                 efeitoAgua(jogador);
-                break;
-            case "b":
+                return new MovementResult(MovementResultCode.CAUGHT_FOOD, "Apanhou Agua");
+            }
+            case "b" -> {
                 Banana cacho = (Banana) alimentoNaCasa;
-                if(cacho.temBananas()) {
+                if (cacho.temBananas()) {
                     efeitoBananas(jogador);
-                    System.out.println(cacho.getDescricaoTooltip());
                     cacho.diminuiBanana();
-                    System.out.println(cacho.getDescricaoTooltip());
-
+                    return new MovementResult(MovementResultCode.CAUGHT_FOOD, "Apanhou Cacho de bananas");
                 }
-                break;
-            case "c":
-                if(jogador.getEspecie().eCarnivoro() || jogador.getEspecie().eOmnivoro()){
+            }
+            case "c" -> {
+                if (jogador.getEspecie().eCarnivoro() || jogador.getEspecie().eOmnivoro()) {
                     efeitoCarne(jogador);
+                    return new MovementResult(MovementResultCode.CAUGHT_FOOD, "Apanhou Carne");
                 }
-                if(jogador.getEspecie().eHerbivoro()) {
-                    break;
-                }
-
-                break;
-            case "m":
+            }
+            case "m" -> {
                 CogumelosMagicos cogumelosMagicos = (CogumelosMagicos) alimentoNaCasa;
-                efeitoCogumelos(jogador,cogumelosMagicos);
-                break;
+                efeitoCogumelos(jogador, cogumelosMagicos);
+                return new MovementResult(MovementResultCode.CAUGHT_FOOD, "Apanhou Cogumelos magicos");
+            }
         }
+        return new MovementResult(null, "");
     }
 
     public void efeitoErva(Jogador jogador) {

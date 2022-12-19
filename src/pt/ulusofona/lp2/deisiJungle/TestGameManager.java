@@ -1157,8 +1157,6 @@ public class TestGameManager {
         jogo.moveCurrentPlayer(1,false);
         Assert.assertEquals(58,jogador2.getInfoEnergiaAtual());
 
-
-
     }
 
     @Test
@@ -1194,10 +1192,10 @@ public class TestGameManager {
         Assert.assertEquals(energiaElefante,jogador1.getInfoEnergiaAtual());
         Assert.assertEquals(energiaLeao,jogador2.getInfoEnergiaAtual());
 
-        //jogo.moveCurrentPlayer(1,false);
-        //jogo.moveCurrentPlayer(1,false);
+        jogo.moveCurrentPlayer(1,false);
+        jogo.moveCurrentPlayer(1,false);
 
-       // Assert.assertEquals(144,jogador1.getInfoEnergiaAtual());
+        //Assert.assertEquals(144,jogador1.getInfoEnergiaAtual());
         //Assert.assertEquals(139,jogador2.getInfoEnergiaAtual());
 
         jogo.moveCurrentPlayer(1,false);

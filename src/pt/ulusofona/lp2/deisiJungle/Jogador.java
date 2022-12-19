@@ -12,7 +12,7 @@ public class Jogador {
     private Square casaAtual;
     private int energia;
     private int nrBananasComidas = 0;
-    private int nrMovimentacoes=0;
+    private int nrMovimentacoes = 0;
     private int nrAlimentos = 0;
 
     public Jogador(int id, String nome, Especie especie,Square casaAtual) {
@@ -71,7 +71,8 @@ public class Jogador {
     }
 
     public String getClassificacao() {
-        return nome + ", " + especie.getNome() + ", " + casaAtual.getNrSquare() + ", " + nrMovimentacoes + ", " + nrAlimentos;
+        return nome + ", " + especie.getNome() + ", " + casaAtual.getNrSquare() + ", "
+                + nrMovimentacoes + ", " + nrAlimentos;
     }
 
     public int getProximoNrSquare(int nrCasas) {
@@ -90,7 +91,7 @@ public class Jogador {
         return nrMovimentacoes;
     }
 
-    public void adicionaNrAlimentos(){
+    public void aumentaNrAlimentos(){
         this.nrAlimentos++;
     }
 
@@ -166,6 +167,7 @@ public class Jogador {
             this.energia *= (1 - (double) valorPercentagem/100);
         }
     }
+
     /*
 ----------------------------------------------------------------------------------
                                 SETTERS
