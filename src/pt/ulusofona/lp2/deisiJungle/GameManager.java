@@ -9,7 +9,6 @@ import java.util.Collections;
 import java.util.HashMap;
 
 public class GameManager {
-
     ArrayList<Jogador> jogadores;
     HashMap<Integer,Square> mapa;
     private int jungleSize;
@@ -455,12 +454,12 @@ public class GameManager {
 
         if(isNrSquareInvalid(nrSquares, bypassValidations)){
             mudaJogadorAtual();
-            return new MovementResult(MovementResultCode.INVALID_MOVEMENT, "");
+            return new MovementResult(MovementResultCode.INVALID_MOVEMENT, null);
         }
 
         if(!jogadorAtual.temEnergiaParaMover(nrSquares) && nrSquares != 0) {
             mudaJogadorAtual();
-            return new MovementResult(MovementResultCode.NO_ENERGY, "");
+            return new MovementResult(MovementResultCode.NO_ENERGY, "Sem energia");
         }
 
         if(nrSquares == 0) {
