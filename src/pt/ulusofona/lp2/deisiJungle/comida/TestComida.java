@@ -49,22 +49,22 @@ public class TestComida {
     @Test
     public void test_003_diminuiBananas(){
         Banana banana = new Banana();
-        String desc =  "Bananas : " + 3 + " : + 40 energia";
+        String desc =  "Bananas : " + 3 + " : + 40";
         Assert.assertEquals(desc,banana.getDescricaoTooltip());
 
         Assert.assertTrue(banana.diminuiBanana());
 
-        desc =  "Bananas : " + 2 + " : + 40 energia";
+        desc =  "Bananas : " + 2 + " : + 40";
         Assert.assertEquals(desc,banana.getDescricaoTooltip());
 
         Assert.assertTrue(banana.diminuiBanana());
 
-        desc =  "Bananas : " + 1 + " : + 40 energia";
+        desc =  "Bananas : " + 1 + " : + 40";
         Assert.assertEquals(desc,banana.getDescricaoTooltip());
 
         banana.diminuiBanana();
 
-        desc =  "Bananas : " + 0 + " : + 40 energia";
+        desc =  "Bananas : " + 0 + " : + 40";
         Assert.assertEquals(desc,banana.getDescricaoTooltip());
     }
 

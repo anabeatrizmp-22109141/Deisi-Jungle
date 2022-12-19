@@ -624,8 +624,8 @@ public class GameManager {
         ArrayList<String> idsEspecie = new ArrayList<>();
         int nrOcurrenciasTarzan = 0;
 
-        for(int i = 0 ; i < especies.length ; i++) {
-            idsEspecie.add(especies[i][0]);
+        for (String[] especie : especies) {
+            idsEspecie.add(especie[0]);
         }
 
         for(int i = 0 ; i < playersInfo.length ; i++) {
@@ -649,8 +649,8 @@ public class GameManager {
         String[][] comidas = getFoodTypes();
         ArrayList<String> idsComida = new ArrayList<>();
 
-        for(int i = 0 ; i < comidas.length ; i++) {
-            idsComida.add(comidas[i][0]);
+        for (String[] comida : comidas) {
+            idsComida.add(comida[0]);
         }
 
         for(int i = 0 ; i < foodsInfo.length ; i++) {
@@ -688,10 +688,8 @@ public class GameManager {
             return true;
         }
 
-        if(nrSquares < 0 && jogadorAtual.getCasaAtual().getNrSquare() + nrSquares < 1) { // é + pq + (-nrCasa)
-            return true;
-        }
-        return false;
+        // é + pq + (-nrCasa)
+        return nrSquares < 0 && jogadorAtual.getCasaAtual().getNrSquare() + nrSquares < 1;
     }
 
     public boolean verificaTodosSemEnergia() {

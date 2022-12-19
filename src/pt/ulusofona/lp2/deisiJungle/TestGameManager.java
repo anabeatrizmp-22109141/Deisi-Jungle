@@ -5,6 +5,7 @@ import org.junit.Test;
 import pt.ulusofona.lp2.deisiJungle.comida.*;
 import pt.ulusofona.lp2.deisiJungle.especie.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class TestGameManager {
@@ -326,6 +327,22 @@ public class TestGameManager {
         foodsInfo = new String[1][2];
 
         foodsInfo[0][0] = "c";
+        foodsInfo[0][1] = "a";
+
+        //Verifica posicao = letra
+        Assert.assertEquals(erro.getMessage() , jogo.createInitialJungle(50, playersinfo,foodsInfo).getMessage());
+
+        foodsInfo = new String[1][2];
+
+        foodsInfo[0][0] = "c";
+        foodsInfo[0][1] = "a";
+
+        //Verifica posicao = letra (esta errado)
+        Assert.assertNotEquals("" , jogo.createInitialJungle(50, playersinfo,foodsInfo).getMessage());
+
+        foodsInfo = new String[1][2];
+
+        foodsInfo[0][0] = "c";
         foodsInfo[0][1] = "1";
 
         //Verifica posicao = 1
@@ -481,6 +498,20 @@ public class TestGameManager {
         Assert.assertEquals(infoEsperada[2], infoObtida[2]);
 
         Assert.assertNull(jogo.getSquareInfo(0));
+
+        jogo.createInitialJungle(37, playersinfo);
+
+        infoEsperada = new String[3];
+        infoEsperada[0] = "blank.png";
+        infoEsperada[1] = "Vazio";
+        infoEsperada[2] = "";
+
+        infoObtida = jogo.getSquareInfo(10);
+
+        Assert.assertEquals(infoEsperada[0], infoObtida[0]);
+        Assert.assertEquals(infoEsperada[1], infoObtida[1]);
+        Assert.assertEquals(infoEsperada[2], infoObtida[2]);
+
     }
 
     @Test
@@ -1230,14 +1261,46 @@ public class TestGameManager {
 
         jogo.createInitialJungle(30, playersinfo, foodsInfo);
 
-        String desc =  "Bananas : " + 3 + " : + 40 energia";
+        String desc =  "Bananas : " + 3 + " : + 40";
         Assert.assertEquals(desc,jogo.mapa.get(2).getAlimento().getDescricaoTooltip());
 
         jogo.moveCurrentPlayer(1,false);
 
-        desc =  "Bananas : " + 2 + " : + 40 energia";
+        desc =  "Bananas : " + 2 + " : + 40";
         Assert.assertEquals(desc,jogo.mapa.get(2).getAlimento().getDescricaoTooltip());
 
+    }
+
+    @Test
+    public void test_getGameResults(){
+        GameManager jogo = new GameManager();
+
+        String[][] playersinfo = new String[2][3];
+
+        playersinfo[0][0] = "1";
+        playersinfo[0][1] = "Banana";
+        playersinfo[0][2] = "E";
+
+        playersinfo[1][0] = "2";
+        playersinfo[1][1] = "Mantinhas";
+        playersinfo[1][2] = "L";
+
+        String[][] foodsInfo = new String[1][2];
+
+        foodsInfo[0][0] = "b";
+        foodsInfo[0][1] = "2";
+
+        jogo.createInitialJungle(47, playersinfo, foodsInfo);
+
+        for(int i = 0; i < 91;i++){
+            jogo.moveCurrentPlayer(1,false);
+        }
+
+        ArrayList<String> resultados = new ArrayList<>();
+        resultados.add("#1 Banana, Elefante, 47, 46, 1");
+        resultados.add("#2 Mantinhas, Leao, 46, 45, 1");
+
+        Assert.assertEquals(resultados,jogo.getGameResults());
     }
 }
 
