@@ -488,7 +488,7 @@ public class TestGameManager {
 
         String[] infoEsperada = new String[3];
         infoEsperada[0] = "water.png";
-        infoEsperada[1] = "Agua : + 10U|20% energia";
+        infoEsperada[1] = "Agua : + 15U|20% energia";
         infoEsperada[2] = "";
 
         String[] infoObtida = jogo.getSquareInfo(10);
@@ -1261,12 +1261,12 @@ public class TestGameManager {
 
         jogo.createInitialJungle(30, playersinfo, foodsInfo);
 
-        String desc =  "Bananas : " + 3 + " : + 40";
+        String desc =  "Bananas : " + 3 + " : + 40 energia";
         Assert.assertEquals(desc,jogo.mapa.get(2).getAlimento().getDescricaoTooltip());
 
         jogo.moveCurrentPlayer(1,false);
 
-        desc =  "Bananas : " + 2 + " : + 40";
+        desc =  "Bananas : " + 2 + " : + 40 energia";
         Assert.assertEquals(desc,jogo.mapa.get(2).getAlimento().getDescricaoTooltip());
 
     }

@@ -34,7 +34,7 @@ public class TestComida {
         //Assert.assertEquals(desc,cogumelosMagicos.getDescricaoTooltip());
 
         Erva erva = new Erva();
-        desc =  "Erva : + 20 energia";
+        desc =  "Erva : +- 20 energia";
         Assert.assertEquals(desc,erva.getDescricaoTooltip());
 
         Carne carne = new Carne();
