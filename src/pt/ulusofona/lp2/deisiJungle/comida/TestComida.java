@@ -22,7 +22,7 @@ public class TestComida {
     public void test_002_getDescricaoTooltip(){
         String desc;
         Agua agua = new Agua();
-        desc = "Agua : + 10U|20% energia";
+        desc = "Agua : + 15U|20% energia";
         Assert.assertEquals(desc,agua.getDescricaoTooltip());
 
         Banana banana = new Banana();
@@ -34,11 +34,11 @@ public class TestComida {
         //Assert.assertEquals(desc,cogumelosMagicos.getDescricaoTooltip());
 
         Erva erva = new Erva();
-        desc =  "Erva : +- 20 energia";
+        desc =  "Erva : + 20 energia";
         Assert.assertEquals(desc,erva.getDescricaoTooltip());
 
         Carne carne = new Carne();
-        desc = "Carne : +- 50 energia : " + carne.getNrJogadas() + " jogadas";
+        desc = "Carne : + 50 energia : " + carne.getNrJogadas() + " jogadas";
         Assert.assertEquals(desc,carne.getDescricaoTooltip());
 
         carne.setNrJogadas(13);
@@ -49,22 +49,22 @@ public class TestComida {
     @Test
     public void test_003_diminuiBananas(){
         Banana banana = new Banana();
-        String desc =  "Bananas : " + 3 + " : + 40";
+        String desc =  "Bananas : " + 3 + " : + 40 energia";
         Assert.assertEquals(desc,banana.getDescricaoTooltip());
 
         Assert.assertTrue(banana.diminuiBanana());
 
-        desc =  "Bananas : " + 2 + " : + 40";
+        desc =  "Bananas : " + 2 + " : + 40 energia";
         Assert.assertEquals(desc,banana.getDescricaoTooltip());
 
         Assert.assertTrue(banana.diminuiBanana());
 
-        desc =  "Bananas : " + 1 + " : + 40";
+        desc =  "Bananas : " + 1 + " : + 40 energia";
         Assert.assertEquals(desc,banana.getDescricaoTooltip());
 
         banana.diminuiBanana();
 
-        desc =  "Bananas : " + 0 + " : + 40";
+        desc =  "Bananas : " + 0 + " : + 40 energia";
         Assert.assertEquals(desc,banana.getDescricaoTooltip());
     }
 
