@@ -4,9 +4,7 @@ import pt.ulusofona.lp2.deisiJungle.comida.*;
 import pt.ulusofona.lp2.deisiJungle.especie.*;
 import javax.swing.*;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
+import java.util.*;
 
 public class GameManager {
     ArrayList<Jogador> jogadores;
@@ -391,6 +389,22 @@ public class GameManager {
         return info;
     }
 
+    public Jogador[] getJogadoresOrdenadosPorNrCasa() {
+        Jogador[] jogadoresOrdenados = jogadores.toArray(new Jogador[0]);
+
+        Arrays.sort(jogadoresOrdenados, Comparator.comparingInt(j -> j.getCasaAtual().getNrSquare()));
+
+        return jogadoresOrdenados;
+    }
+
+    public Jogador getPlayer(int id) {
+        for(Jogador j : jogadores) {
+            if(j.getId() == id) {
+                return j;
+            }
+        }
+        return null;
+    }
 
     public ArrayList<String> getGameResults() {
         ArrayList<String> resultados = new ArrayList<>();
@@ -486,9 +500,13 @@ public class GameManager {
             jogadorAtual.adicionaNrMovimentacoes(nrSquares);
 
             nrjogadas++;
-
             aplicaAumentoJogadasNaCarne();
+        }
+        //Ganhou por distância entre dois ultimos ser maior que tamanho do mapa
+        Jogador[] jogadoresOrdenados = getJogadoresOrdenadosPorNrCasa();
 
+        if(isDistanciaEntre1e2LugarMaiorQueMetadeDoMapa(jogadoresOrdenados)) {
+            getPlayer(jogadoresOrdenados[jogadoresOrdenados.length-2].getId()).setGanhou(true);
         }
 
         if(jogadorAtual.getCasaAtual().getAlimento() != null) {
@@ -730,6 +748,10 @@ public class GameManager {
         return false;
     }
 
+    public boolean isDistanciaEntre1e2LugarMaiorQueMetadeDoMapa(Jogador[] jogadoresOrdenados) {
+        return (jogadoresOrdenados[jogadoresOrdenados.length-1].getCasaAtual().getNrSquare() -
+                jogadoresOrdenados[jogadoresOrdenados.length-2].getCasaAtual().getNrSquare()) > mapa.size()/2;
+    }
     /*
 -------------------------------------------------------------------------------
 -------------------------------------------------------------------------------
