@@ -325,9 +325,6 @@ public class GameManager {
 
         player_info[2] = this.mapa.get(squareNr).getJogadoresNaPosicao();
 
-
-
-
         return player_info;
     }
 
@@ -394,7 +391,7 @@ public class GameManager {
         return info;
     }
 
-    // REFAZ ESTA MERDA -- acrescentei as movimentacoes e alimentos consumidos
+
     public ArrayList<String> getGameResults() {
         ArrayList<String> resultados = new ArrayList<>();
         int nrClassificacao = 1;
@@ -498,8 +495,9 @@ public class GameManager {
 
             MovementResult result = aplicaEfeitoComida(jogadorAtual.getCasaAtual().getNrSquare(),jogadorAtual);
             jogadorAtual.aumentaNrAlimentos();
-            mudaJogadorAtual();
+
             if(result.code() != null) {
+                mudaJogadorAtual();
                 return result;
             }
         }
