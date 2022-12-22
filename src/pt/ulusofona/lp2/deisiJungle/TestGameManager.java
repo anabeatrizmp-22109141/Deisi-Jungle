@@ -1161,19 +1161,19 @@ public class TestGameManager {
         Assert.assertEquals(energiaLeao,jogador2.getInfoEnergiaAtual());
 
         jogo.moveCurrentPlayer(1,false);
-        jogo.moveCurrentPlayer(1,false);
+        jogo.moveCurrentPlayer(4,false);
 
         Assert.assertEquals(176,jogador1.getInfoEnergiaAtual());
-        Assert.assertEquals(128,jogador2.getInfoEnergiaAtual());
+        Assert.assertEquals(72,jogador2.getInfoEnergiaAtual());
 
-        for(int i = 0; i < 11;i++){
+        for(int i = 0; i < 5;i++){
             jogo.moveCurrentPlayer(1,false);
+            jogo.moveCurrentPlayer(4,false);
         }
 
-        Assert.assertEquals(152,jogador1.getInfoEnergiaAtual());
-        Assert.assertEquals(118,jogador2.getInfoEnergiaAtual());
-        jogo.moveCurrentPlayer(1,false);
-        Assert.assertEquals(58,jogador2.getInfoEnergiaAtual());
+        Assert.assertEquals(156,jogador1.getInfoEnergiaAtual());
+        Assert.assertEquals(32,jogador2.getInfoEnergiaAtual());
+
 
     }
 
@@ -1275,13 +1275,19 @@ public class TestGameManager {
 
         jogo.createInitialJungle(47, playersinfo, foodsInfo);
 
-        for(int i = 0; i < 91;i++){
+        for(int i = 0; i < 46;i++){
             jogo.moveCurrentPlayer(1,false);
+            jogo.moveCurrentPlayer(0,false);
         }
+        for(int i = 0; i < 10;i++){
+            jogo.moveCurrentPlayer(0,false);
+            jogo.moveCurrentPlayer(4,false);
+        }
+
 
         ArrayList<String> resultados = new ArrayList<>();
         resultados.add("#1 Banana, Elefante, 47, 46, 1");
-        resultados.add("#2 Mantinhas, Leao, 46, 45, 1");
+        resultados.add("#2 Mantinhas, Leao, 41, 40, 0");
 
         Assert.assertEquals(resultados,jogo.getGameResults());
     }
@@ -1335,16 +1341,19 @@ public class TestGameManager {
         foodsInfo[1][0] = "c";
         foodsInfo[1][1] = "3";
 
-        jogo.createInitialJungle(30, playersinfo, foodsInfo);
+        jogo.createInitialJungle(47, playersinfo, foodsInfo);
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 5; i++) {
             jogo.moveCurrentPlayer(1, false);
+            jogo.moveCurrentPlayer(4, false);
         }
 
         Assert.assertEquals("Carne : + 50 energia : 10 jogadas", jogo.mapa.get(2).getAlimento().getDescricaoTooltip());
         Assert.assertEquals("Carne : + 50 energia : 10 jogadas", jogo.mapa.get(3).getAlimento().getDescricaoTooltip());
+
         for(int i = 0; i<10;i++) {
             jogo.moveCurrentPlayer(1, false);
+            jogo.moveCurrentPlayer(4, false);
         }
 
         Assert.assertEquals("Carne toxica", jogo.mapa.get(2).getAlimento().getDescricaoTooltip());
@@ -1382,14 +1391,11 @@ public class TestGameManager {
             jogo.moveCurrentPlayer(1,false);
         }
 
-        System.out.println(jogo.jogadores.get(0).getCasaAtual().getNrSquare());
-        System.out.println(jogo.jogadores.get(1).getCasaAtual().getNrSquare());
-
         String[] info = new String[5];
         info[0] = 2 + "";
         info[1] = "Mantinhas";
         info[2] = "L";
-        info[3] = 91 + "";
+        info[3] = 80 + "";
         info[4] = "4..6";
 
         //Dá o resultado do jogador vencedor

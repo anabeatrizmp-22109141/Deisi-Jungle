@@ -720,10 +720,6 @@ public class GameManager {
 
         Jogador jogadorAtual = getCurrentPlayer();
 
-        if((nrSquares > 6 || nrSquares < -6) && !bypassValidations) {
-            return true;
-        }
-
         switch (jogadorAtual.getEspecie().getId()){
             case "P":
                 if(nrSquares < 5 || nrSquares > 6){
@@ -741,6 +737,11 @@ public class GameManager {
                 }
                 break;
         }
+
+        if((nrSquares > 6 || nrSquares < -6) && !bypassValidations) {
+            return true;
+        }
+
         // é + pq + (-nrCasa)
         return nrSquares < 0 && jogadorAtual.getCasaAtual().getNrSquare() + nrSquares < 1;
 
