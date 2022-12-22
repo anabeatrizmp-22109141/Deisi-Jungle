@@ -1216,20 +1216,19 @@ public class TestGameManager {
         Assert.assertEquals(energiaElefante,jogador1.getInfoEnergiaAtual());
         Assert.assertEquals(energiaLeao,jogador2.getInfoEnergiaAtual());
 
-        jogo.moveCurrentPlayer(1,false);
-        jogo.moveCurrentPlayer(1,false);
-
-        //Assert.assertEquals(144,jogador1.getInfoEnergiaAtual());
-        //Assert.assertEquals(139,jogador2.getInfoEnergiaAtual());
 
         jogo.moveCurrentPlayer(1,false);
-        jogo.moveCurrentPlayer(4,false);
-        jogo.moveCurrentPlayer(1,false);
-        jogo.moveCurrentPlayer(4,false);
+        System.out.println(jogo.nrjogadas);
+        System.out.println(jogo.mapa.get(2).getAlimento().getDescricaoTooltip());
 
+        System.out.println(jogador1.getInfoEnergiaAtual());
 
-        //Assert.assertEquals(121,jogador1.getInfoEnergiaAtual());
-        //Assert.assertEquals(128,jogador2.getInfoEnergiaAtual());
+        //jogo.moveCurrentPlayer(1,false);
+        //System.out.println(jogo.nrjogadas);
+        //System.out.println(jogo.mapa.get(2).getAlimento().getDescricaoTooltip());
+
+        //System.out.println(jogador2.getInfoEnergiaAtual());
+
 
     }
 
