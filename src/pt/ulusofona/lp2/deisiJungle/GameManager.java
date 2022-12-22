@@ -366,6 +366,10 @@ public class GameManager {
             }
         }
 
+        if(verificaTodosSemEnergia()){
+            return null;
+        }
+
         int maiorCasaComJogadores = 0;
         if(verificaTodosSemEnergia()) {
             for(Jogador j :jogadores) {

@@ -850,15 +850,8 @@ public class TestGameManager {
         jogo.jogadores.get(0).setEnergia(0);
         jogo.jogadores.get(1).setEnergia(0);
 
-        String[] info = new String[5];
-        info[0] = 15 + "";
-        info[1] = "Banana";
-        info[2] = "E";
-        info[3] = 0 + "";
-        info[4] = "1..6";
-
-        //Dá o resultado do jogador vencedor
-        Assert.assertEquals(info, jogo.getWinnerInfo());
+        //Dá o resultado null
+        Assert.assertNull(jogo.getWinnerInfo());
     }
 
     @Test
@@ -1367,6 +1360,7 @@ public class TestGameManager {
         Assert.assertEquals("Carne toxica", jogo.mapa.get(2).getAlimento().getDescricaoTooltip());
         Assert.assertEquals("Carne toxica", jogo.mapa.get(3).getAlimento().getDescricaoTooltip());
     }
+
 
 }
 
