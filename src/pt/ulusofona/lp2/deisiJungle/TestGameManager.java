@@ -895,7 +895,7 @@ public class TestGameManager {
 
         playersinfo[1][0] = "1";
         playersinfo[1][1] = "Mantinhas";
-        playersinfo[1][2] = "L";
+        playersinfo[1][2] = "P";
 
 
         String[][] foodsInfo = new String[1][2];
@@ -913,20 +913,14 @@ public class TestGameManager {
 
         Assert.assertEquals(MovementResultCode.INVALID_MOVEMENT,mov.code());
 
-        mov = jogo.moveCurrentPlayer(-1,false);
-
-        Assert.assertEquals(MovementResultCode.INVALID_MOVEMENT,mov.code());
-
         mov = jogo.moveCurrentPlayer(5,false);
 
         Assert.assertEquals(MovementResultCode.VALID_MOVEMENT,mov.code());
 
-        mov = jogo.moveCurrentPlayer(0,false);
-        Assert.assertEquals(MovementResultCode.VALID_MOVEMENT,mov.code());
-
-        mov = jogo.moveCurrentPlayer(-1,true);
+        mov = jogo.moveCurrentPlayer(3,false);
 
         Assert.assertEquals(MovementResultCode.INVALID_MOVEMENT,mov.code());
+        System.out.println(jogo.jogadores.get(1).getEspecie().getId());
 
     }
 
