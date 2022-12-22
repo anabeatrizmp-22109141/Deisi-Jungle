@@ -2,8 +2,6 @@ package pt.ulusofona.lp2.deisiJungle.comida;
 
 import org.junit.Assert;
 import org.junit.Test;
-import pt.ulusofona.lp2.deisiJungle.GameManager;
-import pt.ulusofona.lp2.deisiJungle.Jogador;
 
 public class TestComida {
     @Test

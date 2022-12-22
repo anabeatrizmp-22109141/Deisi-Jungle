@@ -19,6 +19,7 @@ public class Carne extends Alimento {
         }
     }
 
+
     public void aumentaNrJogadas(){
         nrJogadas++;
     }
