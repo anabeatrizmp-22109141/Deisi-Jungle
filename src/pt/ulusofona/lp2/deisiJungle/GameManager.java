@@ -723,8 +723,27 @@ public class GameManager {
         if((nrSquares > 6 || nrSquares < -6) && !bypassValidations) {
             return true;
         }
+
+        switch (jogadorAtual.getEspecie().getId()){
+            case "P":
+                if(nrSquares < 5 || nrSquares > 6){
+                    return true;
+                }
+                break;
+            case "L":
+                if(nrSquares < 4 || nrSquares > 6){
+                    return true;
+                }
+                break;
+            case "T":
+                if(nrSquares < 1 || nrSquares > 3 ){
+                    return true;
+                }
+                break;
+        }
         // é + pq + (-nrCasa)
         return nrSquares < 0 && jogadorAtual.getCasaAtual().getNrSquare() + nrSquares < 1;
+
     }
 
     public boolean verificaTodosSemEnergia() {

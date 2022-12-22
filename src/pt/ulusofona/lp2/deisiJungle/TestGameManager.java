@@ -917,10 +917,6 @@ public class TestGameManager {
 
         Assert.assertEquals(MovementResultCode.VALID_MOVEMENT,mov.code());
 
-        mov = jogo.moveCurrentPlayer(3,false);
-
-        Assert.assertEquals(MovementResultCode.INVALID_MOVEMENT,mov.code());
-        System.out.println(jogo.jogadores.get(1).getEspecie().getId());
 
     }
 
