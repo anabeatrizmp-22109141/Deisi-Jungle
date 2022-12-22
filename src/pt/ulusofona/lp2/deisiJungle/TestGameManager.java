@@ -914,10 +914,15 @@ public class TestGameManager {
         Assert.assertEquals(MovementResultCode.INVALID_MOVEMENT,mov.code());
 
         mov = jogo.moveCurrentPlayer(5,false);
-
         Assert.assertEquals(MovementResultCode.VALID_MOVEMENT,mov.code());
 
+        mov = jogo.moveCurrentPlayer(10,true);
+        Assert.assertEquals(MovementResultCode.VALID_MOVEMENT,mov.code());
 
+        jogo.moveCurrentPlayer(0,false);
+
+        mov = jogo.moveCurrentPlayer(-5,false);
+        Assert.assertEquals(MovementResultCode.VALID_MOVEMENT,mov.code());
     }
 
     @Test
