@@ -186,38 +186,40 @@ public class GameManager {
 
         ArrayList<Integer> idsJogador = getIdsJogadorOrdenados(playersInfo);
 
-        for(int i = 0 ; i < playersInfo.length ; i++) {
+        for (String[] jogadores : playersInfo) {
 
-            int id = Integer.parseInt(playersInfo[i][0]);
-            String nome = playersInfo[i][1];
-            String idEspecie = playersInfo[i][2];
+            int id = Integer.parseInt(jogadores[0]);
+            String nome = jogadores[1];
+            String idEspecie = jogadores[2];
 
             Jogador jogador;
 
-            if(idEspecie.equals("E")) {
-                Especie elefante = new Elefante();
-                jogador = new Jogador(id, nome, elefante, mapa.get(1));
-                this.jogadores.add(jogador);
-            }
-            else if(idEspecie.equals("L")) {
-                Especie leao = new Leao();
-                jogador = new Jogador(id, nome, leao, mapa.get(1));
-                this.jogadores.add(jogador);
-            }
-            else if(idEspecie.equals("P")) {
-                Especie passaro = new Passaro();
-                jogador = new Jogador(id, nome, passaro, mapa.get(1));
-                this.jogadores.add(jogador);
-            }
-            else if(idEspecie.equals("T")) {
-                Especie tartaruga = new Tartaruga();
-                jogador = new Jogador(id, nome, tartaruga, mapa.get(1));
-                this.jogadores.add(jogador);
-            }
-            else if(idEspecie.equals("Z")) {
-                Especie tarzan = new Tarzan();
-                jogador = new Jogador(id, nome, tarzan, mapa.get(1));
-                this.jogadores.add(jogador);
+            switch (idEspecie) {
+                case "E" -> {
+                    Especie elefante = new Elefante();
+                    jogador = new Jogador(id, nome, elefante, mapa.get(1));
+                    this.jogadores.add(jogador);
+                }
+                case "L" -> {
+                    Especie leao = new Leao();
+                    jogador = new Jogador(id, nome, leao, mapa.get(1));
+                    this.jogadores.add(jogador);
+                }
+                case "P" -> {
+                    Especie passaro = new Passaro();
+                    jogador = new Jogador(id, nome, passaro, mapa.get(1));
+                    this.jogadores.add(jogador);
+                }
+                case "T" -> {
+                    Especie tartaruga = new Tartaruga();
+                    jogador = new Jogador(id, nome, tartaruga, mapa.get(1));
+                    this.jogadores.add(jogador);
+                }
+                case "Z" -> {
+                    Especie tarzan = new Tarzan();
+                    jogador = new Jogador(id, nome, tarzan, mapa.get(1));
+                    this.jogadores.add(jogador);
+                }
             }
         }
 
@@ -230,29 +232,31 @@ public class GameManager {
 
     public void colocaComidasNoMapa(String[][] foodsInfo) {
 
-        for(int i = 0 ; i < foodsInfo.length ; i++) {
-            String id = foodsInfo[i][0];
-            int posicaoTerreno = Integer.parseInt(foodsInfo[i][1]);
+        for (String[] comida : foodsInfo) {
+            String id = comida[0];
+            int posicaoTerreno = Integer.parseInt(comida[1]);
 
-            if(id.equals("e")) {
-                Alimento erva = new Erva();
-                mapa.get(posicaoTerreno).colocaAlimentoNaCasa(erva);
-            }
-            else if(id.equals("a")) {
-                Alimento agua = new Agua();
-                mapa.get(posicaoTerreno).colocaAlimentoNaCasa(agua);
-            }
-            else if(id.equals("b")) {
-                Alimento bananas = new Banana();
-                mapa.get(posicaoTerreno).colocaAlimentoNaCasa(bananas);
-            }
-            else if(id.equals("c")) {
-                Alimento carne = new Carne();
-                mapa.get(posicaoTerreno).colocaAlimentoNaCasa(carne);
-            }
-            else if(id.equals("m")) {
-                Alimento cogumelos = new CogumelosMagicos();
-                mapa.get(posicaoTerreno).colocaAlimentoNaCasa(cogumelos);
+            switch (id) {
+                case "e" -> {
+                    Alimento erva = new Erva();
+                    mapa.get(posicaoTerreno).colocaAlimentoNaCasa(erva);
+                }
+                case "a" -> {
+                    Alimento agua = new Agua();
+                    mapa.get(posicaoTerreno).colocaAlimentoNaCasa(agua);
+                }
+                case "b" -> {
+                    Alimento bananas = new Banana();
+                    mapa.get(posicaoTerreno).colocaAlimentoNaCasa(bananas);
+                }
+                case "c" -> {
+                    Alimento carne = new Carne();
+                    mapa.get(posicaoTerreno).colocaAlimentoNaCasa(carne);
+                }
+                case "m" -> {
+                    Alimento cogumelos = new CogumelosMagicos();
+                    mapa.get(posicaoTerreno).colocaAlimentoNaCasa(cogumelos);
+                }
             }
         }
     }
@@ -274,8 +278,8 @@ public class GameManager {
 
         ArrayList<Integer> idsJogador = new ArrayList<>();
 
-        for(int i = 0 ; i < playersInfo.length ; i++) {
-            idsJogador.add(Integer.parseInt(playersInfo[i][0]));
+        for (String[] jogadores : playersInfo) {
+            idsJogador.add(Integer.parseInt(jogadores[0]));
         }
 
         Collections.sort(idsJogador);
@@ -393,10 +397,8 @@ public class GameManager {
 
         for(int i = jungleSize ; i > 0 ; i--) {
             if(mapa.get(i).jogadoresNaPosicao.length() >= 1) {
-                int nrJogadores = jogadores.size();
-
-                for(int j = 0 ; j < nrJogadores; j++) {
-                    String classificacao = "#" + nrClassificacao + " " + jogadores.get(j).getClassificacao();
+                for (Jogador jogadores : jogadores) {
+                    String classificacao = "#" + nrClassificacao + " " + jogadores.getClassificacao();
                     resultados.add(classificacao);
                     nrClassificacao++;
                 }
@@ -590,8 +592,8 @@ public class GameManager {
 
     public boolean isNomeInvalido(String[][] playersInfo) {
 
-        for(int i = 0 ; i < playersInfo.length ; i++) {
-            if(playersInfo[i][1] == null || playersInfo[i][1].isBlank()) {
+        for (String[] jogadores : playersInfo) {
+            if (jogadores[1] == null || jogadores[1].isBlank()) {
                 return true;
             }
         }

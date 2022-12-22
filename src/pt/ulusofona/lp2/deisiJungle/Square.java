@@ -3,6 +3,7 @@ package pt.ulusofona.lp2.deisiJungle;
 import pt.ulusofona.lp2.deisiJungle.comida.Alimento;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 public class Square {
     int nrSquare;
@@ -45,7 +46,7 @@ public class Square {
     }
 
     public void adicionaJogadorAPosicao(int id) {
-        if(this.jogadoresNaPosicao == "") {
+        if(Objects.equals(this.jogadoresNaPosicao, "")) {
             this.jogadoresNaPosicao += id;
         }
         else {
