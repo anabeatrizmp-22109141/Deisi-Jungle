@@ -495,12 +495,14 @@ public class GameManager {
             MovementResult result = aplicaEfeitoComida(jogadorAtual.getCasaAtual().getNrSquare(),jogadorAtual);
             jogadorAtual.aumentaNrAlimentos();
             mudaJogadorAtual();
-            return result;
+            if(result.code() != null) {
+                return result;
+            }
         }
 
         mudaJogadorAtual();
 
-        return new MovementResult(MovementResultCode.VALID_MOVEMENT, "");
+        return new MovementResult(MovementResultCode.VALID_MOVEMENT, null);
     }
 
     public void aplicaAumentoJogadasNaCarne(){
