@@ -9,7 +9,7 @@ public class CogumelosMagicos extends Alimento {
 
     public CogumelosMagicos() {
         this.id = "m";
-        this.nome = "Cogumelos magicos";
+        this.nome = "Cogumelo Magico";
         this.imagem = "mushroom.png";
         this.numeroAleatorio = ThreadLocalRandom.current().nextInt(10, 50 + 1);
     }
