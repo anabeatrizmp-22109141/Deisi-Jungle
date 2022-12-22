@@ -38,9 +38,6 @@ abstract public class Alimento {
         return info;
     }
 
-    public void setNrJogadas(int valor){
-        nrJogadas = valor;
-    }
 
     public void aumentaNrJogadasCarne(){
         nrJogadasCarne++;

@@ -2,6 +2,7 @@ package pt.ulusofona.lp2.deisiJungle;
 
 import pt.ulusofona.lp2.deisiJungle.especie.Especie;
 import static java.lang.Math.abs;
+import static java.lang.Math.max;
 
 public class Jogador {
     private final int id;
@@ -164,7 +165,9 @@ public class Jogador {
             this.energia = 200;
         }
         else {
-            this.energia *= (1 - (double) valorPercentagem/100);
+            double energia = this.energia;
+            energia *= (1 - (double) valorPercentagem/100);
+            this.energia=(int) Math.ceil(energia);
         }
     }
 

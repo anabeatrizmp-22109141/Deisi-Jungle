@@ -12,7 +12,7 @@ public class GameManager {
     private int jungleSize;
     private String[][] playersInfo;
 
-    private int nrjogadas = 0;
+    protected int nrjogadas = 0;
 
     public GameManager() {
     }
@@ -510,10 +510,8 @@ public class GameManager {
         }
 
         if(jogadorAtual.getCasaAtual().getAlimento() != null) {
-
             MovementResult result = aplicaEfeitoComida(jogadorAtual.getCasaAtual().getNrSquare(),jogadorAtual);
             jogadorAtual.aumentaNrAlimentos();
-
             if(result.code() != null) {
                 mudaJogadorAtual();
                 return result;
