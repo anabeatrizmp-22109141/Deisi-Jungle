@@ -371,6 +371,7 @@ public class GameManager {
                 if(j.getCasaAtual().getNrSquare() > maiorCasaComJogadores) {
                     maiorCasaComJogadores = j.getCasaAtual().getNrSquare();
                 }
+
             }
             return getPlayerInfo(mapa.get(maiorCasaComJogadores).getJogadoresNaPosicaoPorOrdem()[0]);
         }
@@ -473,6 +474,7 @@ public class GameManager {
             mudaJogadorAtual();
             return new MovementResult(MovementResultCode.INVALID_MOVEMENT, null);
         }
+
 
         if(!jogadorAtual.temEnergiaParaMover(nrSquares) && nrSquares != 0) {
             mudaJogadorAtual();
@@ -722,8 +724,9 @@ public class GameManager {
             return true;
         }
 
+
         // é + pq + (-nrCasa)
-        return nrSquares < 0 && jogadorAtual.getCasaAtual().getNrSquare() + nrSquares < 1;
+        return nrSquares < 0 && jogadorAtual.getCasaAtual().getNrSquare() + nrSquares < 1 || bypassValidations;
     }
 
     public boolean verificaTodosSemEnergia() {

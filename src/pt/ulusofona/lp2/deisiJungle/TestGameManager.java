@@ -913,7 +913,7 @@ public class TestGameManager {
 
         Assert.assertEquals(MovementResultCode.INVALID_MOVEMENT,mov.code());
 
-        mov = jogo.moveCurrentPlayer(-2,false);
+        mov = jogo.moveCurrentPlayer(-1,false);
 
         Assert.assertEquals(MovementResultCode.INVALID_MOVEMENT,mov.code());
 
@@ -923,6 +923,10 @@ public class TestGameManager {
 
         mov = jogo.moveCurrentPlayer(0,false);
         Assert.assertEquals(MovementResultCode.VALID_MOVEMENT,mov.code());
+
+        mov = jogo.moveCurrentPlayer(-1,true);
+
+        Assert.assertEquals(MovementResultCode.INVALID_MOVEMENT,mov.code());
 
     }
 
@@ -1400,7 +1404,7 @@ public class TestGameManager {
 
         //Dá o resultado do jogador vencedor
         Assert.assertEquals(info, jogo.getWinnerInfo());
-
     }
+
 }
 
