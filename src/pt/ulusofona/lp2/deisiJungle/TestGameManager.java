@@ -1218,10 +1218,7 @@ public class TestGameManager {
 
 
         jogo.moveCurrentPlayer(1,false);
-        System.out.println(jogo.nrjogadas);
-        System.out.println(jogo.mapa.get(2).getAlimento().getDescricaoTooltip());
 
-        System.out.println(jogador1.getInfoEnergiaAtual());
 
         //jogo.moveCurrentPlayer(1,false);
         //System.out.println(jogo.nrjogadas);
@@ -1360,6 +1357,50 @@ public class TestGameManager {
         Assert.assertEquals("Carne toxica", jogo.mapa.get(3).getAlimento().getDescricaoTooltip());
     }
 
+    @Test
+    public void test_getWinner2ganhou(){
+        GameManager jogo = new GameManager();
+        String[][] playersinfo = new String[2][3];
 
+        playersinfo[0][0] = "1";
+        playersinfo[0][1] = "Banana";
+        playersinfo[0][2] = "E";
+
+        playersinfo[1][0] = "2";
+        playersinfo[1][1] = "Mantinhas";
+        playersinfo[1][2] = "L";
+
+        String[][] foodsInfo = new String[1][2];
+
+        foodsInfo[0][0] = "c";
+        foodsInfo[0][1] = "2";
+
+        jogo.createInitialJungle(30, playersinfo, foodsInfo);
+
+        //distancia > 15
+
+        for(int i=0; i<25;i++){
+            jogo.moveCurrentPlayer(1,false);
+            jogo.moveCurrentPlayer(0,false);
+        }
+        for(int i=0; i<5;i++){
+            jogo.moveCurrentPlayer(0,false);
+            jogo.moveCurrentPlayer(1,false);
+        }
+
+        System.out.println(jogo.jogadores.get(0).getCasaAtual().getNrSquare());
+        System.out.println(jogo.jogadores.get(1).getCasaAtual().getNrSquare());
+
+        String[] info = new String[5];
+        info[0] = 2 + "";
+        info[1] = "Mantinhas";
+        info[2] = "L";
+        info[3] = 91 + "";
+        info[4] = "4..6";
+
+        //Dá o resultado do jogador vencedor
+        Assert.assertEquals(info, jogo.getWinnerInfo());
+
+    }
 }
 
