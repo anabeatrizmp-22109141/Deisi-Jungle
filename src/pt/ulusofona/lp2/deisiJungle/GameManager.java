@@ -485,9 +485,13 @@ public class GameManager {
             jogadorAtual.adicionaNrMovimentacoes(nrSquares);
 
             nrjogadas++;
+
+            aplicaAumentoJogadasNaCarne();
+
         }
 
         if(jogadorAtual.getCasaAtual().getAlimento() != null) {
+
             MovementResult result = aplicaEfeitoComida(jogadorAtual.getCasaAtual().getNrSquare(),jogadorAtual);
             jogadorAtual.aumentaNrAlimentos();
             mudaJogadorAtual();
@@ -497,6 +501,14 @@ public class GameManager {
         mudaJogadorAtual();
 
         return new MovementResult(MovementResultCode.VALID_MOVEMENT, "");
+    }
+
+    public void aplicaAumentoJogadasNaCarne(){
+        for(int i = 1; i < mapa.size(); i++){
+            if(mapa.get(i).getAlimento() != null){
+                mapa.get(i).getAlimento().aumentaNrJogadasCarne();
+            }
+        }
     }
 
     public MovementResult aplicaEfeitoComida(int nrSquare, Jogador jogador) {
@@ -516,7 +528,7 @@ public class GameManager {
                 if (cacho.temBananas()) {
                     efeitoBananas(jogador);
                     cacho.diminuiBanana();
-                    return new MovementResult(MovementResultCode.CAUGHT_FOOD, "Apanhou Cacho de bananas");
+                    return new MovementResult(MovementResultCode.CAUGHT_FOOD, "Apanhou Bananas");
                 }
             }
             case "c" -> {

@@ -5,6 +5,7 @@ abstract public class Alimento {
     protected String nome;
     protected String imagem;
     protected int nrJogadas;
+    protected int nrJogadasCarne = 0;
 
     public Alimento() {
     }
@@ -39,5 +40,9 @@ abstract public class Alimento {
 
     public void setNrJogadas(int valor){
         nrJogadas = valor;
-    };
+    }
+
+    public void aumentaNrJogadasCarne(){
+        nrJogadasCarne++;
+    }
 }

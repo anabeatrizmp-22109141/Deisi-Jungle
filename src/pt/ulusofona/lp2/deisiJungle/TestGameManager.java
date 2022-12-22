@@ -1302,5 +1302,71 @@ public class TestGameManager {
 
         Assert.assertEquals(resultados,jogo.getGameResults());
     }
+
+    @Test
+    public void test_ApanhouBananas() {
+
+        GameManager jogo = new GameManager();
+
+        String[][] playersinfo = new String[2][3];
+
+        playersinfo[0][0] = "1";
+        playersinfo[0][1] = "Banana";
+        playersinfo[0][2] = "E";
+
+        playersinfo[1][0] = "2";
+        playersinfo[1][1] = "Mantinhas";
+        playersinfo[1][2] = "L";
+
+        String[][] foodsInfo = new String[1][2];
+
+        foodsInfo[0][0] = "b";
+        foodsInfo[0][1] = "2";
+
+        jogo.createInitialJungle(50,playersinfo,foodsInfo);
+
+
+        Assert.assertEquals("Apanhou Bananas" , jogo.moveCurrentPlayer(1,false).message());
+
+    }
+
+    @Test
+    public void teste_nrJogadasDaCarne() {
+        GameManager jogo = new GameManager();
+
+        String[][] playersinfo = new String[2][3];
+
+        playersinfo[0][0] = "1";
+        playersinfo[0][1] = "Banana";
+        playersinfo[0][2] = "E";
+
+        playersinfo[1][0] = "2";
+        playersinfo[1][1] = "Mantinhas";
+        playersinfo[1][2] = "L";
+
+        String[][] foodsInfo = new String[2][2];
+
+        foodsInfo[0][0] = "c";
+        foodsInfo[0][1] = "2";
+
+        foodsInfo[1][0] = "c";
+        foodsInfo[1][1] = "3";
+
+        jogo.createInitialJungle(30, playersinfo, foodsInfo);
+
+        for (int i = 0; i < 10; i++) {
+            jogo.moveCurrentPlayer(1, false);
+        }
+
+        Assert.assertEquals("Carne : + 50 energia : 10 jogadas", jogo.mapa.get(2).getAlimento().getDescricaoTooltip());
+        Assert.assertEquals("Carne : + 50 energia : 10 jogadas", jogo.mapa.get(3).getAlimento().getDescricaoTooltip());
+        for(int i = 0; i<10;i++) {
+            jogo.moveCurrentPlayer(1, false);
+        }
+
+        Assert.assertEquals("Carne toxica", jogo.mapa.get(2).getAlimento().getDescricaoTooltip());
+        Assert.assertEquals("Carne toxica", jogo.mapa.get(3).getAlimento().getDescricaoTooltip());
+    }
+
 }
 
