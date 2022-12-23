@@ -94,4 +94,7 @@ public class Square {
         return jogadoresOrdenados;
     }
 
+    public String informacoesCasaSaveGame() {
+        return nrSquare + "," + imagem + "," +  descricao + "," + jogadoresNaPosicao + "," + alimento.getId();
+    }
 }

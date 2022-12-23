@@ -2,7 +2,6 @@ package pt.ulusofona.lp2.deisiJungle;
 
 import pt.ulusofona.lp2.deisiJungle.especie.Especie;
 import static java.lang.Math.abs;
-import static java.lang.Math.max;
 
 public class Jogador {
     private final int id;
@@ -57,6 +56,11 @@ public class Jogador {
         informacaoJogador[4] = especie.getVelocidade();
 
         return informacaoJogador;
+    }
+
+    public String informacoesJogadorSaveGame() {
+        return id + "," + nome + "," + especie.getId() + "," + casaAtual.getNrSquare() + "," + energia + "," +
+                nrBananasComidas + "," + nrMovimentacoes + "," + nrAlimentos;
     }
 
     public int getInfoEnergiaAtual() {

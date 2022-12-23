@@ -2,6 +2,8 @@ package pt.ulusofona.lp2.deisiJungle;
 
 import pt.ulusofona.lp2.deisiJungle.comida.*;
 import pt.ulusofona.lp2.deisiJungle.especie.*;
+import java.io.FileReader;
+import java.io.BufferedReader;
 import javax.swing.*;
 import java.io.File;
 import java.util.*;
@@ -361,21 +363,6 @@ public class GameManager {
             }
         }
 
-        if(verificaTodosSemEnergia()){
-            return null;
-        }
-
-        int maiorCasaComJogadores = 0;
-        if(verificaTodosSemEnergia()) {
-            for(Jogador j :jogadores) {
-                if(j.getCasaAtual().getNrSquare() > maiorCasaComJogadores) {
-                    maiorCasaComJogadores = j.getCasaAtual().getNrSquare();
-                }
-
-            }
-            return getPlayerInfo(mapa.get(maiorCasaComJogadores).getJogadoresNaPosicaoPorOrdem()[0]);
-        }
-
         return null;
     }
 
@@ -505,11 +492,14 @@ public class GameManager {
             aplicaAumentoJogadasNaCarne();
         }
         //Ganhou por distância entre dois ultimos ser maior que tamanho do mapa
-        Jogador[] jogadoresOrdenados = getJogadoresOrdenadosPorNrCasa();
+        if(!jogadorAtual.ganhou()) {
+            Jogador[] jogadoresOrdenados = getJogadoresOrdenadosPorNrCasa();
 
-        if(isDistanciaEntre1e2LugarMaiorQueMetadeDoMapa(jogadoresOrdenados)) {
-            getPlayer(jogadoresOrdenados[jogadoresOrdenados.length-2].getId()).setGanhou(true);
+            if(isDistanciaEntre1e2LugarMaiorQueMetadeDoMapa(jogadoresOrdenados)) {
+                getPlayer(jogadoresOrdenados[jogadoresOrdenados.length-2].getId()).setGanhou(true);
+            }
         }
+
 
         if(jogadorAtual.getCasaAtual().getAlimento() != null) {
             MovementResult result = aplicaEfeitoComida(jogadorAtual.getCasaAtual().getNrSquare(),jogadorAtual);

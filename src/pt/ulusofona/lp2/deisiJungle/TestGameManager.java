@@ -1400,11 +1400,51 @@ public class TestGameManager {
         info[0] = 2 + "";
         info[1] = "Mantinhas";
         info[2] = "L";
-        info[3] = 80 + "";
+        info[3] = 200 + "";
         info[4] = "4..6";
 
         //Dá o resultado do jogador vencedor
         Assert.assertEquals(info, jogo.getWinnerInfo());
+    }
+
+    @Test
+    public void test_ExemploEnunciado() {
+        GameManager jogo = new GameManager();
+
+        String[][] playersinfo = new String[2][3];
+
+        playersinfo[0][0] = "1";
+        playersinfo[0][1] = "Banana";
+        playersinfo[0][2] = "Z";
+
+        playersinfo[1][0] = "2";
+        playersinfo[1][1] = "Mantinhas";
+        playersinfo[1][2] = "L";
+
+        String[][] foodsInfo = new String[1][2];
+
+        foodsInfo[0][0] = "a";
+        foodsInfo[0][1] = "4";
+
+        jogo.createInitialJungle(10, playersinfo, foodsInfo);
+
+        MovementResult codigo = jogo.moveCurrentPlayer(3, false);
+
+        Assert.assertEquals(MovementResultCode.CAUGHT_FOOD, codigo.code());
+        Assert.assertEquals(76, jogo.jogadores.get(0).getInfoEnergiaAtual());
+
+        codigo = jogo.moveCurrentPlayer(5, false);
+        Assert.assertEquals(MovementResultCode.VALID_MOVEMENT, codigo.code());
+        Assert.assertEquals(70, jogo.jogadores.get(1).getInfoEnergiaAtual());
+
+        codigo = jogo.moveCurrentPlayer(0, false);
+        Assert.assertEquals(MovementResultCode.CAUGHT_FOOD, codigo.code());
+        Assert.assertEquals(115, jogo.jogadores.get(0).getInfoEnergiaAtual());
+
+        codigo = jogo.moveCurrentPlayer(4, false);
+        Assert.assertEquals(MovementResultCode.VALID_MOVEMENT, codigo.code());
+        Assert.assertEquals(62, jogo.jogadores.get(1).getInfoEnergiaAtual());
+        Assert.assertEquals("2", jogo.getWinnerInfo()[0]);
     }
 
 }
