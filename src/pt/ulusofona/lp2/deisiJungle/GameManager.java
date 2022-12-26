@@ -831,19 +831,22 @@ public class GameManager {
 
     public JPanel getAuthorsPanel() {
         JFrame f = new JFrame();
-        JLabel intro = new JLabel("Jogo criado por:");
 
+        JLabel intro = new JLabel("Com suor, sangue e lágrimas:");
         JLabel bruno = new JLabel("Bruno Miguel - 22106424");
         JLabel ana = new JLabel("Ana Beatriz - 22109141");
 
         JPanel p = new JPanel();
+        p.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 10));
 
         p.add(intro);
         p.add(bruno);
         p.add(ana);
 
+
         // setbackground of panel
         p.setBackground(Color.black);
+        intro.setForeground(Color.white);
         bruno.setForeground(Color.yellow);
         ana.setForeground(Color.yellow);
 
