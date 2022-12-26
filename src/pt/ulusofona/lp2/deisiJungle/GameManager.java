@@ -837,8 +837,8 @@ public class GameManager {
         JLabel ana = new JLabel("Ana Beatriz - 22109141");
 
         JPanel p = new JPanel();
-        p.add(intro);
 
+        p.add(intro);
         p.add(bruno);
         p.add(ana);
 
@@ -846,7 +846,6 @@ public class GameManager {
         p.setBackground(Color.black);
         bruno.setForeground(Color.yellow);
         ana.setForeground(Color.yellow);
-
 
         // Adding panel to frame
         f.add(p);
