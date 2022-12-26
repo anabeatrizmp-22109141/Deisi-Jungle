@@ -16,7 +16,7 @@ public class CogumelosMagicos extends Alimento {
 
     @Override
     public String getDescricaoTooltip() {
-        return "Cogumelo Magico: +- " + numeroAleatorio + "% energia";
+        return "Cogumelo Magico : +- " + numeroAleatorio + "% energia";
     }
 
     public int getNumeroAleatorio() {

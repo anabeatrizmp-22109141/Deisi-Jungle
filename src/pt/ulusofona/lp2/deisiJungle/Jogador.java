@@ -24,11 +24,32 @@ public class Jogador {
         this.casaAtual = casaAtual;
         this.energia = especie.getEnergiaInicial();
     }
+
+    public Jogador(int id, String nome, Especie especie, boolean isJogadorAtual, boolean ganhou, Square casaAtual,
+                   int energia, int nrBananasComidas, int nrMovimentacoes, int nrAlimentos) {
+        this.id = id;
+        this.nome = nome;
+        this.especie = especie;
+        this.isJogadorAtual = isJogadorAtual;
+        this.ganhou = ganhou;
+        this.casaAtual = casaAtual;
+        this.energia = energia;
+        this.nrBananasComidas = nrBananasComidas;
+        this.nrMovimentacoes = nrMovimentacoes;
+        this.nrAlimentos = nrAlimentos;
+    }
+
     /*
 ----------------------------------------------------------------------------------
                                    GETTERS
 ----------------------------------------------------------------------------------
      */
+
+    public String getPlayerInfoSaveLoad() {
+        return id + "|" + nome + "|" + especie.getId() + "|" + isJogadorAtual + "|" +
+                ganhou + "|" + casaAtual.getNrSquare() + "|"  + energia + "|" +
+                nrBananasComidas + "|" + nrMovimentacoes + "|" + nrMovimentacoes;
+    }
 
     public int getId() {
         return this.id;
@@ -56,11 +77,6 @@ public class Jogador {
         informacaoJogador[4] = especie.getVelocidade();
 
         return informacaoJogador;
-    }
-
-    public String informacoesJogadorSaveGame() {
-        return id + "," + nome + "," + especie.getId() + "," + casaAtual.getNrSquare() + "," + energia + "," +
-                nrBananasComidas + "," + nrMovimentacoes + "," + nrAlimentos;
     }
 
     public int getInfoEnergiaAtual() {

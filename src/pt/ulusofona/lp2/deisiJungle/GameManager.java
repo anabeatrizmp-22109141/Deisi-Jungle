@@ -2,10 +2,11 @@ package pt.ulusofona.lp2.deisiJungle;
 
 import pt.ulusofona.lp2.deisiJungle.comida.*;
 import pt.ulusofona.lp2.deisiJungle.especie.*;
-import java.io.FileReader;
-import java.io.BufferedReader;
 import javax.swing.*;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 
 public class GameManager {
@@ -773,6 +774,25 @@ public class GameManager {
      */
 
     public boolean saveGame(File file) {
+
+        try {
+            FileWriter fileWriter = new FileWriter(file);
+            BufferedWriter writer = new BufferedWriter(fileWriter);
+
+            for(int i = 1 ; i < mapa.size() ; i++) {
+                writer.write(mapa.get(i).getSquareInfoSaveLoad());
+            }
+
+            for(Jogador j : jogadores) {
+                writer.write(j.getPlayerInfoSaveLoad());
+            }
+
+            writer.close();
+            fileWriter.close();
+        }
+        catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
         return true;
     }
 

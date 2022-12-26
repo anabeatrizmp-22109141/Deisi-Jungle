@@ -19,6 +19,10 @@ public class Square {
         this.jogadoresNaPosicao = jogadoresNaPosicao;
     }
 
+    public String getSquareInfoSaveLoad() {
+        return nrSquare + "|" + imagem + "|" + descricao + "|" + jogadoresNaPosicao + "|" + alimento.getId();
+    }
+
     public void colocaAlimentoNaCasa(Alimento alimento) {
         this.alimento = alimento;
         this.descricao = alimento.getDescricaoTooltip();
@@ -92,9 +96,5 @@ public class Square {
         }
         Arrays.sort(jogadoresOrdenados);
         return jogadoresOrdenados;
-    }
-
-    public String informacoesCasaSaveGame() {
-        return nrSquare + "," + imagem + "," +  descricao + "," + jogadoresNaPosicao + "," + alimento.getId();
     }
 }
