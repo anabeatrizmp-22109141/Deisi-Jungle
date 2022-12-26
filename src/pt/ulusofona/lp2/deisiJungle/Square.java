@@ -6,11 +6,11 @@ import java.util.Arrays;
 import java.util.Objects;
 
 public class Square {
-    int nrSquare;
-    String imagem;
-    String descricao;
-    String jogadoresNaPosicao;
-    Alimento alimento;
+    private final int nrSquare;
+    private String imagem;
+    private String descricao;
+    protected String jogadoresNaPosicao;
+    protected Alimento alimento;
 
     public Square(int nrSquare, String imagem ,String descricao, String jogadoresNaPosicao) {
         this.nrSquare = nrSquare;
