@@ -3,10 +3,7 @@ package pt.ulusofona.lp2.deisiJungle;
 import pt.ulusofona.lp2.deisiJungle.comida.*;
 import pt.ulusofona.lp2.deisiJungle.especie.*;
 import javax.swing.*;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -28,7 +25,7 @@ public class GameManager {
 -------------------------------------------------------------------------------
  */
     public String[][] getSpecies() {
-        String[][] especies = new String[5][7];
+        String[][] especies = new String[6][7];
         Especie especie;
 
         especie = new Elefante();
@@ -46,11 +43,14 @@ public class GameManager {
         especie = new Tarzan();
         especies[4] = especie.getInfo();
 
+        especie = new Sapo();
+        especies[5] = especie.getInfo();
+
         return especies;
     }
 
     public String[][] getFoodTypes() {
-        String[][] comida = new String[5][4];
+        String[][] comida = new String[6][4];
         Alimento alimento;
 
         alimento = new Banana();
@@ -67,6 +67,9 @@ public class GameManager {
 
         alimento = new CogumelosMagicos();
         comida[4] = alimento.getInfo();
+
+        alimento = new Chocolate();
+        comida[5] = alimento.getInfo();
 
         return comida;
     }
@@ -224,6 +227,11 @@ public class GameManager {
                     jogador = new Jogador(id, nome, tarzan, mapa.get(1));
                     this.jogadores.add(jogador);
                 }
+                case "S" -> {
+                    Especie sapo = new Sapo();
+                    jogador = new Jogador(id, nome, sapo, mapa.get(1));
+                    this.jogadores.add(jogador);
+                }
             }
         }
 
@@ -260,6 +268,10 @@ public class GameManager {
                 case "m" -> {
                     Alimento cogumelos = new CogumelosMagicos();
                     mapa.get(posicaoTerreno).colocaAlimentoNaCasa(cogumelos);
+                }
+                case "h" -> {
+                    Alimento chocolate = new Chocolate();
+                    mapa.get(posicaoTerreno).colocaAlimentoNaCasa(chocolate);
                 }
             }
         }
@@ -558,6 +570,10 @@ public class GameManager {
                 efeitoCogumelos(jogador, cogumelosMagicos);
                 return new MovementResult(MovementResultCode.CAUGHT_FOOD, "Apanhou Cogumelo Magico");
             }
+            case "h" -> {
+                efeitoChocolate(jogador);
+                return new MovementResult(MovementResultCode.CAUGHT_FOOD, "Apanhou Chocolate");
+            }
         }
         return new MovementResult(null, "");
     }
@@ -609,6 +625,15 @@ public class GameManager {
         }
         else{
             jogador.reduzEnergiaComidaPercentagem(cogumelos.getNumeroAleatorio());
+        }
+    }
+
+    public void efeitoChocolate(Jogador jogador) {
+        if(jogador.getInfoEnergiaAtual() + 80 > 200) {
+            jogador.setEnergia(0);
+        }
+        else {
+            jogador.mudaEnergiaComidaValorInteiro(80);
         }
     }
 
@@ -792,14 +817,15 @@ public class GameManager {
 
             writer.close();
             fileWriter.close();
+            return true;
         }
         catch (IOException ioe) {
-            ioe.printStackTrace();
+            return false;
         }
-        return true;
     }
 
     public boolean loadGame(File file) {
+
         return true;
     }
 
