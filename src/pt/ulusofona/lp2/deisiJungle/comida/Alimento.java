@@ -4,15 +4,11 @@ abstract public class Alimento {
     protected String id;
     protected String nome;
     protected String imagem;
-    protected int nrJogadas; //isto pode se apagar
     protected int nrJogadasCarne = 0;
 
     public Alimento() {
     }
 
-    public int getNrJogadas() { //isto pode se apagar
-        return nrJogadas;
-    }
 
     public String getId() {
         return this.id;

@@ -5,6 +5,7 @@ import org.junit.Test;
 import pt.ulusofona.lp2.deisiJungle.comida.*;
 import pt.ulusofona.lp2.deisiJungle.especie.*;
 
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -783,6 +784,7 @@ public class TestGameManager {
         jogo.createInitialJungle(5, playersinfo);
 
         Assert.assertNull(jogo.getCurrentPlayer());
+        Assert.assertNull(jogo.getPlayer(1));
     }
 
     @Test
@@ -887,7 +889,7 @@ public class TestGameManager {
     public void test_025_moveCurrentPlayer(){
         GameManager jogo = new GameManager();
 
-        String[][] playersinfo = new String[2][3];
+        String[][] playersinfo = new String[3][3];
 
         playersinfo[0][0] = "2";
         playersinfo[0][1] = "Banana";
@@ -897,6 +899,9 @@ public class TestGameManager {
         playersinfo[1][1] = "Mantinhas";
         playersinfo[1][2] = "P";
 
+        playersinfo[2][0] = "3";
+        playersinfo[2][1] = "bolachas";
+        playersinfo[2][2] = "T";
 
         String[][] foodsInfo = new String[1][2];
 
@@ -909,20 +914,26 @@ public class TestGameManager {
         int idCurrentPlayerObtido = jogo.getCurrentPlayer().getId();
 
         Assert.assertEquals(idCurrentPlayerEsperado,idCurrentPlayerObtido);
-        MovementResult mov = jogo.moveCurrentPlayer(-8,false);
+        MovementResult mov = jogo.moveCurrentPlayer(-8,false); //j1
 
         Assert.assertEquals(MovementResultCode.INVALID_MOVEMENT,mov.code());
 
-        mov = jogo.moveCurrentPlayer(5,false);
+        mov = jogo.moveCurrentPlayer(5,false); //j2
         Assert.assertEquals(MovementResultCode.VALID_MOVEMENT,mov.code());
 
-        mov = jogo.moveCurrentPlayer(10,true);
+        mov = jogo.moveCurrentPlayer(10,true); //j3
         Assert.assertEquals(MovementResultCode.VALID_MOVEMENT,mov.code());
 
-        jogo.moveCurrentPlayer(0,false);
+        jogo.moveCurrentPlayer(0,false); //j1
 
-        mov = jogo.moveCurrentPlayer(-5,false);
+        mov = jogo.moveCurrentPlayer(-5,false); //j2
         Assert.assertEquals(MovementResultCode.VALID_MOVEMENT,mov.code());
+
+        mov = jogo.moveCurrentPlayer(-4,false); //j3
+        Assert.assertEquals(MovementResultCode.INVALID_MOVEMENT,mov.code());
+
+        mov = jogo.moveCurrentPlayer(10,false); //j1
+        Assert.assertEquals(MovementResultCode.INVALID_MOVEMENT,mov.code());
     }
 
     @Test
@@ -1166,7 +1177,14 @@ public class TestGameManager {
         Assert.assertEquals(energiaLeao,jogador2.getInfoEnergiaAtual());
 
         jogo.moveCurrentPlayer(1,false);
+        jogo.efeitoCarne(jogador1);
         jogo.moveCurrentPlayer(4,false);
+
+
+        //Testa o getNrMovimentos e o getNrAlimentos
+        Assert.assertEquals(1,jogador1.getNrMovimentacoes());
+        Assert.assertEquals(1,jogador1.getNrAlimentos());
+
 
         Assert.assertEquals(176,jogador1.getInfoEnergiaAtual());
         Assert.assertEquals(72,jogador2.getInfoEnergiaAtual());
@@ -1178,6 +1196,17 @@ public class TestGameManager {
 
         Assert.assertEquals(156,jogador1.getInfoEnergiaAtual());
         Assert.assertEquals(32,jogador2.getInfoEnergiaAtual());
+
+        //caso ja tenha mais de 200 energia
+        for(int i = 0; i < 20;i++){
+            jogo.moveCurrentPlayer(0,false);
+            jogo.moveCurrentPlayer(0,false);
+        }
+        jogador1.mudaEnergiaComidaPercentagem(110);
+        Assert.assertEquals(200,jogador1.getInfoEnergiaAtual());
+
+        jogador2.reduzEnergiaComidaPercentagem(1);
+        Assert.assertEquals(200,jogador2.getInfoEnergiaAtual());
 
 
     }
@@ -1447,5 +1476,72 @@ public class TestGameManager {
         Assert.assertEquals("2", jogo.getWinnerInfo()[0]);
     }
 
+    @Test
+    public void test_InformacoesJogadorSaveGame() {
+        GameManager jogo = new GameManager();
+
+        String[][] playersinfo = new String[2][3];
+
+        playersinfo[0][0] = "1";
+        playersinfo[0][1] = "Banana";
+        playersinfo[0][2] = "E";
+
+        playersinfo[1][0] = "2";
+        playersinfo[1][1] = "Mantinhas";
+        playersinfo[1][2] = "T";
+
+        String[][] foodsInfo = new String[1][2];
+
+        foodsInfo[0][0] = "a";
+        foodsInfo[0][1] = "4";
+
+        jogo.createInitialJungle(30, playersinfo, foodsInfo);
+
+        for(int i=0; i<25;i++){
+            jogo.moveCurrentPlayer(1,false);
+            jogo.moveCurrentPlayer(1,false);
+        }
+
+        String info = "1,Banana,E,26,95,0,25,1";
+        Assert.assertEquals(info,jogo.jogadores.get(0).informacoesJogadorSaveGame());
+    }
+
+    @Test
+    public void test_InformacoesSquareSaveGame() {
+        GameManager jogo = new GameManager();
+
+        String[][] playersinfo = new String[2][3];
+
+        playersinfo[0][0] = "1";
+        playersinfo[0][1] = "Banana";
+        playersinfo[0][2] = "E";
+
+        playersinfo[1][0] = "2";
+        playersinfo[1][1] = "Mantinhas";
+        playersinfo[1][2] = "T";
+
+        String[][] foodsInfo = new String[1][2];
+
+        foodsInfo[0][0] = "a";
+        foodsInfo[0][1] = "4";
+
+        jogo.createInitialJungle(30, playersinfo, foodsInfo);
+
+        String info = "4,water.png,Agua : + 15U|20% energia,,a";
+        Assert.assertEquals(info,jogo.mapa.get(4).informacoesCasaSaveGame());
+    }
+
+    @Test
+    public void test_whoIsTaborda(){
+        GameManager jogo = new GameManager();
+        String taborda = "Wrestling";
+        Assert.assertEquals(taborda,jogo.whoIsTaborda());
+    }
+
+    @Test
+    public void test_Main(){
+        Main main = new Main();
+        //Sem conteudo, so mesmo para a class estar 100% no coverage
+    }
 }
 

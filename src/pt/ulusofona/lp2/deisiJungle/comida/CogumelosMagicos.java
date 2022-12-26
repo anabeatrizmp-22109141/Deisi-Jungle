@@ -5,7 +5,7 @@ import pt.ulusofona.lp2.deisiJungle.comida.Alimento;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class CogumelosMagicos extends Alimento {
-    private final int numeroAleatorio;
+    private int numeroAleatorio;
 
     public CogumelosMagicos() {
         this.id = "m";
@@ -21,5 +21,10 @@ public class CogumelosMagicos extends Alimento {
 
     public int getNumeroAleatorio() {
         return numeroAleatorio;
+    }
+
+    //Para fins de teste
+    public void setNumeroAleatorio(int valor){
+        numeroAleatorio = valor;
     }
 }
