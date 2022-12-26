@@ -8,6 +8,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
 
 public class GameManager {
     ArrayList<Jogador> jogadores;
@@ -801,7 +804,31 @@ public class GameManager {
     }
 
     public JPanel getAuthorsPanel() {
-        return new JPanel();
+        JFrame f = new JFrame();
+        JLabel intro = new JLabel("Jogo criado por:");
+
+        JLabel bruno = new JLabel("Bruno Miguel - 22106424");
+        JLabel ana = new JLabel("Ana Beatriz - 22109141");
+
+        JPanel p = new JPanel();
+        p.add(intro);
+
+        p.add(bruno);
+        p.add(ana);
+
+        // setbackground of panel
+        p.setBackground(Color.black);
+        bruno.setForeground(Color.yellow);
+        ana.setForeground(Color.yellow);
+
+
+        // Adding panel to frame
+        f.add(p);
+
+        // Setting the size of frame
+        f.setSize(300, 300);
+
+        return p;
     }
 
     public String whoIsTaborda() {

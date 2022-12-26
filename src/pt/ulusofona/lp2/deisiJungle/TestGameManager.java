@@ -934,6 +934,12 @@ public class TestGameManager {
 
         mov = jogo.moveCurrentPlayer(10,false); //j1
         Assert.assertEquals(MovementResultCode.INVALID_MOVEMENT,mov.code());
+
+        mov = jogo.moveCurrentPlayer(10,false);
+        Assert.assertEquals(MovementResultCode.INVALID_MOVEMENT,mov.code());
+
+        mov = jogo.moveCurrentPlayer(10,false);
+        Assert.assertEquals(MovementResultCode.INVALID_MOVEMENT,mov.code());
     }
 
     @Test
@@ -1503,7 +1509,7 @@ public class TestGameManager {
         }
 
         String info = "1,Banana,E,26,95,0,25,1";
-        Assert.assertEquals(info,jogo.jogadores.get(0).informacoesJogadorSaveGame());
+        Assert.assertEquals(info,jogo.jogadores.get(0).getPlayerInfoSaveLoad());
     }
 
     @Test
@@ -1528,7 +1534,7 @@ public class TestGameManager {
         jogo.createInitialJungle(30, playersinfo, foodsInfo);
 
         String info = "4,water.png,Agua : + 15U|20% energia,,a";
-        Assert.assertEquals(info,jogo.mapa.get(4).informacoesCasaSaveGame());
+        Assert.assertEquals(info,jogo.mapa.get(4).getSquareInfoSaveLoad());
     }
 
     @Test
