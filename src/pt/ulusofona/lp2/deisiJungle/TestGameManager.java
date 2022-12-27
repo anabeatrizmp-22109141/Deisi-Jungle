@@ -13,7 +13,7 @@ public class TestGameManager {
 
     @Test
     public void test_001_getSpecies(){
-        String[][] especies = new String[5][7];
+        String[][] especies = new String[6][7];
         Especie especie;
         especie = new Elefante();
         especies[0] = especie.getInfo();
@@ -30,6 +30,9 @@ public class TestGameManager {
         especie = new Tarzan();
         especies[4] = especie.getInfo();
 
+        especie = new Sapo();
+        especies[5] = especie.getInfo();
+
         GameManager jogo = new GameManager();
 
         Assert.assertEquals(especies,jogo.getSpecies());
@@ -37,7 +40,7 @@ public class TestGameManager {
 
     @Test
     public void test_002_getFoodType(){
-        String[][] comida = new String[5][4];
+        String[][] comida = new String[6][4];
         Alimento alimento;
 
         alimento = new Banana();
@@ -54,6 +57,9 @@ public class TestGameManager {
 
         alimento = new CogumelosMagicos();
         comida[4] = alimento.getInfo();
+
+        alimento = new Chocolate();
+        comida[5] = alimento.getInfo();
 
         GameManager jogo = new GameManager();
 
@@ -1542,6 +1548,13 @@ public class TestGameManager {
     public void test_Main(){
         Main main = new Main();
         //Sem conteudo, so mesmo para a class estar 100% no coverage
+    }
+
+    @Test
+    public void test_Jpanel(){
+        GameManager jogo = new GameManager();
+        jogo.getAuthorsPanel();
+        //Sem conteudo
     }
 }
 

@@ -96,6 +96,10 @@ public class Jogador {
                 + nrMovimentacoes + ", " + nrAlimentos;
     }
 
+    public boolean getJogadorAtual(){
+        return this.isJogadorAtual;
+    }
+
     public int getProximoNrSquare(int nrCasas) {
         return this.casaAtual.getNrSquare() + nrCasas;
     }

@@ -281,13 +281,19 @@ public class GameManager {
 -------------------------------------------------------------------------------
 -------------------------------------------------------------------------------
 */
+
+
     public Jogador getCurrentPlayer() {
         for(Jogador j : jogadores) {
-            if(j.isTurnoDoJogador()) {
+            if(isTurnoDoJogador(j)) {
                 return j;
             }
         }
         return null;
+    }
+
+    public boolean isTurnoDoJogador(Jogador j){
+        return j.getJogadorAtual();
     }
 
     public ArrayList<Integer> getIdsJogadorOrdenados(String[][] playersInfo) {
