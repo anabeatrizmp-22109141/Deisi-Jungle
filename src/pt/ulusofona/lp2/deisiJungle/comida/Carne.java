@@ -8,6 +8,12 @@ public class Carne extends Alimento {
         this.imagem = "meat.png";
     }
 
+    public Carne(int nrJogadasCarne) {
+        this.id = "c";
+        this.nome = "Carne";
+        this.imagem = "meat.png";
+        this.nrJogadasCarne = nrJogadasCarne;
+    }
     @Override
     public String getDescricaoTooltip() {
         if(nrJogadasCarne <= 12) {
@@ -18,4 +24,8 @@ public class Carne extends Alimento {
         }
     }
 
+    @Override
+    public String getAlimentoInfoSaveLoad() {
+        return super.getAlimentoInfoSaveLoad() + ";" + nrJogadasCarne;
+    }
 }

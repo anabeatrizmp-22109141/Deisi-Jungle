@@ -34,8 +34,11 @@ abstract public class Alimento {
         return info;
     }
 
-
     public void aumentaNrJogadasCarne(){
         nrJogadasCarne++;
+    }
+
+    public String getAlimentoInfoSaveLoad() {
+        return "A" + ";" + id;
     }
 }

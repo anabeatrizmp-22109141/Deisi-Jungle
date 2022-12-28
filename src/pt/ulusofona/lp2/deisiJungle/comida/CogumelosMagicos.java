@@ -14,6 +14,13 @@ public class CogumelosMagicos extends Alimento {
         this.numeroAleatorio = ThreadLocalRandom.current().nextInt(10, 50 + 1);
     }
 
+    public CogumelosMagicos(int numeroAleatorio) {
+        this.id = "m";
+        this.nome = "Cogumelo Magico";
+        this.imagem = "mushroom.png";
+        this.numeroAleatorio = numeroAleatorio;
+    }
+
     @Override
     public String getDescricaoTooltip() {
         return "Cogumelo Magico : +- " + numeroAleatorio + "% energia";
@@ -26,5 +33,10 @@ public class CogumelosMagicos extends Alimento {
     //Para fins de teste
     public void setNumeroAleatorio(int valor){
         numeroAleatorio = valor;
+    }
+
+    @Override
+    public String getAlimentoInfoSaveLoad() {
+        return super.getAlimentoInfoSaveLoad() + ";" + numeroAleatorio;
     }
 }

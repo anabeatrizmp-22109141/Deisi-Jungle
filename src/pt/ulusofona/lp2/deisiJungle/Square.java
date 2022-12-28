@@ -9,7 +9,7 @@ public class Square {
     private final int nrSquare;
     private String imagem;
     private String descricao;
-    protected String jogadoresNaPosicao;
+    protected String jogadoresNaPosicao = "";
     protected Alimento alimento;
 
     public Square(int nrSquare, String imagem ,String descricao, String jogadoresNaPosicao) {
@@ -18,9 +18,26 @@ public class Square {
         this.descricao = descricao;
         this.jogadoresNaPosicao = jogadoresNaPosicao;
     }
+    public Square(int nrSquare, String imagem, String descricao) {
+        this.nrSquare = nrSquare;
+        this.imagem = imagem;
+        this.descricao = descricao;
+    }
 
     public String getSquareInfoSaveLoad() {
-        return nrSquare + "|" + imagem + "|" + descricao + "|" + jogadoresNaPosicao + "|" + alimento.getId();
+        String jogadores = "";
+
+        if (Objects.equals(jogadoresNaPosicao, "")) {
+            jogadores = "NA";
+        }else {
+            jogadores = jogadoresNaPosicao;
+        }
+        if(this.alimento != null) {
+            return "S" + ";" + nrSquare + ";" + imagem + ";" + descricao + ";" + jogadores + ";" + alimento.getId();
+        }
+        else {
+            return "S" + ";" + nrSquare + ";" + imagem + ";" + descricao + ";" + jogadores + ";";
+        }
     }
 
     public void colocaAlimentoNaCasa(Alimento alimento) {

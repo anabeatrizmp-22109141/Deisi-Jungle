@@ -7,7 +7,6 @@ public class Jogador {
     private final int id;
     private final String nome;
     private final Especie especie;
-    private boolean isJogadorAtual;
     private boolean ganhou;
     private Square casaAtual;
     private int energia;
@@ -19,18 +18,16 @@ public class Jogador {
         this.id = id;
         this.nome = nome;
         this.especie = especie;
-        this.isJogadorAtual = false;
         this.ganhou = false;
         this.casaAtual = casaAtual;
         this.energia = especie.getEnergiaInicial();
     }
 
-    public Jogador(int id, String nome, Especie especie, boolean isJogadorAtual, boolean ganhou, Square casaAtual,
+    public Jogador(int id, String nome, Especie especie, boolean ganhou, Square casaAtual,
                    int energia, int nrBananasComidas, int nrMovimentacoes, int nrAlimentos) {
         this.id = id;
         this.nome = nome;
         this.especie = especie;
-        this.isJogadorAtual = isJogadorAtual;
         this.ganhou = ganhou;
         this.casaAtual = casaAtual;
         this.energia = energia;
@@ -46,9 +43,9 @@ public class Jogador {
      */
 
     public String getPlayerInfoSaveLoad() {
-        return id + "|" + nome + "|" + especie.getId() + "|" + isJogadorAtual + "|" +
-                ganhou + "|" + casaAtual.getNrSquare() + "|"  + energia + "|" +
-                nrBananasComidas + "|" + nrMovimentacoes + "|" + nrMovimentacoes;
+        return "J" + ";" + id + ";" + nome + ";" + especie.getId() + ";" +
+                ganhou + ";" + casaAtual.getNrSquare() + ";"  + energia + ";" +
+                nrBananasComidas + ";" + nrMovimentacoes + ";" + nrMovimentacoes;
     }
 
     public int getId() {
@@ -96,10 +93,6 @@ public class Jogador {
                 + nrMovimentacoes + ", " + nrAlimentos;
     }
 
-    public boolean getJogadorAtual(){
-        return this.isJogadorAtual;
-    }
-
     public int getProximoNrSquare(int nrCasas) {
         return this.casaAtual.getNrSquare() + nrCasas;
     }
@@ -128,10 +121,6 @@ public class Jogador {
 ----------------------------------------------------------------------------------
      */
 
-    public boolean isTurnoDoJogador(){
-        return this.isJogadorAtual;
-    }
-
     public boolean ganhou(){
         return this.ganhou;
     }
@@ -156,10 +145,6 @@ public class Jogador {
         else {
             this.energia += especie.getEnergiaEmDescanso();
         }
-    }
-
-    public void trocaJogadorAtual() {
-        this.isJogadorAtual = !isTurnoDoJogador();
     }
 
     public void aumentaNrBananasComidas() {

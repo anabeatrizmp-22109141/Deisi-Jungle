@@ -6,17 +6,15 @@ import javax.swing.*;
 import java.io.*;
 import java.util.*;
 import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
 
 public class GameManager {
-    ArrayList<Jogador> jogadores;
-    HashMap<Integer,Square> mapa;
-    private int jungleSize;
-    private String[][] playersInfo;
 
+    protected ArrayList<Jogador> jogadores;
+    protected HashMap<Integer,Square> mapa;
+    private int jungleSize;
     protected int nrjogadas = 0;
 
+    private int idJogadorAtual = 0;
     public GameManager() {
     }
 /*
@@ -83,7 +81,6 @@ public class GameManager {
     public InitializationError verificacoesMapaAntigo(int jungleSize, String[][] playersInfo) {
         this.jogadores = new ArrayList<>();
         this.mapa = new HashMap<>();
-        this.playersInfo = playersInfo;
 
         // Verificação dos nomes
         if(isNomeInvalido(playersInfo)) {
@@ -235,11 +232,7 @@ public class GameManager {
             }
         }
 
-        for(Jogador jogador : jogadores) {
-            if(jogador.getId() == idsJogador.get(0)) {
-                jogador.trocaJogadorAtual();
-            }
-        }
+        idJogadorAtual = idsJogador.get(0);
     }
 
     public void colocaComidasNoMapa(String[][] foodsInfo) {
@@ -285,15 +278,11 @@ public class GameManager {
 
     public Jogador getCurrentPlayer() {
         for(Jogador j : jogadores) {
-            if(isTurnoDoJogador(j)) {
+            if(j.getId() == idJogadorAtual) {
                 return j;
             }
         }
         return null;
-    }
-
-    public boolean isTurnoDoJogador(Jogador j){
-        return j.getJogadorAtual();
     }
 
     public ArrayList<Integer> getIdsJogadorOrdenados(String[][] playersInfo) {
@@ -437,10 +426,16 @@ public class GameManager {
         return resultados;
     }
 
-    //JÁ ESTÁ
     public void mudaJogadorAtual() {
         Jogador jogadorAtual = getCurrentPlayer();
-        ArrayList<Integer> idsJogadorOrdenados = getIdsJogadorOrdenados(playersInfo);
+
+        ArrayList<Integer> idsJogadorOrdenados = new ArrayList<>();
+
+        for (Jogador j : jogadores) {
+            idsJogadorOrdenados.add(j.getId());
+        }
+
+        Collections.sort(idsJogadorOrdenados);
 
         int idPlayerAtual = jogadorAtual.getId();
         int idPlayerNovo = 0;
@@ -456,17 +451,7 @@ public class GameManager {
                 }
             }
         }
-
-
-        for(Jogador j : jogadores) {
-            if(j.getId() == idPlayerAtual) {
-                j.trocaJogadorAtual();
-            }
-            if(j.getId() == idPlayerNovo) {
-                j.trocaJogadorAtual();
-            }
-        }
-
+        idJogadorAtual = idPlayerNovo;
     }
 
     /*
@@ -808,19 +793,29 @@ public class GameManager {
      */
 
     public boolean saveGame(File file) {
-
+        FileWriter fileWriter;
         try {
-            FileWriter fileWriter = new FileWriter(file);
+            fileWriter = new FileWriter(file);
             BufferedWriter writer = new BufferedWriter(fileWriter);
 
-            for(int i = 1 ; i < mapa.size() ; i++) {
+            for(int i = 1 ; i <= mapa.size() ; i++) {
                 writer.write(mapa.get(i).getSquareInfoSaveLoad());
+                writer.newLine();
             }
 
             for(Jogador j : jogadores) {
                 writer.write(j.getPlayerInfoSaveLoad());
+                writer.newLine();
             }
 
+            for(int i = 1; i <= mapa.size() ; i++) {
+                if(mapa.get(i).getAlimento() != null) {
+                    writer.write(mapa.get(i).getNrSquare() + ";" + mapa.get(i).getAlimento().getAlimentoInfoSaveLoad());
+                    writer.newLine();
+                }
+            }
+
+            writer.write("JA" + ";" + idJogadorAtual);
             writer.close();
             fileWriter.close();
             return true;
@@ -831,8 +826,110 @@ public class GameManager {
     }
 
     public boolean loadGame(File file) {
+        //limpa o mapa e os jogadores
+        mapa = new HashMap<>();
+        jogadores = new ArrayList<>();
+        idJogadorAtual = 0;
+        nrjogadas = 0;
+        FileReader fr;
+        String linha;
+
+        try {
+            fr = new FileReader(file);
+            BufferedReader br = new BufferedReader(fr);
+
+            while((linha = br.readLine()) != null) {
+                String[] dados = linha.split(";");
+
+                if(dados[0].equals("S")) {
+                    createSquareLoadGame(dados);
+                }
+                if(dados[0].equals("J")){
+                    createJogadorLoadGame(dados);
+                }
+                if(dados[1].equals("A")){
+                    createAlimentoLoadGame(dados);
+                }
+                if(dados[0].equals("JA")) {
+                    idJogadorAtual = Integer.parseInt(dados[1]);
+                }
+            }
+
+            fr.close();
+            br.close();
+            jungleSize = mapa.size();
+        }
+        catch (IOException e) {
+           return false;
+        }
 
         return true;
+    }
+
+    public void createSquareLoadGame(String[] dados) {
+        int nrSquare = Integer.parseInt(dados[1]);
+        String imagem = dados[2];
+        String descricao = dados[3];
+        Square square;
+
+        if(!Objects.equals(dados[4], "NA")) {
+            square = new Square(nrSquare, imagem, descricao, dados[4]);
+        }
+        else {
+            square = new Square(nrSquare, imagem, descricao);
+        }
+
+        mapa.put(nrSquare, square);
+    }
+
+    public void createJogadorLoadGame(String[] dados) {
+        int id = Integer.parseInt(dados[1]);
+        String nome = dados[2];
+        String idEspecie = dados[3];
+        boolean ganhou = Boolean.parseBoolean(dados[4]);
+        int nrCasaAtual = Integer.parseInt(dados[5]);
+        int energia = Integer.parseInt(dados[6]);
+        int nrBananasComidas = Integer.parseInt(dados[7]);
+        int nrMovimentos = Integer.parseInt(dados[8]);
+        int nrAlimentos = Integer.parseInt(dados[9]);
+
+
+        Especie especie = null;
+
+        switch (idEspecie){
+            case "E" -> especie = new Elefante();
+            case "L" -> especie = new Leao();
+            case "P" -> especie = new Passaro();
+            case "S" -> especie = new Sapo();
+            case "T" -> especie = new Tartaruga();
+            case "Z" -> especie = new Tarzan();
+        }
+
+        Jogador j = new Jogador(id, nome, especie,ganhou, mapa.get(nrCasaAtual),
+                energia,nrBananasComidas,nrMovimentos,nrAlimentos);
+
+        jogadores.add(j);
+    }
+
+    public void createAlimentoLoadGame(String[] dados) {
+        // 0 -> nrSquare , 1 -> "A" , 2 -> id , 3 -> outras infos (depende)
+        Alimento alimento = null;
+        int nrSquare = Integer.parseInt(dados[0]);
+
+        switch(dados[2]) {
+            case "a" -> alimento = new Agua();
+            case "b" -> alimento = new Banana(Integer.parseInt(dados[3]));
+            case "c" -> {
+                alimento = new Carne(Integer.parseInt(dados[3]));
+                nrjogadas = Integer.parseInt(dados[3]);
+            }
+            case "e" -> alimento = new Erva();
+            case "m" -> alimento = new CogumelosMagicos(Integer.parseInt(dados[3]));
+            case "h" -> alimento = new Chocolate();
+        }
+        assert alimento != null;
+        mapa.get(nrSquare).colocaAlimentoNaCasa(alimento);
+
     }
 
     public JPanel getAuthorsPanel() {

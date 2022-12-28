@@ -10,6 +10,13 @@ public class Banana extends Alimento {
         this.nrBananas = 3;
     }
 
+    public Banana(int nrBananas) {
+        this.id = "b";
+        this.nome = "Cacho de bananas";
+        this.imagem = "bananas.png";
+        this.nrBananas = nrBananas;
+    }
+
     @Override
     public String getDescricaoTooltip() {
         return "Bananas : " + this.nrBananas + " : + 40 energia";
@@ -29,5 +36,10 @@ public class Banana extends Alimento {
 
     public int getNrBananas(){
         return this.nrBananas;
+    }
+
+    @Override
+    public String getAlimentoInfoSaveLoad() {
+        return super.getAlimentoInfoSaveLoad() + ";" + nrBananas;
     }
 }
