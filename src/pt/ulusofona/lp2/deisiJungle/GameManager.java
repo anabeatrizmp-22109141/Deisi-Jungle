@@ -477,7 +477,7 @@ public class GameManager {
 
         if(!jogadorAtual.temEnergiaParaMover(nrSquares) && nrSquares != 0) {
             mudaJogadorAtual();
-            return new MovementResult(MovementResultCode.NO_ENERGY, "Sem energia");
+            return new MovementResult(MovementResultCode.NO_ENERGY, null);
         }
 
         if(nrSquares == 0) {

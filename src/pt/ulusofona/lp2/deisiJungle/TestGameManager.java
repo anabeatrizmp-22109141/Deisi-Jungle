@@ -1298,7 +1298,7 @@ public class TestGameManager {
     public void test_getGameResults(){
         GameManager jogo = new GameManager();
 
-        String[][] playersinfo = new String[2][3];
+        String[][] playersinfo = new String[3][3];
 
         playersinfo[0][0] = "1";
         playersinfo[0][1] = "Banana";
@@ -1306,7 +1306,11 @@ public class TestGameManager {
 
         playersinfo[1][0] = "2";
         playersinfo[1][1] = "Mantinhas";
-        playersinfo[1][2] = "L";
+        playersinfo[1][2] = "T";
+
+        playersinfo[2][0] = "3";
+        playersinfo[2][1] = "Tar";
+        playersinfo[2][2] = "Z";
 
         String[][] foodsInfo = new String[1][2];
 
@@ -1315,16 +1319,30 @@ public class TestGameManager {
 
         jogo.createInitialJungle(47, playersinfo, foodsInfo);
 
-        for(int i = 0; i < 46;i++){
+        for(int i = 0; i < 44;i++){
             jogo.moveCurrentPlayer(1,false);
-            jogo.moveCurrentPlayer(4,false);
+            jogo.moveCurrentPlayer(0,false);
+            jogo.moveCurrentPlayer(1,false);
         }
 
+        for(int i = 0; i < 16;i++){
+            jogo.moveCurrentPlayer(0,false);
+            jogo.moveCurrentPlayer(3,false);
+            jogo.moveCurrentPlayer(0,false);
+        }
+
+        for(int i = 0; i < 1;i++){
+            jogo.moveCurrentPlayer(-1,false);
+            jogo.moveCurrentPlayer(-2,false);
+            jogo.moveCurrentPlayer(-1,false);
+        }
+        //50-45-45
 
 
         ArrayList<String> resultados = new ArrayList<>();
-        resultados.add("#1 Banana, Elefante, 47, 46, 1");
-        resultados.add("#2 Mantinhas, Leao, 41, 40, 0");
+        resultados.add("#1 Mantinhas, Tartaruga, 45, 50, 0");
+        resultados.add("#2 Banana, Elefante, 44, 45, 1");
+        resultados.add("#3 Tar, Tarzan, 44, 45, 1");
 
         Assert.assertEquals(resultados,jogo.getGameResults());
     }

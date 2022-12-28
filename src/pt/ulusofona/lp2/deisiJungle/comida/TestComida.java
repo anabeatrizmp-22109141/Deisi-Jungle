@@ -33,7 +33,7 @@ public class TestComida {
 
         CogumelosMagicos cogumelosMagicos  = new CogumelosMagicos();
         cogumelosMagicos.setNumeroAleatorio(10);
-        desc =  "Cogumelo Magico: +- " + 10 + "% energia";
+        desc =  "Cogumelo Magico : +- " + 10 + "% energia";
         Assert.assertEquals(desc,cogumelosMagicos.getDescricaoTooltip());
         Assert.assertEquals(10,cogumelosMagicos.getNumeroAleatorio());
 

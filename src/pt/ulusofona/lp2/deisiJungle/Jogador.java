@@ -102,7 +102,7 @@ public class Jogador {
     }
 
     public void adicionaNrMovimentacoes(int valor){
-        this.nrMovimentacoes+=valor;
+        this.nrMovimentacoes+=abs(valor);
     }
 
     public int getNrMovimentacoes(){
