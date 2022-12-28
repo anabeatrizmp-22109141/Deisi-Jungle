@@ -1317,12 +1317,9 @@ public class TestGameManager {
 
         for(int i = 0; i < 46;i++){
             jogo.moveCurrentPlayer(1,false);
-            jogo.moveCurrentPlayer(0,false);
-        }
-        for(int i = 0; i < 10;i++){
-            jogo.moveCurrentPlayer(0,false);
             jogo.moveCurrentPlayer(4,false);
         }
+
 
 
         ArrayList<String> resultados = new ArrayList<>();
@@ -1553,8 +1550,8 @@ public class TestGameManager {
     @Test
     public void test_Jpanel(){
         GameManager jogo = new GameManager();
-        jogo.getAuthorsPanel();
-        //Sem conteudo
+        Assert.assertNotNull(jogo.getAuthorsPanel());
+
     }
 }
 

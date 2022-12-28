@@ -411,10 +411,15 @@ public class GameManager {
 
         for(int i = jungleSize ; i > 0 ; i--) {
             if(mapa.get(i).jogadoresNaPosicao.length() >= 1) {
-                for (Jogador jogadores : jogadores) {
-                    String classificacao = "#" + nrClassificacao + " " + jogadores.getClassificacao();
-                    resultados.add(classificacao);
-                    nrClassificacao++;
+                int[] result = mapa.get(i).getJogadoresNaPosicaoPorOrdem();
+                for (Jogador jogador : jogadores) {
+                    for (int value : result) {
+                        if (jogador.getId() == value) {
+                            String classificacao = "#" + nrClassificacao + " " + jogador.getClassificacao();
+                            resultados.add(classificacao);
+                            nrClassificacao++;
+                        }
+                    }
                 }
             }
 
