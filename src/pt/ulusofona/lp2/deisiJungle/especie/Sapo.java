@@ -9,7 +9,7 @@ public class Sapo extends Especie{
         this.energiaInicial = 65;
         this.consumoEnergia = 5;
         this.energiaEmDescanso = 60;
-        this.velocidade = "4..4";
+        this.velocidade = "4..5";
     }
 
     @Override

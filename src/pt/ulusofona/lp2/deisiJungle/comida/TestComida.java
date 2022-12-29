@@ -2,7 +2,6 @@ package pt.ulusofona.lp2.deisiJungle.comida;
 
 import org.junit.Assert;
 import org.junit.Test;
-import pt.ulusofona.lp2.deisiJungle.GameManager;
 
 public class TestComida {
     @Test
@@ -77,6 +76,7 @@ public class TestComida {
         Assert.assertEquals(0,banana.getNrBananas());
 
     }
+
     @Test
     public void test_004_getDescricaoTooltipDaCarneToxica(){
         Carne carne = new Carne();
