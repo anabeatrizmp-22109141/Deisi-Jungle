@@ -3,7 +3,7 @@ S;2;bananas.png;Bananas : 3 : + 40 energia;NA;b
 S;3;water.png;Agua : + 15U|20% energia;NA;a
 S;4;meat.png;Carne : + 50 energia : 0 jogadas;NA;c
 S;5;grass.png;Erva : +- 20 energia;NA;e
-S;6;mushroom.png;Cogumelo Magico : +- 43% energia;NA;m
+S;6;mushroom.png;Cogumelo Magico : +- 38% energia;NA;m
 S;7;chocolate.png;Chocolate : + 80| -100% energia;NA;h
 S;8;blank.png;Vazio;NA;
 S;9;blank.png;Vazio;NA;
@@ -56,6 +56,6 @@ J;4;Tubarao;S;false;1;65;0;0;0
 3;A;a
 4;A;c;0
 5;A;e
-6;A;m;43
+6;A;m;38
 7;A;h
 JA;1
