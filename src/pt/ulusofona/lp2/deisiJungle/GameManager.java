@@ -426,30 +426,34 @@ public class GameManager {
 
         int nrClassificacao = 1;
         Jogador[] jogadoresOrdenados = getJogadoresOrdenadosPorNrCasa();
+        int nrJogNaoEstaoNaMeta = 0;
 
-        if(isDistanciaEntre1e2LugarMaiorQueMetadeDoMapa(jogadoresOrdenados)) {
+        for(Jogador j : jogadoresOrdenados){
+            if (j.getCasaAtual().getNrSquare() != mapa.size()) {
+                nrJogNaoEstaoNaMeta++;
+            }
+        }
+
+        if(isDistanciaEntre1e2LugarMaiorQueMetadeDoMapa(jogadoresOrdenados) && nrJogNaoEstaoNaMeta == jogadoresOrdenados.length) {
 
             Jogador [] jogadoresOrdemGameResult = ordenaJogadoresGameResults(jogadoresOrdenados);
 
             for(Jogador j : jogadoresOrdenados) {
-                if(j.getId() == jogadoresOrdemGameResult[1].getId()) {
+                if (j.getId() == jogadoresOrdemGameResult[1].getId()) {
                     String classificacao = "#" + 1 + " " + j.getClassificacao();
                     classificacoes.put(1, classificacao);
                     nrClassificacao++;
-                }
-                else if(j.getId() == jogadoresOrdemGameResult[0].getId()) {
+                } else if (j.getId() == jogadoresOrdemGameResult[0].getId()) {
                     String classificacao = "#" + 2 + " " + j.getClassificacao();
                     classificacoes.put(2, classificacao);
                     nrClassificacao++;
-                }
-                else {
+                } else {
                     String classificacao = "#" + nrClassificacao + " " + j.getClassificacao();
                     classificacoes.put(nrClassificacao, classificacao);
                     nrClassificacao++;
                 }
             }
-
-            for(int i = 1 ; i <= jogadores.size() ; i++) {
+            for (int i = 1; i <= jogadores.size(); i++) {
                 resultados.add(classificacoes.get(i));
             }
         }

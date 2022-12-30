@@ -889,6 +889,36 @@ public class TestGameManager {
     }
 
     @Test
+    public void test_024_getGameResultsFullGame0(){
+        GameManager jogo = new GameManager();
+        String[][] playersinfo = new String[2][3];
+
+        playersinfo[0][0] = "1";
+        playersinfo[0][1] = "Pedro";
+        playersinfo[0][2] = "E";
+
+        playersinfo[1][0] = "2";
+        playersinfo[1][1] = "Sara";
+        playersinfo[1][2] = "T";
+
+        String[][] foodsInfo = new String[1][2];
+
+        foodsInfo[0][0] = "c";
+        foodsInfo[0][1] = "2";
+
+        jogo.createInitialJungle(6, playersinfo, foodsInfo);
+        
+        jogo.moveCurrentPlayer(5,true);
+        jogo.moveCurrentPlayer(0,true);
+
+        ArrayList<String> result = new ArrayList<>();
+        result.add("#1 Pedro, Elefante, 6, 5, 0");
+        result.add("#2 Sara, Tartaruga, 1, 0, 0");
+
+        Assert.assertEquals(result,jogo.getGameResults());
+    }
+
+    @Test
     public void test_024_FullGameWithTie(){
         GameManager jogo = new GameManager();
         String[][] playersinfo = new String[3][3];
