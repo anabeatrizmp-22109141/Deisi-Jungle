@@ -429,15 +429,15 @@ public class GameManager {
 
         if(isDistanciaEntre1e2LugarMaiorQueMetadeDoMapa(jogadoresOrdenados)) {
 
-            ordenaJogadoresGameResults(jogadoresOrdenados);
+            Jogador [] jogadoresOrdemGameResult = ordenaJogadoresGameResults(jogadoresOrdenados);
 
             for(Jogador j : jogadoresOrdenados) {
-                if(j.getId() == jogadoresOrdenados[1].getId()) {
+                if(j.getId() == jogadoresOrdemGameResult[1].getId()) {
                     String classificacao = "#" + 1 + " " + j.getClassificacao();
                     classificacoes.put(1, classificacao);
                     nrClassificacao++;
                 }
-                else if(j.getId() == jogadoresOrdenados[0].getId()) {
+                else if(j.getId() == jogadoresOrdemGameResult[0].getId()) {
                     String classificacao = "#" + 2 + " " + j.getClassificacao();
                     classificacoes.put(2, classificacao);
                     nrClassificacao++;
@@ -454,9 +454,9 @@ public class GameManager {
             }
         }
         else {
-            ordenaJogadoresGameResults(jogadoresOrdenados);
+            Jogador [] jogadoresOrdemGameResult = ordenaJogadoresGameResults(jogadoresOrdenados);
 
-            for(Jogador j : jogadoresOrdenados) {
+            for(Jogador j : jogadoresOrdemGameResult) {
                 String classificacao = "#" + nrClassificacao + " " + j.getClassificacao();
                 resultados.add(classificacao);
                 nrClassificacao++;
