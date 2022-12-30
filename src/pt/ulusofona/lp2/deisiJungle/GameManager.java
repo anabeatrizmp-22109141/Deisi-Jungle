@@ -275,7 +275,6 @@ public class GameManager {
 -------------------------------------------------------------------------------
 */
 
-
     public Jogador getCurrentPlayer() {
         for(Jogador j : jogadores) {
             if(j.getId() == idJogadorAtual) {

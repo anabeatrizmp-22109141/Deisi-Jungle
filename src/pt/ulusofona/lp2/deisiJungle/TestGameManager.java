@@ -4,12 +4,17 @@ import org.junit.Assert;
 import org.junit.Test;
 import pt.ulusofona.lp2.deisiJungle.comida.*;
 import pt.ulusofona.lp2.deisiJungle.especie.*;
-
-import java.net.Socket;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class TestGameManager {
+
+    /*
+-------------------------------------------------------------------------------
+                        OBTEM ESPECIES E COMIDA
+-------------------------------------------------------------------------------
+     */
 
     @Test
     public void test_001_getSpecies(){
@@ -67,6 +72,11 @@ public class TestGameManager {
 
     }
 
+    /*
+-------------------------------------------------------------------------------
+                        VERIFICAÇÕES DIVERSAS
+-------------------------------------------------------------------------------
+     */
     @Test
     public void test_003_verificacoesMapaAntigoNomeJogador(){
         GameManager jogo = new GameManager();
@@ -437,6 +447,12 @@ public class TestGameManager {
         Assert.assertEquals(erro.getMessage(),jogo.verificacoesMapaAntigo(1,playersinfo).getMessage());
     }
 
+    /*
+-------------------------------------------------------------------------------
+                        CRIA MAPA
+-------------------------------------------------------------------------------
+     */
+
     @Test
     public void test_011_createInitialJungle_criaMapaCriaJogadores(){
         GameManager jogo = new GameManager();
@@ -473,8 +489,72 @@ public class TestGameManager {
         Assert.assertNull(jogo.createInitialJungle(47, playersinfo));
     }
 
+
     @Test
-    public void test_012_getSquareInfoInicial() {
+    public void test_012_createInitialJungle_criaMapaCriaJogadoresPoeComida(){
+        GameManager jogo = new GameManager();
+        String[][] foodinfo = new String[5][2];
+        String[][] playersinfo = new String[2][3];
+
+        playersinfo[0][0] = "1";
+        playersinfo[0][1] = "Chocos";
+        playersinfo[0][2] = "P";
+
+        playersinfo[1][0] = "2";
+        playersinfo[1][1] = "Mimosa";
+        playersinfo[1][2] = "Z";
+
+
+        foodinfo[0][0] = "a";
+        foodinfo[0][1] = 2 + "";
+
+        foodinfo[1][0] = "e";
+        foodinfo[1][1] = 4 + "";
+
+        foodinfo[2][0] = "b";
+        foodinfo[2][1] = 7 + "";
+
+        foodinfo[3][0] = "c";
+        foodinfo[3][1] = 9 + "";
+
+        foodinfo[4][0] = "m";
+        foodinfo[4][1] = 13 + "";
+
+        Assert.assertNull(jogo.createInitialJungle(30,playersinfo,foodinfo));
+    }
+
+    /*
+-------------------------------------------------------------------------------
+                        DIVERSOS GETS
+-------------------------------------------------------------------------------
+     */
+    @Test
+    public void test_013_getPlayerIds(){
+        GameManager jogo = new GameManager();
+        String[][] playersinfo = new String[2][3];
+
+        playersinfo[0][0] = "1";
+        playersinfo[0][1] = "Chocos";
+        playersinfo[0][2] = "P";
+
+        playersinfo[1][0] = "2";
+        playersinfo[1][1] = "Mimosa";
+        playersinfo[1][2] = "Z";
+
+        int[] ids = new int[2];
+        ids[0] = 1;
+        ids[1] = 2;
+        jogo.createInitialJungle(47, playersinfo);
+
+        Assert.assertEquals(2,jogo.getPlayerIds(1).length);
+        Assert.assertEquals(Arrays.toString(ids),Arrays.toString(jogo.getPlayerIds(1)));
+
+        Assert.assertEquals(Arrays.toString(new int[0]),Arrays.toString(jogo.getPlayerIds(2)));
+        Assert.assertEquals(Arrays.toString(new int[0]),Arrays.toString(jogo.getPlayerIds(0)));
+    }
+
+    @Test
+    public void test_014_getSquareInfoInicial() {
         GameManager jogo = new GameManager();
 
         String[][] playersinfo = new String[2][3];
@@ -522,64 +602,6 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_013_createInitialJungle_criaMapaCriaJogadoresPoeComida(){
-        GameManager jogo = new GameManager();
-        String[][] foodinfo = new String[5][2];
-        String[][] playersinfo = new String[2][3];
-
-        playersinfo[0][0] = "1";
-        playersinfo[0][1] = "Chocos";
-        playersinfo[0][2] = "P";
-
-        playersinfo[1][0] = "2";
-        playersinfo[1][1] = "Mimosa";
-        playersinfo[1][2] = "Z";
-
-
-        foodinfo[0][0] = "a";
-        foodinfo[0][1] = 2 + "";
-
-        foodinfo[1][0] = "e";
-        foodinfo[1][1] = 4 + "";
-
-        foodinfo[2][0] = "b";
-        foodinfo[2][1] = 7 + "";
-
-        foodinfo[3][0] = "c";
-        foodinfo[3][1] = 9 + "";
-
-        foodinfo[4][0] = "m";
-        foodinfo[4][1] = 13 + "";
-
-        Assert.assertNull(jogo.createInitialJungle(30,playersinfo,foodinfo));
-    }
-
-    @Test
-    public void test_014_getPlayerIds(){
-        GameManager jogo = new GameManager();
-        String[][] playersinfo = new String[2][3];
-
-        playersinfo[0][0] = "1";
-        playersinfo[0][1] = "Chocos";
-        playersinfo[0][2] = "P";
-
-        playersinfo[1][0] = "2";
-        playersinfo[1][1] = "Mimosa";
-        playersinfo[1][2] = "Z";
-
-        int[] ids = new int[2];
-        ids[0] = 1;
-        ids[1] = 2;
-        jogo.createInitialJungle(47, playersinfo);
-
-        Assert.assertEquals(2,jogo.getPlayerIds(1).length);
-        Assert.assertEquals(Arrays.toString(ids),Arrays.toString(jogo.getPlayerIds(1)));
-
-        Assert.assertEquals(Arrays.toString(new int[0]),Arrays.toString(jogo.getPlayerIds(2)));
-        Assert.assertEquals(Arrays.toString(new int[0]),Arrays.toString(jogo.getPlayerIds(0)));
-    }
-
-    @Test
     public void test_015_getPlayerInfo(){
         GameManager jogo = new GameManager();
         String[][] playersInfo = new String[2][3];
@@ -604,7 +626,17 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_016_getPlayersInfo() {
+    public void test_016_getCurrentPlayerSemJogadores(){
+        String[][] playersinfo = new String[0][0];
+        GameManager jogo = new GameManager();
+        jogo.createInitialJungle(5, playersinfo);
+
+        Assert.assertNull(jogo.getCurrentPlayer());
+        Assert.assertNull(jogo.getPlayer(1));
+    }
+
+    @Test
+    public void test_017_getPlayersInfo() {
         GameManager jogo = new GameManager();
         String[][] playersInfo = new String[2][3];
         playersInfo[0][0] = "1";
@@ -630,56 +662,281 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_017_verificaTodosSemEnergia(){
+    public void test_018_getWinnerInfoUmGanhou(){
         GameManager jogo = new GameManager();
-        String[][] playersInfo = new String[2][3];
+        String[][] playersinfo = new String[2][3];
 
-        playersInfo[0][0] = "1";
-        playersInfo[0][1] = "batata";
-        playersInfo[0][2] = "E";
+        playersinfo[0][0] = "15";
+        playersinfo[0][1] = "Banana";
+        playersinfo[0][2] = "E";
 
-        playersInfo[1][0] = "2";
-        playersInfo[1][1] = "banana";
-        playersInfo[1][2] = "L";
+        playersinfo[1][0] = "4";
+        playersinfo[1][1] = "Mantinhas";
+        playersinfo[1][2] = "L";
 
-        jogo.createInitialJungle(47, playersInfo);
+        String[][] foodsInfo = new String[1][2];
+
+        foodsInfo[0][0] = "c";
+        foodsInfo[0][1] = "2";
+
+        jogo.createInitialJungle(5, playersinfo, foodsInfo);
+
+        jogo.jogadores.get(0).setCasaAtual(new Square(5,"a","a","1"));
+        //Jogador 0 ganhou
+        jogo.jogadores.get(0).setGanhou(true);
+
+        String[] info = new String[5];
+        info[0] = 15 + "";
+        info[1] = "Banana";
+        info[2] = "E";
+        info[3] = 180 + "";
+        info[4] = "1..6";
+
+        //Dá o resultado do jogador vencedor
+        Assert.assertEquals(info, jogo.getWinnerInfo());
+
+    }
+
+    @Test
+    public void test_019_getWinner2ganhou(){
+        GameManager jogo = new GameManager();
+        String[][] playersinfo = new String[2][3];
+
+        playersinfo[0][0] = "1";
+        playersinfo[0][1] = "Banana";
+        playersinfo[0][2] = "E";
+
+        playersinfo[1][0] = "2";
+        playersinfo[1][1] = "Mantinhas";
+        playersinfo[1][2] = "L";
+
+        String[][] foodsInfo = new String[1][2];
+
+        foodsInfo[0][0] = "c";
+        foodsInfo[0][1] = "2";
+
+        jogo.createInitialJungle(30, playersinfo, foodsInfo);
+
+        //distancia > 15
+
+        for(int i=0; i<25;i++){
+            jogo.moveCurrentPlayer(1,false);
+            jogo.moveCurrentPlayer(0,false);
+        }
+        for(int i=0; i<5;i++){
+            jogo.moveCurrentPlayer(0,false);
+            jogo.moveCurrentPlayer(1,false);
+        }
+
+        String[] info = new String[5];
+        info[0] = 2 + "";
+        info[1] = "Mantinhas";
+        info[2] = "L";
+        info[3] = 200 + "";
+        info[4] = "4..6";
+
+        //Dá o resultado do jogador vencedor
+        Assert.assertEquals(info, jogo.getWinnerInfo());
+    }
+
+    @Test
+    public void test_020_getWinnerInfoEmpatouSemEnergia() {
+        GameManager jogo = new GameManager();
+        String[][] playersinfo = new String[2][3];
+
+        playersinfo[0][0] = "15";
+        playersinfo[0][1] = "Banana";
+        playersinfo[0][2] = "E";
+
+        playersinfo[1][0] = "4";
+        playersinfo[1][1] = "Mantinhas";
+        playersinfo[1][2] = "L";
+
+        String[][] foodsInfo = new String[1][2];
+
+        foodsInfo[0][0] = "c";
+        foodsInfo[0][1] = "2";
+
+        jogo.createInitialJungle(20, playersinfo, foodsInfo);
+
+        jogo.mapa.get(8).adicionaJogadorAPosicao(15);
+        jogo.mapa.get(3).adicionaJogadorAPosicao(4);
+
+        jogo.jogadores.get(0).setCasaAtual(jogo.mapa.get(8));
+        jogo.jogadores.get(1).setCasaAtual(jogo.mapa.get(4));
+
         jogo.jogadores.get(0).setEnergia(0);
         jogo.jogadores.get(1).setEnergia(0);
-        Assert.assertTrue(jogo.verificaTodosSemEnergia());
 
-        jogo.jogadores.get(1).setEnergia(5);
-        jogo.jogadores.get(0).setEnergia(5);
-        Assert.assertFalse(jogo.verificaTodosSemEnergia());
-
-        jogo.jogadores.get(1).setEnergia(0);
-        jogo.jogadores.get(0).setEnergia(5);
-        Assert.assertFalse(jogo.verificaTodosSemEnergia());
-
+        //Dá o resultado null
+        Assert.assertNull(jogo.getWinnerInfo());
     }
 
     @Test
-    public void test_018_verificaSeHaVencedor(){
+    public void test_021_getWinnerInfoNinguemGanhou() {
         GameManager jogo = new GameManager();
-        String[][] playersInfo = new String[2][3];
-        playersInfo[0][0] = "1";
-        playersInfo[0][1] = "batata";
-        playersInfo[0][2] = "E";
+        String[][] playersinfo = new String[2][3];
 
-        playersInfo[1][0] = "2";
-        playersInfo[1][1] = "banana";
-        playersInfo[1][2] = "L";
+        playersinfo[0][0] = "15";
+        playersinfo[0][1] = "Banana";
+        playersinfo[0][2] = "E";
 
-        jogo.createInitialJungle(47, playersInfo);
+        playersinfo[1][0] = "4";
+        playersinfo[1][1] = "Mantinhas";
+        playersinfo[1][2] = "L";
 
-        jogo.jogadores.get(0).setGanhou(true);
-        Assert.assertTrue(jogo.verificaSeHaVencedor());
+        String[][] foodsInfo = new String[1][2];
 
-        jogo.jogadores.get(0).setGanhou(false);
-        Assert.assertFalse(jogo.verificaSeHaVencedor());
+        foodsInfo[0][0] = "c";
+        foodsInfo[0][1] = "2";
+
+        jogo.createInitialJungle(20, playersinfo, foodsInfo);
+
+        jogo.mapa.get(8).adicionaJogadorAPosicao(15);
+        jogo.mapa.get(3).adicionaJogadorAPosicao(4);
+
+        jogo.jogadores.get(0).setCasaAtual(jogo.mapa.get(8));
+        jogo.jogadores.get(1).setCasaAtual(jogo.mapa.get(4));
+
+        Assert.assertNull(jogo.getWinnerInfo());
     }
 
     @Test
-    public void test_019_mudaJogadorAtualSemIdsSeguidos() {
+    public void test_022_getCurrentPlayerEnergyInfo(){
+        GameManager jogo = new GameManager();
+
+        String[][] playersinfo = new String[2][3];
+
+        playersinfo[0][0] = "2";
+        playersinfo[0][1] = "Banana";
+        playersinfo[0][2] = "E";
+
+        playersinfo[1][0] = "1";
+        playersinfo[1][1] = "Mantinhas";
+        playersinfo[1][2] = "L";
+
+
+        String[][] foodsInfo = new String[1][2];
+
+        foodsInfo[0][0] = "c";
+        foodsInfo[0][1] = "2";
+
+        jogo.createInitialJungle(30, playersinfo, foodsInfo);
+
+        String[] info = new String[2];
+        info[0] = 2 + "";
+        info[1] = 10 + "";
+
+        Assert.assertEquals(info,jogo.getCurrentPlayerEnergyInfo(1));
+    }
+
+    /*
+-------------------------------------------------------------------------------
+                        RESULTADO DO JOGO
+-------------------------------------------------------------------------------
+     */
+    @Test
+    public void test_023_getGameResults(){
+        GameManager jogo = new GameManager();
+
+        String[][] playersinfo = new String[3][3];
+
+        playersinfo[0][0] = "1";
+        playersinfo[0][1] = "Banana";
+        playersinfo[0][2] = "E";
+
+        playersinfo[1][0] = "2";
+        playersinfo[1][1] = "Mantinhas";
+        playersinfo[1][2] = "T";
+
+        playersinfo[2][0] = "3";
+        playersinfo[2][1] = "Tar";
+        playersinfo[2][2] = "Z";
+
+        String[][] foodsInfo = new String[1][2];
+
+        foodsInfo[0][0] = "b";
+        foodsInfo[0][1] = "2";
+
+        jogo.createInitialJungle(47, playersinfo, foodsInfo);
+
+        for(int i = 0; i < 44;i++){
+            jogo.moveCurrentPlayer(1,false);
+            jogo.moveCurrentPlayer(0,false);
+            jogo.moveCurrentPlayer(1,false);
+        }
+
+        for(int i = 0; i < 16;i++){
+            jogo.moveCurrentPlayer(0,false);
+            jogo.moveCurrentPlayer(3,false);
+            jogo.moveCurrentPlayer(0,false);
+        }
+
+        for(int i = 0; i < 1;i++){
+            jogo.moveCurrentPlayer(-1,false);
+            jogo.moveCurrentPlayer(-2,false);
+            jogo.moveCurrentPlayer(-1,false);
+        }
+        //50-45-45
+
+
+        ArrayList<String> resultados = new ArrayList<>();
+        resultados.add("#1 Mantinhas, Tartaruga, 45, 50, 0");
+        resultados.add("#2 Banana, Elefante, 44, 45, 1");
+        resultados.add("#3 Tar, Tarzan, 44, 45, 1");
+
+        Assert.assertEquals(resultados,jogo.getGameResults());
+    }
+
+    @Test
+    public void test_024_getGameResultsfullGameHard(){
+        GameManager jogo = new GameManager();
+        String[][] playersinfo = new String[4][3];
+
+        playersinfo[0][0] = "1";
+        playersinfo[0][1] = "Jazz Jack-a-Rabbit";
+        playersinfo[0][2] = "T";
+
+        playersinfo[1][0] = "2";
+        playersinfo[1][1] = "Pato Donald";
+        playersinfo[1][2] = "Z";
+
+        playersinfo[2][0] = "3";
+        playersinfo[2][1] = "Goiaba";
+        playersinfo[2][2] = "P";
+
+        playersinfo[3][0] = "4";
+        playersinfo[3][1] = "Bruninho";
+        playersinfo[3][2] = "L";
+
+        String[][] foodsInfo = new String[1][2];
+
+        foodsInfo[0][0] = "c";
+        foodsInfo[0][1] = "2";
+
+        jogo.createInitialJungle(47, playersinfo, foodsInfo);
+
+        jogo.moveCurrentPlayer(4,true);
+        jogo.moveCurrentPlayer(12,true);
+        jogo.moveCurrentPlayer(10,true);
+        jogo.moveCurrentPlayer(32,true);
+
+        ArrayList<String> result = new ArrayList<>();
+        result.add("#1 Pato Donald, Tarzan, 13, 24, 0,");
+        result.add("#2 Bruninho, Leao, 33, 32, 1,");
+        result.add("#3 Goiaba, Passaro, 11, 22, 0, ");
+        result.add("#4 Jazz Jack-a-Rabbit, Tartaruga, 5, 12, 3 ");
+
+        Assert.assertEquals(result,jogo.getGameResults());
+    }
+
+    /*
+-------------------------------------------------------------------------------
+                        MUDANÇA DE JOGADORES
+-------------------------------------------------------------------------------
+     */
+    @Test
+    public void test_025_mudaJogadorAtualSemIdsSeguidos() {
         GameManager jogo = new GameManager();
 
         String[][] playersinfo = new String[3][3];
@@ -726,7 +983,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_020_mudaJogadorAtualComIdsNaoSeguidos() {
+    public void test_026_mudaJogadorAtualComIdsNaoSeguidos() {
 
         GameManager jogo = new GameManager();
 
@@ -783,116 +1040,13 @@ public class TestGameManager {
 
     }
 
+    /*
+-------------------------------------------------------------------------------
+                        MOVER JOGOS
+-------------------------------------------------------------------------------
+     */
     @Test
-    public void test_021_getCurrentPlayerSemJogadores(){
-        String[][] playersinfo = new String[0][0];
-        GameManager jogo = new GameManager();
-        jogo.createInitialJungle(5, playersinfo);
-
-        Assert.assertNull(jogo.getCurrentPlayer());
-        Assert.assertNull(jogo.getPlayer(1));
-    }
-
-    @Test
-    public void test_022_getWinnerInfoUmGanhou(){
-        GameManager jogo = new GameManager();
-        String[][] playersinfo = new String[2][3];
-
-        playersinfo[0][0] = "15";
-        playersinfo[0][1] = "Banana";
-        playersinfo[0][2] = "E";
-
-        playersinfo[1][0] = "4";
-        playersinfo[1][1] = "Mantinhas";
-        playersinfo[1][2] = "L";
-
-        String[][] foodsInfo = new String[1][2];
-
-        foodsInfo[0][0] = "c";
-        foodsInfo[0][1] = "2";
-
-        jogo.createInitialJungle(5, playersinfo, foodsInfo);
-
-        jogo.jogadores.get(0).setCasaAtual(new Square(5,"a","a","1"));
-        //Jogador 0 ganhou
-        jogo.jogadores.get(0).setGanhou(true);
-
-        String[] info = new String[5];
-        info[0] = 15 + "";
-        info[1] = "Banana";
-        info[2] = "E";
-        info[3] = 180 + "";
-        info[4] = "1..6";
-
-        //Dá o resultado do jogador vencedor
-        Assert.assertEquals(info, jogo.getWinnerInfo());
-
-    }
-
-    @Test
-    public void test_023_getWinnerInfoEmpatouSemEnergia() {
-        GameManager jogo = new GameManager();
-        String[][] playersinfo = new String[2][3];
-
-        playersinfo[0][0] = "15";
-        playersinfo[0][1] = "Banana";
-        playersinfo[0][2] = "E";
-
-        playersinfo[1][0] = "4";
-        playersinfo[1][1] = "Mantinhas";
-        playersinfo[1][2] = "L";
-
-        String[][] foodsInfo = new String[1][2];
-
-        foodsInfo[0][0] = "c";
-        foodsInfo[0][1] = "2";
-
-        jogo.createInitialJungle(20, playersinfo, foodsInfo);
-
-        jogo.mapa.get(8).adicionaJogadorAPosicao(15);
-        jogo.mapa.get(3).adicionaJogadorAPosicao(4);
-
-        jogo.jogadores.get(0).setCasaAtual(jogo.mapa.get(8));
-        jogo.jogadores.get(1).setCasaAtual(jogo.mapa.get(4));
-
-        jogo.jogadores.get(0).setEnergia(0);
-        jogo.jogadores.get(1).setEnergia(0);
-
-        //Dá o resultado null
-        Assert.assertNull(jogo.getWinnerInfo());
-    }
-
-    @Test
-    public void test_024_getWinnerInfoNinguemGanhou() {
-        GameManager jogo = new GameManager();
-        String[][] playersinfo = new String[2][3];
-
-        playersinfo[0][0] = "15";
-        playersinfo[0][1] = "Banana";
-        playersinfo[0][2] = "E";
-
-        playersinfo[1][0] = "4";
-        playersinfo[1][1] = "Mantinhas";
-        playersinfo[1][2] = "L";
-
-        String[][] foodsInfo = new String[1][2];
-
-        foodsInfo[0][0] = "c";
-        foodsInfo[0][1] = "2";
-
-        jogo.createInitialJungle(20, playersinfo, foodsInfo);
-
-        jogo.mapa.get(8).adicionaJogadorAPosicao(15);
-        jogo.mapa.get(3).adicionaJogadorAPosicao(4);
-
-        jogo.jogadores.get(0).setCasaAtual(jogo.mapa.get(8));
-        jogo.jogadores.get(1).setCasaAtual(jogo.mapa.get(4));
-
-        Assert.assertNull(jogo.getWinnerInfo());
-    }
-
-    @Test
-    public void test_025_moveCurrentPlayer(){
+    public void test_027_moveCurrentPlayer(){
         GameManager jogo = new GameManager();
 
         String[][] playersinfo = new String[3][3];
@@ -943,7 +1097,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_026_moveCurrentPlayer_NOENERGY(){
+    public void test_028_moveCurrentPlayer_NOENERGY(){
         GameManager jogo = new GameManager();
 
         String[][] playersinfo = new String[2][3];
@@ -976,66 +1130,13 @@ public class TestGameManager {
         Assert.assertEquals(MovementResultCode.NO_ENERGY,mov.code());
     }
 
+    /*
+-------------------------------------------------------------------------------
+                        APLICA EFEITO DA COMIDA NOS JOGADORES
+-------------------------------------------------------------------------------
+     */
     @Test
-    public void test_027_getCurrentPlayerEnergyInfo(){
-        GameManager jogo = new GameManager();
-
-        String[][] playersinfo = new String[2][3];
-
-        playersinfo[0][0] = "2";
-        playersinfo[0][1] = "Banana";
-        playersinfo[0][2] = "E";
-
-        playersinfo[1][0] = "1";
-        playersinfo[1][1] = "Mantinhas";
-        playersinfo[1][2] = "L";
-
-
-        String[][] foodsInfo = new String[1][2];
-
-        foodsInfo[0][0] = "c";
-        foodsInfo[0][1] = "2";
-
-        jogo.createInitialJungle(30, playersinfo, foodsInfo);
-
-        String[] info = new String[2];
-        info[0] = 2 + "";
-        info[1] = 10 + "";
-
-        Assert.assertEquals(info,jogo.getCurrentPlayerEnergyInfo(1));
-    }
-
-    @Test
-    public void test_027_getJogadoresNaPosicaoPorOrdem(){
-        Square posicao = new Square(2,"blank.png","Vazio","4,1,2");
-
-        Assert.assertEquals("[1, 2, 4]", Arrays.toString(posicao.getJogadoresNaPosicaoPorOrdem()));
-    }
-
-
-    @Test
-    public void test_028_retiraJogadorAPosicao() {
-        Square posicao = new Square(1, "blank.png" , "Vazio" , "1,2,3,4");
-        posicao.retiraJogadorAPosicao(2);
-        Assert.assertEquals("1,3,4", posicao.jogadoresNaPosicao);
-
-        posicao.retiraJogadorAPosicao(3);
-        Assert.assertEquals("1,4", posicao.jogadoresNaPosicao);
-
-        posicao.retiraJogadorAPosicao(4);
-        Assert.assertEquals("1", posicao.jogadoresNaPosicao);
-    }
-
-    @Test
-    public void test_029_getJogadoresNaPosicaoPorOrdem(){
-        Square posicao = new Square(2,"blank.png","Vazio","4,1,2");
-
-        Assert.assertEquals("[1, 2, 4]", Arrays.toString(posicao.getJogadoresNaPosicaoPorOrdem()));
-    }
-
-
-    @Test
-    public void test_EfeitosErva(){
+    public void test_029_EfeitosErva(){
         GameManager jogo = new GameManager();
 
         String[][] playersinfo = new String[2][3];
@@ -1068,9 +1169,8 @@ public class TestGameManager {
         Assert.assertEquals(energiaLeao,jogador2.getInfoEnergiaAtual());
     }
 
-
     @Test
-    public void test_EfeitosAgua(){
+    public void test_030_EfeitosAgua(){
         GameManager jogo = new GameManager();
 
         String[][] playersinfo = new String[2][3];
@@ -1105,7 +1205,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_EfeitosBananas(){
+    public void test_031_EfeitosBananas(){
         GameManager jogo = new GameManager();
 
         String[][] playersinfo = new String[2][3];
@@ -1147,7 +1247,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_EfeitosCarne(){
+    public void test_032_EfeitosCarne(){
         GameManager jogo = new GameManager();
 
         String[][] playersinfo = new String[2][3];
@@ -1218,7 +1318,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_EfeitosCogumelos(){
+    public void test_033_EfeitosCogumelos(){
         GameManager jogo = new GameManager();
 
         String[][] playersinfo = new String[2][3];
@@ -1263,8 +1363,9 @@ public class TestGameManager {
 
     }
 
+    //Comidas
     @Test
-    public void teste_moverdiminuibanana(){
+    public void test_034_moverdiminuibanana(){
         GameManager jogo = new GameManager();
 
         String[][] playersinfo = new String[2][3];
@@ -1295,60 +1396,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_getGameResults(){
-        GameManager jogo = new GameManager();
-
-        String[][] playersinfo = new String[3][3];
-
-        playersinfo[0][0] = "1";
-        playersinfo[0][1] = "Banana";
-        playersinfo[0][2] = "E";
-
-        playersinfo[1][0] = "2";
-        playersinfo[1][1] = "Mantinhas";
-        playersinfo[1][2] = "T";
-
-        playersinfo[2][0] = "3";
-        playersinfo[2][1] = "Tar";
-        playersinfo[2][2] = "Z";
-
-        String[][] foodsInfo = new String[1][2];
-
-        foodsInfo[0][0] = "b";
-        foodsInfo[0][1] = "2";
-
-        jogo.createInitialJungle(47, playersinfo, foodsInfo);
-
-        for(int i = 0; i < 44;i++){
-            jogo.moveCurrentPlayer(1,false);
-            jogo.moveCurrentPlayer(0,false);
-            jogo.moveCurrentPlayer(1,false);
-        }
-
-        for(int i = 0; i < 16;i++){
-            jogo.moveCurrentPlayer(0,false);
-            jogo.moveCurrentPlayer(3,false);
-            jogo.moveCurrentPlayer(0,false);
-        }
-
-        for(int i = 0; i < 1;i++){
-            jogo.moveCurrentPlayer(-1,false);
-            jogo.moveCurrentPlayer(-2,false);
-            jogo.moveCurrentPlayer(-1,false);
-        }
-        //50-45-45
-
-
-        ArrayList<String> resultados = new ArrayList<>();
-        resultados.add("#1 Mantinhas, Tartaruga, 45, 50, 0");
-        resultados.add("#2 Banana, Elefante, 44, 45, 1");
-        resultados.add("#3 Tar, Tarzan, 44, 45, 1");
-
-        Assert.assertEquals(resultados,jogo.getGameResults());
-    }
-
-    @Test
-    public void test_ApanhouBananas() {
+    public void test_035_ApanhouBananas() {
 
         GameManager jogo = new GameManager();
 
@@ -1375,7 +1423,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void teste_nrJogadasDaCarne() {
+    public void test_036_nrJogadasDaCarne() {
         GameManager jogo = new GameManager();
 
         String[][] playersinfo = new String[2][3];
@@ -1415,50 +1463,89 @@ public class TestGameManager {
         Assert.assertEquals("Carne toxica", jogo.mapa.get(3).getAlimento().getDescricaoTooltip());
     }
 
+    /*
+-------------------------------------------------------------------------------
+                        VERIFICAÇOES DIVERSAS
+-------------------------------------------------------------------------------
+     */
     @Test
-    public void test_getWinner2ganhou(){
+    public void test_037_verificaTodosSemEnergia(){
         GameManager jogo = new GameManager();
-        String[][] playersinfo = new String[2][3];
+        String[][] playersInfo = new String[2][3];
 
-        playersinfo[0][0] = "1";
-        playersinfo[0][1] = "Banana";
-        playersinfo[0][2] = "E";
+        playersInfo[0][0] = "1";
+        playersInfo[0][1] = "batata";
+        playersInfo[0][2] = "E";
 
-        playersinfo[1][0] = "2";
-        playersinfo[1][1] = "Mantinhas";
-        playersinfo[1][2] = "L";
+        playersInfo[1][0] = "2";
+        playersInfo[1][1] = "banana";
+        playersInfo[1][2] = "L";
 
-        String[][] foodsInfo = new String[1][2];
+        jogo.createInitialJungle(47, playersInfo);
+        jogo.jogadores.get(0).setEnergia(0);
+        jogo.jogadores.get(1).setEnergia(0);
+        Assert.assertTrue(jogo.verificaTodosSemEnergia());
 
-        foodsInfo[0][0] = "c";
-        foodsInfo[0][1] = "2";
+        jogo.jogadores.get(1).setEnergia(5);
+        jogo.jogadores.get(0).setEnergia(5);
+        Assert.assertFalse(jogo.verificaTodosSemEnergia());
 
-        jogo.createInitialJungle(30, playersinfo, foodsInfo);
+        jogo.jogadores.get(1).setEnergia(0);
+        jogo.jogadores.get(0).setEnergia(5);
+        Assert.assertFalse(jogo.verificaTodosSemEnergia());
 
-        //distancia > 15
-
-        for(int i=0; i<25;i++){
-            jogo.moveCurrentPlayer(1,false);
-            jogo.moveCurrentPlayer(0,false);
-        }
-        for(int i=0; i<5;i++){
-            jogo.moveCurrentPlayer(0,false);
-            jogo.moveCurrentPlayer(1,false);
-        }
-
-        String[] info = new String[5];
-        info[0] = 2 + "";
-        info[1] = "Mantinhas";
-        info[2] = "L";
-        info[3] = 200 + "";
-        info[4] = "4..6";
-
-        //Dá o resultado do jogador vencedor
-        Assert.assertEquals(info, jogo.getWinnerInfo());
     }
 
     @Test
-    public void test_ExemploEnunciado() {
+    public void test_038_verificaSeHaVencedor(){
+        GameManager jogo = new GameManager();
+        String[][] playersInfo = new String[2][3];
+        playersInfo[0][0] = "1";
+        playersInfo[0][1] = "batata";
+        playersInfo[0][2] = "E";
+
+        playersInfo[1][0] = "2";
+        playersInfo[1][1] = "banana";
+        playersInfo[1][2] = "L";
+
+        jogo.createInitialJungle(47, playersInfo);
+
+        jogo.jogadores.get(0).setGanhou(true);
+        Assert.assertTrue(jogo.verificaSeHaVencedor());
+
+        jogo.jogadores.get(0).setGanhou(false);
+        Assert.assertFalse(jogo.verificaSeHaVencedor());
+    }
+
+    @Test
+    public void test_039_getJogadoresNaPosicaoPorOrdem(){
+        Square posicao = new Square(2,"blank.png","Vazio","4,1,2");
+
+        Assert.assertEquals("[1, 2, 4]", Arrays.toString(posicao.getJogadoresNaPosicaoPorOrdem()));
+    }
+
+    @Test
+    public void test_040_retiraJogadorAPosicao() {
+        Square posicao = new Square(1, "blank.png" , "Vazio" , "1,2,3,4");
+        posicao.retiraJogadorAPosicao(2);
+        Assert.assertEquals("1,3,4", posicao.jogadoresNaPosicao);
+
+        posicao.retiraJogadorAPosicao(3);
+        Assert.assertEquals("1,4", posicao.jogadoresNaPosicao);
+
+        posicao.retiraJogadorAPosicao(4);
+        Assert.assertEquals("1", posicao.jogadoresNaPosicao);
+    }
+
+    @Test
+    public void test_041_getJogadoresNaPosicaoPorOrdem(){
+        Square posicao = new Square(2,"blank.png","Vazio","4,1,2");
+
+        Assert.assertEquals("[1, 2, 4]", Arrays.toString(posicao.getJogadoresNaPosicaoPorOrdem()));
+    }
+
+    @Test
+    public void test_042_exemploEnunciado() {
         GameManager jogo = new GameManager();
 
         String[][] playersinfo = new String[2][3];
@@ -1497,8 +1584,13 @@ public class TestGameManager {
         Assert.assertEquals("2", jogo.getWinnerInfo()[0]);
     }
 
+    /*
+-------------------------------------------------------------------------------
+                        SAVE GAME E LOAD GAME
+-------------------------------------------------------------------------------
+     */
     @Test
-    public void test_InformacoesJogadorSaveGame() {
+    public void test_043_InformacoesJogadorSaveGame() {
         GameManager jogo = new GameManager();
 
         String[][] playersinfo = new String[2][3];
@@ -1528,7 +1620,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_InformacoesSquareSaveGame() {
+    public void test_044_InformacoesSquareSaveGame() {
         GameManager jogo = new GameManager();
 
         String[][] playersinfo = new String[2][3];
@@ -1552,24 +1644,193 @@ public class TestGameManager {
         //Assert.assertEquals(info,jogo.mapa.get(4).informacoesCasaSaveGame());
     }
 
+
     @Test
-    public void test_whoIsTaborda(){
+    public void test_045_SaveGamev1() {
+        GameManager jogo = new GameManager();
+
+        String[][] playersinfo = new String[4][3];
+
+        playersinfo[0][0] = "1";
+        playersinfo[0][1] = "Banana";
+        playersinfo[0][2] = "E";
+
+        playersinfo[1][0] = "2";
+        playersinfo[1][1] = "Mantinhas";
+        playersinfo[1][2] = "L";
+
+        playersinfo[2][0] = "3";
+        playersinfo[2][1] = "Lontra";
+        playersinfo[2][2] = "P";
+
+        playersinfo[3][0] = "4";
+        playersinfo[3][1] = "Tubarao";
+        playersinfo[3][2] = "S";
+
+        String[][] foodsInfo = new String[6][2];
+
+        foodsInfo[0][0] = "b";
+        foodsInfo[0][1] = "2";
+
+        foodsInfo[1][0] = "a";
+        foodsInfo[1][1] = "3";
+
+        foodsInfo[2][0] = "c";
+        foodsInfo[2][1] = "4";
+
+        foodsInfo[3][0] = "e";
+        foodsInfo[3][1] = "5";
+
+        foodsInfo[4][0] = "m";
+        foodsInfo[4][1] = "6";
+
+        foodsInfo[5][0] = "h";
+        foodsInfo[5][1] = "7";
+
+        jogo.createInitialJungle(50, playersinfo, foodsInfo);
+
+        File file = new File("jogo.txt");
+
+        Assert.assertTrue(jogo.saveGame(file));
+
+        file = new File("");
+
+        Assert.assertFalse(jogo.saveGame(file));
+    }
+
+    @Test
+    public void test_046_LoadGamev1() {
+
+        GameManager jogo = new GameManager();
+
+        String[][] playersinfo = new String[4][3];
+
+        playersinfo[0][0] = "1";
+        playersinfo[0][1] = "Banana";
+        playersinfo[0][2] = "E";
+
+        playersinfo[1][0] = "2";
+        playersinfo[1][1] = "Mantinhas";
+        playersinfo[1][2] = "L";
+
+        playersinfo[2][0] = "3";
+        playersinfo[2][1] = "Lontra";
+        playersinfo[2][2] = "P";
+
+        playersinfo[3][0] = "4";
+        playersinfo[3][1] = "Tubarao";
+        playersinfo[3][2] = "S";
+
+        String[][] foodsInfo = new String[6][2];
+
+        foodsInfo[0][0] = "b";
+        foodsInfo[0][1] = "2";
+
+        foodsInfo[1][0] = "a";
+        foodsInfo[1][1] = "3";
+
+        foodsInfo[2][0] = "c";
+        foodsInfo[2][1] = "4";
+
+        foodsInfo[3][0] = "e";
+        foodsInfo[3][1] = "5";
+
+        foodsInfo[4][0] = "m";
+        foodsInfo[4][1] = "6";
+
+        foodsInfo[5][0] = "h";
+        foodsInfo[5][1] = "7";
+
+        jogo.createInitialJungle(50, playersinfo, foodsInfo);
+
+        File file = new File("jogo.txt");
+
+        Assert.assertTrue(jogo.loadGame(file));
+
+        file = new File("");
+
+        Assert.assertFalse(jogo.loadGame(file));
+    }
+
+    @Test
+    public void test_047_SaveGamev2() {
+
+        GameManager jogo = new GameManager();
+
+        String[][] playersinfo = new String[2][3];
+
+        playersinfo[0][0] = "1";
+        playersinfo[0][1] = "Banana";
+        playersinfo[0][2] = "T";
+
+        playersinfo[1][0] = "2";
+        playersinfo[1][1] = "Mantinhas";
+        playersinfo[1][2] = "Z";
+
+        String[][] foodsInfo = new String[1][2];
+
+        foodsInfo[0][0] = "b";
+        foodsInfo[0][1] = "2";
+
+        jogo.createInitialJungle(50, playersinfo, foodsInfo);
+
+        File file = new File("jogo2.txt");
+
+        Assert.assertTrue(jogo.saveGame(file));
+
+        file = new File("");
+
+        Assert.assertFalse(jogo.saveGame(file));
+    }
+
+    @Test
+    public void test_048_LoadGamev2() {
+
+        GameManager jogo = new GameManager();
+
+        String[][] playersinfo = new String[2][3];
+
+        playersinfo[0][0] = "1";
+        playersinfo[0][1] = "Banana";
+        playersinfo[0][2] = "T";
+
+        playersinfo[1][0] = "2";
+        playersinfo[1][1] = "Mantinhas";
+        playersinfo[1][2] = "Z";
+
+        String[][] foodsInfo = new String[1][2];
+
+        foodsInfo[0][0] = "b";
+        foodsInfo[0][1] = "2";
+
+        jogo.createInitialJungle(50, playersinfo, foodsInfo);
+
+        File file = new File("jogo2.txt");
+
+        Assert.assertTrue(jogo.loadGame(file));
+
+        file = new File("");
+
+        Assert.assertFalse(jogo.loadGame(file));
+    }
+
+    /*
+-------------------------------------------------------------------------------
+                        OUTROS
+-------------------------------------------------------------------------------
+     */
+    @Test
+    public void test_049_whoIsTaborda(){
         GameManager jogo = new GameManager();
         String taborda = "Wrestling";
         Assert.assertEquals(taborda,jogo.whoIsTaborda());
     }
 
     @Test
-    public void test_Main(){
+    public void test_050_Main(){
         Main main = new Main();
         //Sem conteudo, so mesmo para a class estar 100% no coverage
     }
 
-    @Test
-    public void test_Jpanel(){
-        GameManager jogo = new GameManager();
-        Assert.assertNotNull(jogo.getAuthorsPanel());
-
-    }
 }
 
