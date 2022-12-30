@@ -1755,7 +1755,7 @@ public class TestGameManager {
 
         jogo.createInitialJungle(50, playersinfo, foodsInfo);
 
-        File file = new File("jogo.txt");
+        File file = new File("test-files/jogo.txt");
 
         Assert.assertTrue(jogo.saveGame(file));
 
@@ -1809,7 +1809,7 @@ public class TestGameManager {
 
         jogo.createInitialJungle(50, playersinfo, foodsInfo);
 
-        File file = new File("jogo.txt");
+        File file = new File("test-files/jogo.txt");
 
         Assert.assertTrue(jogo.loadGame(file));
 
@@ -1840,7 +1840,7 @@ public class TestGameManager {
 
         jogo.createInitialJungle(50, playersinfo, foodsInfo);
 
-        File file = new File("jogo2.txt");
+        File file = new File("test-files/jogo2.txt");
 
         Assert.assertTrue(jogo.saveGame(file));
 
@@ -1871,7 +1871,7 @@ public class TestGameManager {
 
         jogo.createInitialJungle(50, playersinfo, foodsInfo);
 
-        File file = new File("jogo2.txt");
+        File file = new File("test-files/jogo2.txt");
 
         Assert.assertTrue(jogo.loadGame(file));
 

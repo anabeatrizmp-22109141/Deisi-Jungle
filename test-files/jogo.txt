@@ -1,0 +1,61 @@
+S;1;blank.png;Vazio;1,2,3,4;
+S;2;bananas.png;Bananas : 3 : + 40 energia;NA;b
+S;3;water.png;Agua : + 15U|20% energia;NA;a
+S;4;meat.png;Carne : + 50 energia : 0 jogadas;NA;c
+S;5;grass.png;Erva : +- 20 energia;NA;e
+S;6;mushroom.png;Cogumelo Magico : +- 43% energia;NA;m
+S;7;chocolate.png;Chocolate : + 80| -100% energia;NA;h
+S;8;blank.png;Vazio;NA;
+S;9;blank.png;Vazio;NA;
+S;10;blank.png;Vazio;NA;
+S;11;blank.png;Vazio;NA;
+S;12;blank.png;Vazio;NA;
+S;13;blank.png;Vazio;NA;
+S;14;blank.png;Vazio;NA;
+S;15;blank.png;Vazio;NA;
+S;16;blank.png;Vazio;NA;
+S;17;blank.png;Vazio;NA;
+S;18;blank.png;Vazio;NA;
+S;19;blank.png;Vazio;NA;
+S;20;blank.png;Vazio;NA;
+S;21;blank.png;Vazio;NA;
+S;22;blank.png;Vazio;NA;
+S;23;blank.png;Vazio;NA;
+S;24;blank.png;Vazio;NA;
+S;25;blank.png;Vazio;NA;
+S;26;blank.png;Vazio;NA;
+S;27;blank.png;Vazio;NA;
+S;28;blank.png;Vazio;NA;
+S;29;blank.png;Vazio;NA;
+S;30;blank.png;Vazio;NA;
+S;31;blank.png;Vazio;NA;
+S;32;blank.png;Vazio;NA;
+S;33;blank.png;Vazio;NA;
+S;34;blank.png;Vazio;NA;
+S;35;blank.png;Vazio;NA;
+S;36;blank.png;Vazio;NA;
+S;37;blank.png;Vazio;NA;
+S;38;blank.png;Vazio;NA;
+S;39;blank.png;Vazio;NA;
+S;40;blank.png;Vazio;NA;
+S;41;blank.png;Vazio;NA;
+S;42;blank.png;Vazio;NA;
+S;43;blank.png;Vazio;NA;
+S;44;blank.png;Vazio;NA;
+S;45;blank.png;Vazio;NA;
+S;46;blank.png;Vazio;NA;
+S;47;blank.png;Vazio;NA;
+S;48;blank.png;Vazio;NA;
+S;49;blank.png;Vazio;NA;
+S;50;finish.png;Meta;NA;
+J;1;Banana;E;false;1;180;0;0;0
+J;2;Mantinhas;L;false;1;80;0;0;0
+J;3;Lontra;P;false;1;70;0;0;0
+J;4;Tubarao;S;false;1;65;0;0;0
+2;A;b;3
+3;A;a
+4;A;c;0
+5;A;e
+6;A;m;43
+7;A;h
+JA;1
