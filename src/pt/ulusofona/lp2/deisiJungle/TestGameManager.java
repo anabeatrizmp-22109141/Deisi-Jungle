@@ -1397,10 +1397,41 @@ public class TestGameManager {
 
 
     }
+    @Test
+    public void test_035_EfeitosChocolate(){
+        GameManager jogo = new GameManager();
+
+        String[][] playersinfo = new String[2][3];
+
+        playersinfo[0][0] = "2";
+        playersinfo[0][1] = "Banana";
+        playersinfo[0][2] = "E";
+
+        playersinfo[1][0] = "1";
+        playersinfo[1][1] = "Mantinhas";
+        playersinfo[1][2] = "Z";
+
+        String[][] foodsInfo = new String[1][2];
+
+        foodsInfo[0][0] = "h";
+        foodsInfo[0][1] = "2";
+
+        jogo.createInitialJungle(30, playersinfo, foodsInfo);
+
+        Jogador jogador1 = jogo.jogadores.get(0);
+        Jogador jogador2 = jogo.jogadores.get(1);
+
+        jogo.aplicaEfeitoComida(2,jogador1);
+        jogo.aplicaEfeitoComida(2,jogador2);
+
+        Assert.assertEquals(0,jogador1.getInfoEnergiaAtual());
+        Assert.assertEquals(150,jogador2.getInfoEnergiaAtual());
+
+    }
 
     //Comidas
     @Test
-    public void test_035_moverdiminuibanana(){
+    public void test_036_moverdiminuibanana(){
         GameManager jogo = new GameManager();
 
         String[][] playersinfo = new String[2][3];
@@ -1431,7 +1462,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_036_ApanhouBananas() {
+    public void test_037_ApanhouBananas() {
 
         GameManager jogo = new GameManager();
 
@@ -1458,7 +1489,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_037_nrJogadasDaCarne() {
+    public void test_038_nrJogadasDaCarne() {
         GameManager jogo = new GameManager();
 
         String[][] playersinfo = new String[2][3];
@@ -1504,7 +1535,7 @@ public class TestGameManager {
 -------------------------------------------------------------------------------
      */
     @Test
-    public void test_038_verificaTodosSemEnergia(){
+    public void test_039_verificaTodosSemEnergia(){
         GameManager jogo = new GameManager();
         String[][] playersInfo = new String[2][3];
 
@@ -1532,7 +1563,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_039_verificaSeHaVencedor(){
+    public void test_040_verificaSeHaVencedor(){
         GameManager jogo = new GameManager();
         String[][] playersInfo = new String[2][3];
         playersInfo[0][0] = "1";
@@ -1553,14 +1584,14 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_040_getJogadoresNaPosicaoPorOrdem(){
+    public void test_041_getJogadoresNaPosicaoPorOrdem(){
         Square posicao = new Square(2,"blank.png","Vazio","4,1,2");
 
         Assert.assertEquals("[1, 2, 4]", Arrays.toString(posicao.getJogadoresNaPosicaoPorOrdem()));
     }
 
     @Test
-    public void test_041_retiraJogadorAPosicao() {
+    public void test_042_retiraJogadorAPosicao() {
         Square posicao = new Square(1, "blank.png" , "Vazio" , "1,2,3,4");
         posicao.retiraJogadorAPosicao(2);
         Assert.assertEquals("1,3,4", posicao.jogadoresNaPosicao);
@@ -1573,14 +1604,14 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_042_getJogadoresNaPosicaoPorOrdem(){
+    public void test_043_getJogadoresNaPosicaoPorOrdem(){
         Square posicao = new Square(2,"blank.png","Vazio","4,1,2");
 
         Assert.assertEquals("[1, 2, 4]", Arrays.toString(posicao.getJogadoresNaPosicaoPorOrdem()));
     }
 
     @Test
-    public void test_043_exemploEnunciado() {
+    public void test_044_exemploEnunciado() {
         GameManager jogo = new GameManager();
 
         String[][] playersinfo = new String[2][3];
@@ -1625,7 +1656,7 @@ public class TestGameManager {
 -------------------------------------------------------------------------------
      */
     @Test
-    public void test_044_InformacoesJogadorSaveGame() {
+    public void test_045_InformacoesJogadorSaveGame() {
         GameManager jogo = new GameManager();
 
         String[][] playersinfo = new String[2][3];
@@ -1655,7 +1686,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_045_InformacoesSquareSaveGame() {
+    public void test_046_InformacoesSquareSaveGame() {
         GameManager jogo = new GameManager();
 
         String[][] playersinfo = new String[2][3];
@@ -1681,7 +1712,7 @@ public class TestGameManager {
 
 
     @Test
-    public void test_046_SaveGamev1() {
+    public void test_047_SaveGamev1() {
         GameManager jogo = new GameManager();
 
         String[][] playersinfo = new String[4][3];
@@ -1734,7 +1765,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_047_LoadGamev1() {
+    public void test_048_LoadGamev1() {
 
         GameManager jogo = new GameManager();
 
@@ -1788,7 +1819,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_048_SaveGamev2() {
+    public void test_049_SaveGamev2() {
 
         GameManager jogo = new GameManager();
 
@@ -1819,7 +1850,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_049_LoadGamev2() {
+    public void test_050_LoadGamev2() {
 
         GameManager jogo = new GameManager();
 
@@ -1855,14 +1886,14 @@ public class TestGameManager {
 -------------------------------------------------------------------------------
      */
     @Test
-    public void test_050_whoIsTaborda(){
+    public void test_051_whoIsTaborda(){
         GameManager jogo = new GameManager();
         String taborda = "Wrestling";
         Assert.assertEquals(taborda,jogo.whoIsTaborda());
     }
 
     @Test
-    public void test_051_Main(){
+    public void test_052_Main(){
         Main main = new Main();
         //Sem conteudo, so mesmo para a class estar 100% no coverage
     }
