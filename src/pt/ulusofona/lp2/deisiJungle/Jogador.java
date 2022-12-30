@@ -91,6 +91,7 @@ public class Jogador {
     public String getClassificacao() {
         return nome + ", " + especie.getNome() + ", " + casaAtual.getNrSquare() + ", "
                 + nrMovimentacoes + ", " + nrAlimentos;
+
     }
 
     public int getProximoNrSquare(int nrCasas) {

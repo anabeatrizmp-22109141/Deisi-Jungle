@@ -949,7 +949,7 @@ public class TestGameManager {
         foodsInfo[0][0] = "c";
         foodsInfo[0][1] = "2";
 
-        jogo.createInitialJungle(47, playersinfo, foodsInfo);
+        jogo.createInitialJungle(35, playersinfo, foodsInfo);
 
         jogo.moveCurrentPlayer(4,true);
         jogo.moveCurrentPlayer(12,true);
@@ -957,10 +957,10 @@ public class TestGameManager {
         jogo.moveCurrentPlayer(32,true);
 
         ArrayList<String> result = new ArrayList<>();
-        result.add("#1 Pato Donald, Tarzan, 13, 24, 0,");
-        result.add("#2 Bruninho, Leao, 33, 32, 1,");
-        result.add("#3 Goiaba, Passaro, 11, 22, 0, ");
-        result.add("#4 Jazz Jack-a-Rabbit, Tartaruga, 5, 12, 3 ");
+        result.add("#1 Pato Donald, Tarzan, 13, 12, 0");
+        result.add("#2 Bruninho, Leao, 33, 32, 0");
+        result.add("#3 Goiaba, Passaro, 11, 10, 0");
+        result.add("#4 Jazz Jack-a-Rabbit, Tartaruga, 5, 4, 0");
 
         Assert.assertEquals(result,jogo.getGameResults());
     }

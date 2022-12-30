@@ -404,29 +404,65 @@ public class GameManager {
         return null;
     }
 
-    public ArrayList<String> getGameResults() {
-        ArrayList<String> resultados = new ArrayList<>();
-        int nrClassificacao = 1;
+    public Jogador[] ordenaJogadoresGameResults(Jogador[] jogadores) {
 
-        for(int i = jungleSize ; i > 0 ; i--) {
-            if(mapa.get(i).jogadoresNaPosicao.length() >= 1) {
-                int[] result = mapa.get(i).getJogadoresNaPosicaoPorOrdem();
-                for (Jogador jogador : jogadores) {
-                    for (int value : result) {
-                        if (jogador.getId() == value) {
-                            String classificacao = "#" + nrClassificacao + " " + jogador.getClassificacao();
-                            resultados.add(classificacao);
-                            nrClassificacao++;
-                        }
-                    }
+        Arrays.sort(jogadores, (j1, j2) -> {
+            int nrCasa1 = j1.getCasaAtual().getNrSquare();
+            int nrCasa2 = j2.getCasaAtual().getNrSquare();
+            if (nrCasa1 != nrCasa2) {
+                return nrCasa2 - nrCasa1;
+            }
+            int id1 = j1.getId();
+            int id2 = j2.getId();
+            return id1 - id2;
+        });
+
+        return jogadores;
+    }
+
+    public ArrayList<String> getGameResults() {
+        HashMap<Integer, String> classificacoes = new HashMap<>();
+        ArrayList<String> resultados = new ArrayList<>();
+
+        int nrClassificacao = 1;
+        Jogador[] jogadoresOrdenados = getJogadoresOrdenadosPorNrCasa();
+
+        if(isDistanciaEntre1e2LugarMaiorQueMetadeDoMapa(jogadoresOrdenados)) {
+
+            ordenaJogadoresGameResults(jogadoresOrdenados);
+
+            for(Jogador j : jogadoresOrdenados) {
+                if(j.getId() == jogadoresOrdenados[1].getId()) {
+                    String classificacao = "#" + 1 + " " + j.getClassificacao();
+                    classificacoes.put(1, classificacao);
+                    nrClassificacao++;
+                }
+                else if(j.getId() == jogadoresOrdenados[0].getId()) {
+                    String classificacao = "#" + 2 + " " + j.getClassificacao();
+                    classificacoes.put(2, classificacao);
+                    nrClassificacao++;
+                }
+                else {
+                    String classificacao = "#" + nrClassificacao + " " + j.getClassificacao();
+                    classificacoes.put(nrClassificacao, classificacao);
+                    nrClassificacao++;
                 }
             }
 
-            if(nrClassificacao > jogadores.size()) {
-                return resultados;
+            for(int i = 1 ; i <= jogadores.size() ; i++) {
+                resultados.add(classificacoes.get(i));
             }
-
         }
+        else {
+            ordenaJogadoresGameResults(jogadoresOrdenados);
+
+            for(Jogador j : jogadoresOrdenados) {
+                String classificacao = "#" + nrClassificacao + " " + j.getClassificacao();
+                resultados.add(classificacao);
+                nrClassificacao++;
+            }
+        }
+
         return resultados;
     }
 
@@ -933,7 +969,6 @@ public class GameManager {
         }
         assert alimento != null;
         mapa.get(nrSquare).colocaAlimentoNaCasa(alimento);
-
     }
 
     public JPanel getAuthorsPanel() {
