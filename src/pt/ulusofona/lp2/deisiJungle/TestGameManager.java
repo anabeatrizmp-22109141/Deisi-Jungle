@@ -1268,6 +1268,11 @@ public class TestGameManager {
         jogo.aplicaEfeitoComida(2,jogador2);
 
         Assert.assertEquals(energiaElefante,jogador1.getInfoEnergiaAtual());
+        Assert.assertEquals(energiaTarzan,jogador2.getInfoEnergiaAtual());
+
+        energiaTarzan = 200;
+        jogador2.setEnergia(energiaTarzan);
+        jogo.aplicaEfeitoComida(2,jogador2);
 
         Assert.assertEquals(energiaTarzan,jogador2.getInfoEnergiaAtual());
     }
@@ -1384,9 +1389,7 @@ public class TestGameManager {
         jogo.moveCurrentPlayer(1,false);
         jogo.moveCurrentPlayer(4,false);
 
-
         Assert.assertEquals(96,jogador2.getInfoEnergiaAtual());
-
     }
 
     @Test
@@ -1413,6 +1416,11 @@ public class TestGameManager {
 
         jogo.createInitialJungle(30, playersinfo, foodsInfo);
 
+        CogumelosMagicos cogumelosMagicos1 = (CogumelosMagicos)jogo.mapa.get(2).getAlimento();
+        cogumelosMagicos1.setNumeroAleatorio(20);
+        CogumelosMagicos cogumelosMagicos2 = (CogumelosMagicos)jogo.mapa.get(5).getAlimento();
+        cogumelosMagicos2.setNumeroAleatorio(20);
+
         int energiaElefante = 180;
         int energiaLeao = 80;
 
@@ -1425,8 +1433,10 @@ public class TestGameManager {
         jogo.moveCurrentPlayer(1,false);
         jogo.moveCurrentPlayer(4,false);
 
+        jogador1.setEnergia(200);
+        jogador1.reduzEnergiaComidaPercentagem(1);
 
-
+        Assert.assertEquals(200, jogador1.getInfoEnergiaAtual());
 
     }
     @Test
@@ -1463,7 +1473,7 @@ public class TestGameManager {
 
     //Comidas
     @Test
-    public void test_036_moverdiminuibanana(){
+    public void test_036_moverDiminuiBanana(){
         GameManager jogo = new GameManager();
 
         String[][] playersinfo = new String[2][3];
@@ -1912,8 +1922,6 @@ public class TestGameManager {
 
         Assert.assertFalse(jogo.loadGame(file));
     }
-
-
 
     /*
 -------------------------------------------------------------------------------
