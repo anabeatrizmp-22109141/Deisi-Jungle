@@ -63,6 +63,14 @@ public class TestEspecie {
     }
 
     @Test
+    public void test_005_Sapo(){
+        Sapo sapo = new Sapo();
+        Assert.assertFalse(sapo.eHerbivoro());
+        Assert.assertTrue(sapo.eCarnivoro());
+        Assert.assertFalse(sapo.eOmnivoro());
+    }
+
+    @Test
     public void test_005_EspecieGeral(){
         Especie especie = new Elefante();
         String[] info = new String[7];
