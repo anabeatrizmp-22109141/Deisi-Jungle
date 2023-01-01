@@ -988,22 +988,23 @@ public class GameManager {
                 "    `\"\"\"\"\"\"``</body></html>";
 
         JLabel intro = new JLabel("Com suor, sangue e lágrimas:");
-        JLabel bruno = new JLabel("Bruno Miguel - 22106424 e Ana Beatriz - 22109141");
-        //JLabel ana = new JLabel("Ana Beatriz - 22109141");
+        JLabel autores = new JLabel("Bruno Miguel - 22106424 e Ana Beatriz - 22109141");
+
         JLabel jogo = new JLabel();
         jogo.setText(htmlString);
         JPanel p = new JPanel();
+
         p.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 10));
 
         p.add(intro);
-        p.add(bruno);
+        p.add(autores);
         //p.add(ana);
         p.add(jogo);
 
         // setbackground of panel
         p.setBackground(Color.black);
         intro.setForeground(Color.white);
-        bruno.setForeground(Color.yellow);
+        autores.setForeground(Color.yellow);
         //ana.setForeground(Color.yellow);
         jogo.setForeground(Color.white);
         // Adding panel to frame

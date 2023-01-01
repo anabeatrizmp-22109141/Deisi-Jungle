@@ -1159,6 +1159,9 @@ public class TestGameManager {
 
         mov = jogo.moveCurrentPlayer(10,false); //j1
         Assert.assertEquals(MovementResultCode.INVALID_MOVEMENT,mov.code());
+
+        mov = jogo.moveCurrentPlayer(10,false); //j1
+        Assert.assertEquals(MovementResultCode.INVALID_MOVEMENT,mov.code());
     }
 
     @Test
@@ -1325,7 +1328,7 @@ public class TestGameManager {
         playersinfo[1][1] = "Mantinhas";
         playersinfo[1][2] = "L";
 
-        String[][] foodsInfo = new String[3][2];
+        String[][] foodsInfo = new String[4][2];
 
         foodsInfo[0][0] = "c";
         foodsInfo[0][1] = "2";
@@ -1334,7 +1337,10 @@ public class TestGameManager {
         foodsInfo[1][1] = "8";
 
         foodsInfo[2][0] = "c";
-        foodsInfo[2][1] = "18";
+        foodsInfo[2][1] = "25";
+
+        foodsInfo[3][0] = "c";
+        foodsInfo[3][1] = "29";
 
         jogo.createInitialJungle(30, playersinfo, foodsInfo);
 
@@ -1351,11 +1357,9 @@ public class TestGameManager {
         jogo.efeitoCarne(jogador1);
         jogo.moveCurrentPlayer(4,false);
 
-
         //Testa o getNrMovimentos e o getNrAlimentos
         Assert.assertEquals(1,jogador1.getNrMovimentacoes());
         Assert.assertEquals(1,jogador1.getNrAlimentos());
-
 
         Assert.assertEquals(176,jogador1.getInfoEnergiaAtual());
         Assert.assertEquals(72,jogador2.getInfoEnergiaAtual());
@@ -1366,19 +1370,22 @@ public class TestGameManager {
         }
 
         Assert.assertEquals(156,jogador1.getInfoEnergiaAtual());
-        Assert.assertEquals(32,jogador2.getInfoEnergiaAtual());
+        Assert.assertEquals(82,jogador2.getInfoEnergiaAtual());
 
         //caso ja tenha mais de 200 energia
         for(int i = 0; i < 20;i++){
             jogo.moveCurrentPlayer(0,false);
             jogo.moveCurrentPlayer(0,false);
         }
-        jogador1.mudaEnergiaComidaPercentagem(110);
-        Assert.assertEquals(200,jogador1.getInfoEnergiaAtual());
 
-        jogador2.reduzEnergiaComidaPercentagem(1);
+        Assert.assertEquals(200,jogador1.getInfoEnergiaAtual());
         Assert.assertEquals(200,jogador2.getInfoEnergiaAtual());
 
+        jogo.moveCurrentPlayer(1,false);
+        jogo.moveCurrentPlayer(4,false);
+
+
+        Assert.assertEquals(96,jogador2.getInfoEnergiaAtual());
 
     }
 
@@ -1415,15 +1422,10 @@ public class TestGameManager {
         Assert.assertEquals(energiaElefante,jogador1.getInfoEnergiaAtual());
         Assert.assertEquals(energiaLeao,jogador2.getInfoEnergiaAtual());
 
-
         jogo.moveCurrentPlayer(1,false);
+        jogo.moveCurrentPlayer(4,false);
 
 
-        //jogo.moveCurrentPlayer(1,false);
-        //System.out.println(jogo.nrjogadas);
-        //System.out.println(jogo.mapa.get(2).getAlimento().getDescricaoTooltip());
-
-        //System.out.println(jogador2.getInfoEnergiaAtual());
 
 
     }
@@ -1631,6 +1633,7 @@ public class TestGameManager {
 
         posicao.retiraJogadorAPosicao(4);
         Assert.assertEquals("1", posicao.jogadoresNaPosicao);
+
     }
 
     @Test
@@ -1910,6 +1913,8 @@ public class TestGameManager {
         Assert.assertFalse(jogo.loadGame(file));
     }
 
+
+
     /*
 -------------------------------------------------------------------------------
                         OUTROS
@@ -1927,6 +1932,8 @@ public class TestGameManager {
         Main main = new Main();
         //Sem conteudo, so mesmo para a class estar 100% no coverage
     }
+
+
 
 }
 
