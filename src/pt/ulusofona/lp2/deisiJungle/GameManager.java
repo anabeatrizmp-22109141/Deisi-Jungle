@@ -78,54 +78,53 @@ public class GameManager {
 -------------------------------------------------------------------------------
      */
 
-    public InitializationError verificacoesMapaAntigo(int jungleSize, String[][] playersInfo) {
+    public void verificacoesMapaAntigo(int jungleSize, String[][] playersInfo) throws InvalidInitialJungleException{
         this.jogadores = new ArrayList<>();
         this.mapa = new HashMap<>();
 
         // Verificação dos nomes
         if(isNomeInvalido(playersInfo)) {
-            return new InitializationError("Nome é inválido");
+            throw new InvalidInitialJungleException("Nome do jogador é invalido","Jogador Invalido");
         }
 
         //Verificação dos ids dos jogadores
         if(isIdJogadorInvalido(playersInfo)) {
-            return new InitializationError("Id do jogador é inválido");
+            throw new InvalidInitialJungleException("Id do jogador é invalido","Jogador Invalido");
         }
 
         //Verficação dos ids das especies
         if(idEspecieInvalido(playersInfo)) {
-            return new InitializationError("ID Especie é inválido");
+            throw new InvalidInitialJungleException("Id da especie é invalido","Jogador Invalido");
         }
 
         //Verificação de nr de Jogadores
         if(playersInfo.length < 2 || playersInfo.length > 4) {
-            return new InitializationError("Nr de jogadores é inválido");
+            throw new InvalidInitialJungleException("Nr de jogadores é invalido","Jogador Invalido");
         }
 
         //Verificacao tamanho mapa
         if(jungleSize < 2 * playersInfo.length) {
-            return new InitializationError("Tamanho do mapa é inválido");
+            throw new InvalidInitialJungleException("tamanho do mapa inválido");
         }
 
         this.jungleSize = jungleSize;
 
-        return null;
     }
 
-    public InitializationError createInitialJungle(int jungleSize, String[][] playersInfo, String[][] foodsInfo) {
+    public void createInitialJungle(int jungleSize, String[][] playersInfo, String[][] foodsInfo)
+            throws InvalidInitialJungleException {
 
-        if(verificacoesMapaAntigo(jungleSize, playersInfo) != null) {
-            return verificacoesMapaAntigo(jungleSize, playersInfo);
-        }
+        verificacoesMapaAntigo(jungleSize, playersInfo);
+
 
         //Verificacao ids da Comida
         if(idFoodTypesInvalido(foodsInfo)) {
-            return new InitializationError("ID da comida é inválido");
+            throw new InvalidInitialJungleException("Id alimento inválido","Alimento Invalido");
         }
 
         //Verificacao posicoes da Comida
         if(isFoodsPositionsInvalido(foodsInfo, jungleSize)) {
-            return new InitializationError("FoodsInfo possui posições inválidas");
+            throw new InvalidInitialJungleException("Posições alimento inválido","Alimento Invalido");
         }
 
         //Cria Mapa
@@ -135,21 +134,17 @@ public class GameManager {
         //Colocar Comida nas Posicoes
         colocaComidasNoMapa(foodsInfo);
 
-        return null;
     }
 
-    public InitializationError createInitialJungle(int jungleSize, String[][] playersInfo) {
+    public void createInitialJungle(int jungleSize, String[][] playersInfo) throws InvalidInitialJungleException {
 
-        if(verificacoesMapaAntigo(jungleSize, playersInfo) != null) {
-            return verificacoesMapaAntigo(jungleSize, playersInfo);
-        }
+        verificacoesMapaAntigo(jungleSize, playersInfo);
 
         //Cria Mapa
         criaMapa(jungleSize, playersInfo);
         //CriaJogadores
         criaJogadores(playersInfo);
 
-        return null;
     }
 
     /*
