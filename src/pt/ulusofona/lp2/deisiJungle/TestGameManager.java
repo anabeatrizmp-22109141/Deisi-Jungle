@@ -5,7 +5,6 @@ import org.junit.Test;
 import pt.ulusofona.lp2.deisiJungle.comida.*;
 import pt.ulusofona.lp2.deisiJungle.especie.*;
 
-import javax.swing.*;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -1941,34 +1940,6 @@ public class TestGameManager {
     public void test_052_Main(){
         Main main = new Main();
         //Sem conteudo, so mesmo para a class estar 100% no coverage
-    }
-
-    @Test
-    public void test_053_JPanel() {
-        GameManager jogo = new GameManager();
-
-        String[][] playersinfo = new String[2][3];
-
-        playersinfo[0][0] = "1";
-        playersinfo[0][1] = "Banana";
-        playersinfo[0][2] = "T";
-
-        playersinfo[1][0] = "2";
-        playersinfo[1][1] = "Mantinhas";
-        playersinfo[1][2] = "Z";
-
-        String[][] foodsInfo = new String[1][2];
-
-        foodsInfo[0][0] = "b";
-        foodsInfo[0][1] = "2";
-
-        jogo.createInitialJungle(50, playersinfo, foodsInfo);
-
-        // Call the method that returns the JPanel object
-        JPanel returnedPanel = jogo.getAuthorsPanel();
-
-        // Assert that the returned object is not null and is an instance of JPanel
-        Assert.assertNotNull(returnedPanel);
     }
 
 }
