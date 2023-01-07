@@ -11,6 +11,15 @@ fun fazCoisasComGet(jogo : GameManager, argumentos : List<String>) : String? {
         "PLAYERS_BY_SPECIE" -> jogo.getJogadores().filter { argumentos[1] == it.especie.id }.map{ it.nome }
             .joinToString { "," }
 
+        "MOST_TRAVELED" -> jogo.getJogadores().sortedWith{n1, n2 -> n1.nrMovimentacoes - n2.nrMovimentacoes}
+            .map {"${it.nome}:${it.especie.id}:${it.nrMovimentacoes}"}.joinToString { "\n" }
+
+        "TOP_ENERGETIC_OMNIVORES" -> jogo.getJogadores().filter { argumentos[1] == it.especie.omnivoro()}
+            .sortedWith{ e1,e2 -> e2.infoEnergiaAtual - e1.infoEnergiaAtual }
+            .map{ "${it.nome} : ${it.infoEnergiaAtual}"}.joinToString { "\n" }
+
+        "CONSUMED_FOODS" -> jogo.alimentos.sorted().joinToString { "\n" }
+
         else -> null;
     }
 }
