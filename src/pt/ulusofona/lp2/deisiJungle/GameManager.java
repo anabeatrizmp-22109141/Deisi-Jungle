@@ -550,7 +550,7 @@ public class GameManager {
 
             jogadorAtual.setCasaAtual(novaCasa);
             jogadorAtual.adicionaNrMovimentacoes(nrSquares);
-            nrMovimentacoesTotal += jogadorAtual.getNrMovimentacoes();
+
 
             nrjogadas++;
             aplicaAumentoJogadasNaCarne();
@@ -577,6 +577,13 @@ public class GameManager {
         mudaJogadorAtual();
 
         return new MovementResult(MovementResultCode.VALID_MOVEMENT, null);
+    }
+
+    public int getNrMovimentacoesTotal(){
+        for (Jogador jogador : jogadores) {
+            nrMovimentacoesTotal += jogador.getNrMovimentacoes();
+        }
+        return nrMovimentacoesTotal;
     }
 
     public void aplicaAumentoJogadasNaCarne(){
