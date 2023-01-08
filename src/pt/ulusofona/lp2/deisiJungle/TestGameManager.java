@@ -81,7 +81,7 @@ public class TestGameManager {
     @Test
     public void test_003_verificacoesMapaAntigoNomeJogador(){
         GameManager jogo = new GameManager();
-        InitializationError erro = new InitializationError("Nome é inválido");
+        String erro = "Nome do jogador é invalido";
 
         String[][] playersinfo = new String[2][3];
 
@@ -94,7 +94,12 @@ public class TestGameManager {
         playersinfo[1][2] = "L";
 
         //Teste para nome Invalido
-        Assert.assertEquals(erro.getMessage(), jogo.verificacoesMapaAntigo(37,playersinfo).getMessage());
+        try {
+            jogo.verificacoesMapaAntigo(37,playersinfo);
+            Assert.fail("Devia ter lançado exception");
+        } catch (InvalidInitialJungleException e) {
+            Assert.assertEquals(erro,e.getMessage());
+        }
 
         playersinfo = new String[2][3];
 
@@ -106,13 +111,18 @@ public class TestGameManager {
         playersinfo[1][1] = "Mantinhas";
         playersinfo[1][2] = "L";
 
-        Assert.assertEquals(erro.getMessage(), jogo.verificacoesMapaAntigo(37,playersinfo).getMessage());
+        try {
+            jogo.verificacoesMapaAntigo(37,playersinfo);
+            Assert.fail("Devia ter lançado exception");
+        } catch (InvalidInitialJungleException e) {
+            Assert.assertEquals(erro,e.getMessage());
+        }
     }
 
     @Test
     public void test_004_verificacoesMapaAntigoIdJogador(){
         GameManager jogo = new GameManager();
-        InitializationError erro2 = new InitializationError("Id do jogador é inválido");
+        String erro = "Id do jogador é invalido";
 
         String[][] playersinfo = new String[2][3];
 
@@ -124,8 +134,12 @@ public class TestGameManager {
         playersinfo[1][1] = "Mantinhas";
         playersinfo[1][2] = "L";
 
-        //Verifica null
-        Assert.assertEquals(erro2.getMessage(),jogo.verificacoesMapaAntigo(30,playersinfo).getMessage());
+        try {
+            jogo.verificacoesMapaAntigo(30,playersinfo);
+            Assert.fail("Devia ter lançado exception");
+        } catch (InvalidInitialJungleException e) {
+            Assert.assertEquals(erro,e.getMessage());
+        }
 
         playersinfo = new String[2][3];
 
@@ -138,7 +152,12 @@ public class TestGameManager {
         playersinfo[1][2] = "L";
 
         //Verifica vazio
-        Assert.assertEquals(erro2.getMessage(),jogo.verificacoesMapaAntigo(30,playersinfo).getMessage());
+        try {
+            jogo.verificacoesMapaAntigo(30,playersinfo);
+            Assert.fail("Devia ter lançado exception");
+        } catch (InvalidInitialJungleException e) {
+            Assert.assertEquals(erro,e.getMessage());
+        }
 
         playersinfo = new String[2][3];
 
@@ -151,7 +170,12 @@ public class TestGameManager {
         playersinfo[1][2] = "L";
 
         //verifica ids iguais
-        Assert.assertEquals(erro2.getMessage(),jogo.verificacoesMapaAntigo(30,playersinfo).getMessage());
+        try {
+            jogo.verificacoesMapaAntigo(30,playersinfo);
+            Assert.fail("Devia ter lançado exception");
+        } catch (InvalidInitialJungleException e) {
+            Assert.assertEquals(erro,e.getMessage());
+        }
 
         playersinfo = new String[2][3];
 
@@ -175,13 +199,18 @@ public class TestGameManager {
         playersinfo[1][1] = "Mantinhas";
         playersinfo[1][2] = "L";
 
-        Assert.assertEquals(erro2.getMessage(),jogo.verificacoesMapaAntigo(30,playersinfo).getMessage());
+        try {
+            jogo.verificacoesMapaAntigo(30,playersinfo);
+            Assert.fail("Devia ter lançado exception");
+        } catch (InvalidInitialJungleException e) {
+            Assert.assertEquals(erro,e.getMessage());
+        }
     }
 
     @Test
     public void test_005_verificacoesMapaAntigoIdEspecie(){
         GameManager jogo = new GameManager();
-        InitializationError erro = new InitializationError("ID Especie é inválido");
+        String erro = "Id da especie é invalido";
 
         String[][] playersinfo = new String[2][3];
 
@@ -194,7 +223,12 @@ public class TestGameManager {
         playersinfo[1][2] = "L";
 
         //Verifica se o idespecie não contém no getspecies
-        Assert.assertEquals(erro.getMessage(),jogo.verificacoesMapaAntigo(30,playersinfo).getMessage());
+        try {
+            jogo.verificacoesMapaAntigo(30,playersinfo);
+            Assert.fail("Devia ter lançado exception");
+        } catch (InvalidInitialJungleException e) {
+            Assert.assertEquals(erro,e.getMessage());
+        }
 
         playersinfo = new String[2][3];
 
@@ -207,7 +241,12 @@ public class TestGameManager {
         playersinfo[1][2] = "Z";
 
         //verifica se existe mais que 1 tarzan
-        Assert.assertEquals(erro.getMessage(),jogo.verificacoesMapaAntigo(30,playersinfo).getMessage());
+        try {
+            jogo.verificacoesMapaAntigo(30,playersinfo);
+            Assert.fail("Devia ter lançado exception");
+        } catch (InvalidInitialJungleException e) {
+            Assert.assertEquals(erro,e.getMessage());
+        }
 
         playersinfo = new String[2][3];
 
@@ -220,7 +259,12 @@ public class TestGameManager {
         playersinfo[1][2] = "L";
 
         //verifica se é null
-        Assert.assertEquals(erro.getMessage(),jogo.verificacoesMapaAntigo(30,playersinfo).getMessage());
+        try {
+            jogo.verificacoesMapaAntigo(30,playersinfo);
+            Assert.fail("Devia ter lançado exception");
+        } catch (InvalidInitialJungleException e) {
+            Assert.assertEquals(erro,e.getMessage());
+        }
 
         playersinfo = new String[2][3];
 
@@ -233,7 +277,12 @@ public class TestGameManager {
         playersinfo[1][2] = "";
 
         //Verifica vazio
-        Assert.assertEquals(erro.getMessage(),jogo.verificacoesMapaAntigo(30,playersinfo).getMessage());
+        try {
+            jogo.verificacoesMapaAntigo(30,playersinfo);
+            Assert.fail("Devia ter lançado exception");
+        } catch (InvalidInitialJungleException e) {
+            Assert.assertEquals(erro,e.getMessage());
+        }
 
         playersinfo = new String[2][3];
 
@@ -253,7 +302,7 @@ public class TestGameManager {
     public void test_006_verificacoesMapaNovoRecebeErroMapaAntigo() {
 
         GameManager jogo = new GameManager();
-        InitializationError erro = new InitializationError("ID Especie é inválido");
+        String erro = "Id da especie é invalido";
 
         String[][] playersinfo = new String[2][3];
 
@@ -270,14 +319,19 @@ public class TestGameManager {
         foodsInfo[0][0] = "c";
         foodsInfo[0][1] = "5";
 
-        Assert.assertEquals(erro.getMessage(),jogo.createInitialJungle(10, playersinfo, foodsInfo).getMessage());
+        try {
+            jogo.createInitialJungle(10, playersinfo, foodsInfo);
+            Assert.fail("Devia ter lançado exception");
+        } catch (InvalidInitialJungleException e) {
+            Assert.assertEquals(erro,e.getMessage());
+        }
     }
 
     @Test
     public void test_007_verificacoesMapaNovoIdComida() {
 
         GameManager jogo = new GameManager();
-        InitializationError erro = new InitializationError("ID da comida é inválido");
+        String erro = "Id alimento inválido";
 
         String[][] playersinfo = new String[2][3];
 
@@ -295,7 +349,12 @@ public class TestGameManager {
         foodsInfo[0][1] = "5";
 
         //Verifica id que não existe
-        Assert.assertEquals(erro.getMessage() , jogo.createInitialJungle(50, playersinfo,foodsInfo).getMessage());
+        try {
+            jogo.createInitialJungle(50, playersinfo, foodsInfo);
+            Assert.fail("Devia ter lançado exception");
+        } catch (InvalidInitialJungleException e) {
+            Assert.assertEquals(erro,e.getMessage());
+        }
 
         foodsInfo = new String[1][2];
 
@@ -303,7 +362,12 @@ public class TestGameManager {
         foodsInfo[0][1] = "5";
 
         //Verifica vazio
-        Assert.assertEquals(erro.getMessage() , jogo.createInitialJungle(50, playersinfo,foodsInfo).getMessage());
+        try {
+            jogo.createInitialJungle(50, playersinfo, foodsInfo);
+            Assert.fail("Devia ter lançado exception");
+        } catch (InvalidInitialJungleException e) {
+            Assert.assertEquals(erro,e.getMessage());
+        }
 
         foodsInfo = new String[1][2];
 
@@ -311,7 +375,12 @@ public class TestGameManager {
         foodsInfo[0][1] = "5";
 
         //Verifica null
-        Assert.assertEquals(erro.getMessage() , jogo.createInitialJungle(50, playersinfo,foodsInfo).getMessage());
+        try {
+            jogo.createInitialJungle(50, playersinfo, foodsInfo);
+            Assert.fail("Devia ter lançado exception");
+        } catch (InvalidInitialJungleException e) {
+            Assert.assertEquals(erro,e.getMessage());
+        }
 
         foodsInfo[0][0] = "c";
         foodsInfo[0][1] = "5";
@@ -322,7 +391,7 @@ public class TestGameManager {
     @Test
     public void test_008_verificacoesMapaNovoPosicoesComida() {
         GameManager jogo = new GameManager();
-        InitializationError erro = new InitializationError("FoodsInfo possui posições inválidas");
+        String erro = "Posições alimento inválido";
 
         String[][] playersinfo = new String[2][3];
 
@@ -340,7 +409,12 @@ public class TestGameManager {
         foodsInfo[0][1] = "-10";
 
         //Verifica posicao < 1
-        Assert.assertEquals(erro.getMessage() , jogo.createInitialJungle(50, playersinfo,foodsInfo).getMessage());
+        try {
+            jogo.createInitialJungle(50, playersinfo, foodsInfo);
+            Assert.fail("Devia ter lançado exception");
+        } catch (InvalidInitialJungleException e) {
+            Assert.assertEquals(erro,e.getMessage());
+        }
 
         foodsInfo = new String[1][2];
 
@@ -348,7 +422,12 @@ public class TestGameManager {
         foodsInfo[0][1] = "a";
 
         //Verifica posicao = letra
-        Assert.assertEquals(erro.getMessage() , jogo.createInitialJungle(50, playersinfo,foodsInfo).getMessage());
+        try {
+            jogo.createInitialJungle(50, playersinfo, foodsInfo);
+            Assert.fail("Devia ter lançado exception");
+        } catch (InvalidInitialJungleException e) {
+            Assert.assertEquals(erro,e.getMessage());
+        }
 
         foodsInfo = new String[1][2];
 
@@ -356,7 +435,7 @@ public class TestGameManager {
         foodsInfo[0][1] = "a";
 
         //Verifica posicao = letra (esta errado)
-        Assert.assertNotEquals("" , jogo.createInitialJungle(50, playersinfo,foodsInfo).getMessage());
+        //Assert.assertNotEquals("" , jogo.createInitialJungle(50, playersinfo,foodsInfo).getMessage());
 
         foodsInfo = new String[1][2];
 
@@ -364,7 +443,12 @@ public class TestGameManager {
         foodsInfo[0][1] = "1";
 
         //Verifica posicao = 1
-        Assert.assertEquals(erro.getMessage() , jogo.createInitialJungle(50, playersinfo,foodsInfo).getMessage());
+        try {
+            jogo.createInitialJungle(50, playersinfo, foodsInfo);
+            Assert.fail("Devia ter lançado exception");
+        } catch (InvalidInitialJungleException e) {
+            Assert.assertEquals(erro,e.getMessage());
+        }
 
         foodsInfo = new String[1][2];
 
@@ -372,7 +456,12 @@ public class TestGameManager {
         foodsInfo[0][1] = "51";
 
         //Verifica posicao > jungleSize
-        Assert.assertEquals(erro.getMessage() , jogo.createInitialJungle(50, playersinfo,foodsInfo).getMessage());
+        try {
+            jogo.createInitialJungle(50, playersinfo, foodsInfo);
+            Assert.fail("Devia ter lançado exception");
+        } catch (InvalidInitialJungleException e) {
+            Assert.assertEquals(erro,e.getMessage());
+        }
 
         foodsInfo = new String[1][2];
 
@@ -380,7 +469,12 @@ public class TestGameManager {
         foodsInfo[0][1] = "50";
 
         //Verifica posicao = jungleSize
-        Assert.assertEquals(erro.getMessage() , jogo.createInitialJungle(50, playersinfo,foodsInfo).getMessage());
+        try {
+            jogo.createInitialJungle(50, playersinfo, foodsInfo);
+            Assert.fail("Devia ter lançado exception");
+        } catch (InvalidInitialJungleException e) {
+            Assert.assertEquals(erro,e.getMessage());
+        }
 
         foodsInfo = new String[1][2];
 
@@ -393,7 +487,7 @@ public class TestGameManager {
     @Test
     public void test_009_verificacoesMapaAntigoNrJogadores(){
         GameManager jogo = new GameManager();
-        InitializationError erro = new InitializationError("Nr de jogadores é inválido");
+        String erro = "Nr de jogadores é invalido";
 
         String[][] playersinfo = new String[1][3];
 
@@ -402,7 +496,12 @@ public class TestGameManager {
         playersinfo[0][2] = "L";
 
         //Verifica se o numero de jogadores é menos de 2
-        Assert.assertEquals(erro.getMessage(),jogo.verificacoesMapaAntigo(47,playersinfo).getMessage());
+        try {
+            jogo.verificacoesMapaAntigo(47,playersinfo);
+            Assert.fail("Devia ter lançado exception");
+        } catch (InvalidInitialJungleException e) {
+            Assert.assertEquals(erro,e.getMessage());
+        }
 
         playersinfo = new String[5][3];
 
@@ -427,13 +526,18 @@ public class TestGameManager {
         playersinfo[4][2] = "Z";
 
         //Verifica se o numero de jogadores é maior que 4
-        Assert.assertEquals(erro.getMessage(),jogo.verificacoesMapaAntigo(47,playersinfo).getMessage());
+        try {
+            jogo.verificacoesMapaAntigo(47,playersinfo);
+            Assert.fail("Devia ter lançado exception");
+        } catch (InvalidInitialJungleException e) {
+            Assert.assertEquals(erro,e.getMessage());
+        }
     }
 
     @Test
     public void test_010_verificacoesMapaAntigoMapa(){
         GameManager jogo = new GameManager();
-        InitializationError erro = new InitializationError("Tamanho do mapa é inválido");
+        String erro = "tamanho do mapa inválido";
 
         String[][] playersinfo = new String[2][3];
 
@@ -445,7 +549,12 @@ public class TestGameManager {
         playersinfo[1][1] = "Florzinha";
         playersinfo[1][2] = "L";
 
-        Assert.assertEquals(erro.getMessage(),jogo.verificacoesMapaAntigo(1,playersinfo).getMessage());
+        try {
+            jogo.verificacoesMapaAntigo(1,playersinfo);
+            Assert.fail("Devia ter lançado exception");
+        } catch (InvalidInitialJungleException e) {
+            Assert.assertEquals(erro,e.getMessage());
+        }
     }
 
     /*
@@ -455,7 +564,7 @@ public class TestGameManager {
      */
 
     @Test
-    public void test_011_createInitialJungle_criaMapaCriaJogadores(){
+    public void test_011_createInitialJungle_criaMapaCriaJogadores() throws InvalidInitialJungleException{
         GameManager jogo = new GameManager();
         String[][] playersinfo = new String[4][3];
 
@@ -475,7 +584,7 @@ public class TestGameManager {
         playersinfo[3][1] = "Mimosa";
         playersinfo[3][2] = "T";
 
-        Assert.assertNull(jogo.createInitialJungle(47, playersinfo));
+        jogo.createInitialJungle(47, playersinfo);
 
         playersinfo = new String[2][3];
 
@@ -487,12 +596,12 @@ public class TestGameManager {
         playersinfo[1][1] = "Mimosa";
         playersinfo[1][2] = "Z";
 
-        Assert.assertNull(jogo.createInitialJungle(47, playersinfo));
+        jogo.createInitialJungle(47, playersinfo);
     }
 
 
     @Test
-    public void test_012_createInitialJungle_criaMapaCriaJogadoresPoeComida(){
+    public void test_012_createInitialJungle_criaMapaCriaJogadoresPoeComida() throws InvalidInitialJungleException{
         GameManager jogo = new GameManager();
         String[][] foodinfo = new String[5][2];
         String[][] playersinfo = new String[2][3];
@@ -521,7 +630,7 @@ public class TestGameManager {
         foodinfo[4][0] = "m";
         foodinfo[4][1] = 13 + "";
 
-        Assert.assertNull(jogo.createInitialJungle(30,playersinfo,foodinfo));
+        jogo.createInitialJungle(30,playersinfo,foodinfo);
     }
 
     /*
@@ -530,7 +639,7 @@ public class TestGameManager {
 -------------------------------------------------------------------------------
      */
     @Test
-    public void test_013_getPlayerIds(){
+    public void test_013_getPlayerIds() throws InvalidInitialJungleException{
         GameManager jogo = new GameManager();
         String[][] playersinfo = new String[2][3];
 
@@ -555,7 +664,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_014_getSquareInfoInicial() {
+    public void test_014_getSquareInfoInicial() throws InvalidInitialJungleException {
         GameManager jogo = new GameManager();
 
         String[][] playersinfo = new String[2][3];
@@ -603,7 +712,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_015_getPlayerInfo(){
+    public void test_015_getPlayerInfo() throws InvalidInitialJungleException{
         GameManager jogo = new GameManager();
         String[][] playersInfo = new String[2][3];
 
@@ -627,17 +736,24 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_016_getCurrentPlayerSemJogadores(){
+    public void test_016_getCurrentPlayerSemJogadores() throws InvalidInitialJungleException{
         String[][] playersinfo = new String[0][0];
         GameManager jogo = new GameManager();
-        jogo.createInitialJungle(5, playersinfo);
+
+        try {
+            jogo.createInitialJungle(5, playersinfo);
+            Assert.fail("Devia ter lançado exception");
+        } catch (InvalidInitialJungleException e) {
+            Assert.assertEquals("Nr de jogadores é invalido",e.getMessage());
+        }
+
 
         Assert.assertNull(jogo.getCurrentPlayer());
         Assert.assertNull(jogo.getPlayer(1));
     }
 
     @Test
-    public void test_017_getPlayersInfo() {
+    public void test_017_getPlayersInfo() throws InvalidInitialJungleException{
         GameManager jogo = new GameManager();
         String[][] playersInfo = new String[2][3];
         playersInfo[0][0] = "1";
@@ -663,7 +779,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_018_getWinnerInfoUmGanhou(){
+    public void test_018_getWinnerInfoUmGanhou() throws InvalidInitialJungleException{
         GameManager jogo = new GameManager();
         String[][] playersinfo = new String[2][3];
 
@@ -699,7 +815,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_019_getWinner2ganhou(){
+    public void test_019_getWinner2ganhou() throws InvalidInitialJungleException{
         GameManager jogo = new GameManager();
         String[][] playersinfo = new String[2][3];
 
@@ -741,7 +857,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_020_getWinnerInfoEmpatouSemEnergia() {
+    public void test_020_getWinnerInfoEmpatouSemEnergia() throws InvalidInitialJungleException{
         GameManager jogo = new GameManager();
         String[][] playersinfo = new String[2][3];
 
@@ -774,7 +890,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_021_getWinnerInfoNinguemGanhou() {
+    public void test_021_getWinnerInfoNinguemGanhou() throws InvalidInitialJungleException{
         GameManager jogo = new GameManager();
         String[][] playersinfo = new String[2][3];
 
@@ -803,7 +919,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_022_getCurrentPlayerEnergyInfo(){
+    public void test_022_getCurrentPlayerEnergyInfo()throws InvalidInitialJungleException{
         GameManager jogo = new GameManager();
 
         String[][] playersinfo = new String[2][3];
@@ -837,7 +953,7 @@ public class TestGameManager {
 -------------------------------------------------------------------------------
      */
     @Test
-    public void test_023_getGameResults(){
+    public void test_023_getGameResults() throws InvalidInitialJungleException{
         GameManager jogo = new GameManager();
 
         String[][] playersinfo = new String[3][3];
@@ -890,7 +1006,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_024_getGameResultsFullGame0(){
+    public void test_024_getGameResultsFullGame0() throws InvalidInitialJungleException{
         GameManager jogo = new GameManager();
         String[][] playersinfo = new String[2][3];
 
@@ -908,7 +1024,7 @@ public class TestGameManager {
         foodsInfo[0][1] = "2";
 
         jogo.createInitialJungle(6, playersinfo, foodsInfo);
-        
+
         jogo.moveCurrentPlayer(5,true);
         jogo.moveCurrentPlayer(0,true);
 
@@ -920,7 +1036,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_024_FullGameWithTie(){
+    public void test_024_FullGameWithTie() throws InvalidInitialJungleException{
         GameManager jogo = new GameManager();
         String[][] playersinfo = new String[3][3];
 
@@ -955,7 +1071,7 @@ public class TestGameManager {
         Assert.assertEquals(result,jogo.getGameResults());
     }
     @Test
-    public void test_025_getGameResultsfullGameHard(){
+    public void test_025_getGameResultsfullGameHard() throws InvalidInitialJungleException{
         GameManager jogo = new GameManager();
         String[][] playersinfo = new String[4][3];
 
@@ -1002,7 +1118,7 @@ public class TestGameManager {
 -------------------------------------------------------------------------------
      */
     @Test
-    public void test_026_mudaJogadorAtualSemIdsSeguidos() {
+    public void test_026_mudaJogadorAtualSemIdsSeguidos() throws InvalidInitialJungleException{
         GameManager jogo = new GameManager();
 
         String[][] playersinfo = new String[3][3];
@@ -1049,7 +1165,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_027_mudaJogadorAtualComIdsNaoSeguidos() {
+    public void test_027_mudaJogadorAtualComIdsNaoSeguidos() throws InvalidInitialJungleException{
 
         GameManager jogo = new GameManager();
 
@@ -1112,7 +1228,7 @@ public class TestGameManager {
 -------------------------------------------------------------------------------
      */
     @Test
-    public void test_028_moveCurrentPlayer(){
+    public void test_028_moveCurrentPlayer() throws InvalidInitialJungleException{
         GameManager jogo = new GameManager();
 
         String[][] playersinfo = new String[3][3];
@@ -1166,7 +1282,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_029_moveCurrentPlayer_NOENERGY(){
+    public void test_029_moveCurrentPlayer_NOENERGY() throws InvalidInitialJungleException{
         GameManager jogo = new GameManager();
 
         String[][] playersinfo = new String[2][3];
@@ -1205,7 +1321,7 @@ public class TestGameManager {
 -------------------------------------------------------------------------------
      */
     @Test
-    public void test_030_EfeitosErva(){
+    public void test_030_EfeitosErva() throws InvalidInitialJungleException{
         GameManager jogo = new GameManager();
 
         String[][] playersinfo = new String[2][3];
@@ -1239,7 +1355,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_031_EfeitosAgua(){
+    public void test_031_EfeitosAgua() throws InvalidInitialJungleException{
         GameManager jogo = new GameManager();
 
         String[][] playersinfo = new String[2][3];
@@ -1279,7 +1395,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_032_EfeitosBananas(){
+    public void test_032_EfeitosBananas() throws InvalidInitialJungleException{
         GameManager jogo = new GameManager();
 
         String[][] playersinfo = new String[2][3];
@@ -1321,7 +1437,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_033_EfeitosCarne(){
+    public void test_033_EfeitosCarne() throws InvalidInitialJungleException{
         GameManager jogo = new GameManager();
 
         String[][] playersinfo = new String[2][3];
@@ -1394,7 +1510,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_034_EfeitosCogumelos(){
+    public void test_034_EfeitosCogumelos() throws InvalidInitialJungleException{
         GameManager jogo = new GameManager();
 
         String[][] playersinfo = new String[2][3];
@@ -1441,7 +1557,7 @@ public class TestGameManager {
 
     }
     @Test
-    public void test_035_EfeitosChocolate(){
+    public void test_035_EfeitosChocolate() throws InvalidInitialJungleException{
         GameManager jogo = new GameManager();
 
         String[][] playersinfo = new String[2][3];
@@ -1474,7 +1590,7 @@ public class TestGameManager {
 
     //Comidas
     @Test
-    public void test_036_moverDiminuiBanana(){
+    public void test_036_moverDiminuiBanana() throws InvalidInitialJungleException{
         GameManager jogo = new GameManager();
 
         String[][] playersinfo = new String[2][3];
@@ -1505,7 +1621,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_037_ApanhouBananas() {
+    public void test_037_ApanhouBananas() throws InvalidInitialJungleException {
 
         GameManager jogo = new GameManager();
 
@@ -1532,7 +1648,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_038_nrJogadasDaCarne() {
+    public void test_038_nrJogadasDaCarne() throws InvalidInitialJungleException {
         GameManager jogo = new GameManager();
 
         String[][] playersinfo = new String[2][3];
@@ -1578,7 +1694,7 @@ public class TestGameManager {
 -------------------------------------------------------------------------------
      */
     @Test
-    public void test_039_verificaTodosSemEnergia(){
+    public void test_039_verificaTodosSemEnergia() throws InvalidInitialJungleException{
         GameManager jogo = new GameManager();
         String[][] playersInfo = new String[2][3];
 
@@ -1606,7 +1722,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_040_verificaSeHaVencedor(){
+    public void test_040_verificaSeHaVencedor() throws InvalidInitialJungleException{
         GameManager jogo = new GameManager();
         String[][] playersInfo = new String[2][3];
         playersInfo[0][0] = "1";
@@ -1634,7 +1750,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_042_retiraJogadorAPosicao() {
+    public void test_042_retiraJogadorAPosicao(){
         Square posicao = new Square(1, "blank.png" , "Vazio" , "1,2,3,4");
         posicao.retiraJogadorAPosicao(2);
         Assert.assertEquals("1,3,4", posicao.jogadoresNaPosicao);
@@ -1655,7 +1771,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_044_exemploEnunciado() {
+    public void test_044_exemploEnunciado() throws InvalidInitialJungleException{
         GameManager jogo = new GameManager();
 
         String[][] playersinfo = new String[2][3];
@@ -1700,7 +1816,7 @@ public class TestGameManager {
 -------------------------------------------------------------------------------
      */
     @Test
-    public void test_045_InformacoesJogadorSaveGame() {
+    public void test_045_InformacoesJogadorSaveGame() throws InvalidInitialJungleException{
         GameManager jogo = new GameManager();
 
         String[][] playersinfo = new String[2][3];
@@ -1730,7 +1846,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_046_InformacoesSquareSaveGame() {
+    public void test_046_InformacoesSquareSaveGame() throws InvalidInitialJungleException{
         GameManager jogo = new GameManager();
 
         String[][] playersinfo = new String[2][3];
@@ -1756,7 +1872,7 @@ public class TestGameManager {
 
 
     @Test
-    public void test_047_SaveGamev1() {
+    public void test_047_SaveGamev1() throws InvalidInitialJungleException{
         GameManager jogo = new GameManager();
 
         String[][] playersinfo = new String[4][3];
@@ -1809,7 +1925,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_048_LoadGamev1() {
+    public void test_048_LoadGamev1() throws InvalidInitialJungleException{
 
         GameManager jogo = new GameManager();
 
@@ -1863,7 +1979,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_049_SaveGamev2() {
+    public void test_049_SaveGamev2() throws InvalidInitialJungleException {
 
         GameManager jogo = new GameManager();
 
@@ -1894,7 +2010,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_050_LoadGamev2() {
+    public void test_050_LoadGamev2() throws InvalidInitialJungleException{
 
         GameManager jogo = new GameManager();
 

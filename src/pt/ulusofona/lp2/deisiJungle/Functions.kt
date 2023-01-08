@@ -20,27 +20,27 @@ fun fazCoisasComGet(jogo : GameManager, argumentos : List<String>) : String? {
 
         "CONSUMED_FOODS" -> jogo.alimentos.sorted().joinToString { "\n" }
 
-        else -> null;
+        else -> null
     }
 }
 
-fun fazCoisasComPost(jogo : GameManager, argumentos : List<String>) : String? {
+/*fun fazCoisasComPost(jogo : GameManager, argumentos : List<String>) : String? {
     when(argumentos[0]) {
-        "MOVE" ->
+        //"MOVE" ->
     }
 }
+*/
 
 fun comando(comando : CommandType) : Function2<GameManager,List<String>, String?> {
-    return if(comando == CommandType.GET) {
-        :: fazCoisasComGet
+    if(comando == CommandType.GET) {
+       return :: fazCoisasComGet
     }
-    else {
-        :: fazCoisasComPost
-    }
+  return :: fazCoisasComGet
 }
 
 fun router() : (CommandType) -> (GameManager,List<String>) -> String? {
     return ::comando
 }
+
 
 
