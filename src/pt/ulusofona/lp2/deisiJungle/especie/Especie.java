@@ -59,9 +59,5 @@ abstract public class Especie {
         return info;
     }
 
-    public String omnivoro(){
-        return "omnivoro";
-    }
-
 
 }
