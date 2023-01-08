@@ -8,8 +8,9 @@ fun fazCoisasComGet(jogo : GameManager, argumentos : List<String>) : String? {
             .map{"${it.id} | ${it.nome} | ${it.especie.nome} | ${it.infoEnergiaAtual} | ${it.casaAtual.nrSquare}"}.firstOrNull() ?:
             "Inexistent player"
 
-        "PLAYERS_BY_SPECIE" -> jogo.getJogadores().filter { argumentos[1] == it.especie.id }.map{ it.nome }.
-        joinToString(",") { it }
+        "PLAYERS_BY_SPECIE" -> jogo.getJogadores().filter { argumentos[1] == it.especie.id }
+                .map{ it.nome }.sorted().reversed().joinToString(",") { it }
+
 
         "MOST_TRAVELED" -> jogo.getJogadores().sortedWith{n1, n2 -> n2.nrMovimentacoes - n1.nrMovimentacoes}
             .map {"${it.nome}:${it.especie.id}:${it.nrMovimentacoes}"}.joinToString("\n") { it } + "\nTotal:${jogo.getNrMovimentacoesTotal()}"
