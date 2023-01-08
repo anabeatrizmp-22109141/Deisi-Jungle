@@ -19,10 +19,10 @@ public class InvalidInitialJungleException extends Exception {
     }
 
     public boolean isInvalidPlayer() {
-        return tipoDeErro.equals("Jogador Inválido");
+        return tipoDeErro.equals("Jogador Invalido");
     }
 
     public boolean isInvalidFood(){
-        return tipoDeErro.equals("Alimento inválido");
+        return tipoDeErro.equals("Alimento Invalido");
     }
 }
