@@ -600,6 +600,7 @@ public class GameManager {
         switch (alimentoNaCasa.getId()) {
             case "e" -> {
                 efeitoErva(jogador);
+                insereAlimento("Erva");
                 return new MovementResult(MovementResultCode.CAUGHT_FOOD, "Apanhou Erva");
             }
             case "a" -> {
