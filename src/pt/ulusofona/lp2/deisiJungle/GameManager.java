@@ -13,6 +13,7 @@ public class GameManager {
     protected HashMap<Integer,Square> mapa;
     private int jungleSize;
     protected int nrjogadas = 0;
+    protected int nrMovimentacoesTotal = 0;
     private final HashSet<String> alimentos = new HashSet<>();
 
     private int idJogadorAtual = 0;
@@ -549,6 +550,7 @@ public class GameManager {
 
             jogadorAtual.setCasaAtual(novaCasa);
             jogadorAtual.adicionaNrMovimentacoes(nrSquares);
+            nrMovimentacoesTotal += jogadorAtual.getNrMovimentacoes();
 
             nrjogadas++;
             aplicaAumentoJogadasNaCarne();
