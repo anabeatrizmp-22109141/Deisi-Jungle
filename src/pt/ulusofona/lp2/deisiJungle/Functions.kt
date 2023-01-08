@@ -20,18 +20,34 @@ fun fazCoisasComGet(jogo : GameManager, argumentos : List<String>) : String? {
 
         "CONSUMED_FOODS" -> jogo.alimentos.sorted().joinToString("\n") { it }
 
-        else -> null;
+        else -> null
     }
 }
 
 fun fazCoisasComPost(jogo : GameManager, argumentos : List<String>) : String? {
-    return when(argumentos[0]) {
-        "MOVE" -> jogo.getJogadores().filter{ argumentos[1] == it.nome }
-            .map{"${it.id} | ${it.nome} | ${it.especie.nome} | ${it.infoEnergiaAtual} | ${it.casaAtual}"}.firstOrNull()
+    return when (argumentos[0]) {
+        "MOVE" ->
+            return when (jogo.moveCurrentPlayer(Integer.parseInt(argumentos[1]), true).code) {
+                MovementResultCode.INVALID_MOVEMENT -> {
+                    "Movimento Invalido"
+                }
 
-        else -> return null
+                MovementResultCode.CAUGHT_FOOD -> {
+                    "Apanhou comida"
+                }
+
+                MovementResultCode.NO_ENERGY -> {
+                    "Sem energia"
+                }
+
+                else -> {
+                    "OK"
+                }
+            }
+        else -> null
     }
 }
+
 
 fun comando(comando : CommandType) : Function2<GameManager,List<String>, String?> {
     return if(comando == CommandType.GET) {
