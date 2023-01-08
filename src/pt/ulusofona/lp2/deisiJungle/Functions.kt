@@ -51,10 +51,10 @@ fun fazCoisasComPost(jogo : GameManager, argumentos : List<String>) : String? {
 
 fun comando(comando : CommandType) : Function2<GameManager,List<String>, String?> {
     return if(comando == CommandType.GET) {
-        :: fazCoisasComGet
+        ::fazCoisasComGet
     }
     else {
-        :: fazCoisasComPost
+        ::fazCoisasComPost
     }
 }
 
