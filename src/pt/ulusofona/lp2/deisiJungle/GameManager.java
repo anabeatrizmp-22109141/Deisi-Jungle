@@ -617,7 +617,7 @@ public class GameManager {
             case "m" -> {
                 CogumelosMagicos cogumelosMagicos = (CogumelosMagicos) alimentoNaCasa;
                 efeitoCogumelos(jogador, cogumelosMagicos);
-                insereAlimento("Cogumelos Magicos");
+                insereAlimento("Cogumelo Magico");
                 return new MovementResult(MovementResultCode.CAUGHT_FOOD, "Apanhou Cogumelo Magico");
             }
             case "h" -> {

@@ -29,7 +29,7 @@ fun fazCoisasComPost(jogo : GameManager, argumentos : List<String>) : String? {
         "MOVE" ->
             return when (jogo.moveCurrentPlayer(Integer.parseInt(argumentos[1]), true).code) {
                 MovementResultCode.INVALID_MOVEMENT -> {
-                    "Movimento Invalido"
+                    "Movimento invalido"
                 }
 
                 MovementResultCode.CAUGHT_FOOD -> {
